@@ -1,0 +1,160 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/_original/hotel-engine-omni-partner-api-2.4.0-swagger-original.json
+enriched_from: https://engine-public.github.io/engine-partner-api/
+format: grpc-status
+rfc9457: false
+envelope:
+  schema: google.rpc.Status (rpcStatus)
+  fields:
+    code: integer — a google.rpc.Code enum value
+    message: developer-facing English error message
+    details: array of typed protobuf Any messages carrying the actionable error
+  notes: >-
+    Every operation declares a `default` response of rpcStatus. Operations that can fail for
+    domain-specific reasons additionally declare a 400 whose schema is a typed per-operation
+    error message; that message is what lands inside Status.details. Discriminate the failure
+    by which field of the typed error is populated — each is itself a distinct empty marker
+    message. There is no application/problem+json and no numeric error-code registry.
+grpc_status_mapping:
+  - {grpc: INVALID_ARGUMENT, code: 3, http: 400}
+  - {grpc: FAILED_PRECONDITION, code: 9, http: 400}
+  - {grpc: INTERNAL, code: 13, http: 500}
+  - {grpc: RESOURCE_EXHAUSTED, code: 8, http: 429, note: rate limiting — see rate-limits/}
+problems:
+  - name: FindBestOffersError
+    status: 400
+    grpc_status: INVALID_ARGUMENT
+    title: Error details of a failed LodgingShoppingService.FindBestOffers call
+    discriminators:
+      - field: invalidSort
+        type: InvalidSortError
+        meaning: The requested sort_mode is not valid for the given search criteria.
+        remediation: Choose a sort mode compatible with the supplied criteria and retry.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingShoppingService_FindBestOffers
+  - name: ConfirmOfferError
+    status: 400
+    grpc_status: INVALID_ARGUMENT
+    title: Error details of a failed LodgingBookingService.ConfirmOffer call
+    discriminators:
+      - field: offerNoLongerAvailable
+        type: OfferNoLongerAvailableError
+        meaning: The offer is no longer available, likely sold out.
+        remediation: Re-shop with FindAvailability and confirm a fresh offer.
+      - field: invalidState
+        type: InvalidStateError
+        meaning: The booking behind the continuation token is not in a valid state (already booked, or needs CS review).
+        remediation: Reconcile with GetBookings before retrying; do not blind-retry.
+      - field: bookingId
+        type: string
+        meaning: The booking identifier, when known at the time the error occurred.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_ConfirmOffer
+  - name: BookError
+    status: 400
+    grpc_status: INVALID_ARGUMENT
+    title: Error details of a failed LodgingBookingService.Book call
+    discriminators:
+      - field: offerNoLongerAvailable
+        type: OfferNoLongerAvailableError
+        meaning: The requested offer is no longer available for sale.
+        remediation: Re-shop and re-confirm a new offer.
+      - field: invalidState
+        type: InvalidStateError
+        meaning: The booking behind the continuation token is not in a valid state.
+        remediation: Call GetBookings to determine whether the booking already succeeded.
+      - field: needsReview
+        type: BookingNeedsReviewError
+        grpc_status: INTERNAL
+        meaning: The booking failed in an unknown state and requires manual review to determine whether it completed.
+        retriable: false
+        remediation: Do not retry. Escalate to Engine Member Support with the com-engine-request-id.
+      - field: invalidPayment
+        type: InvalidPaymentError
+        meaning: Payment failed due to invalid PaymentInfo.
+        remediation: Correct the payment details and re-book.
+      - field: paymentProcessing
+        type: PaymentProcessingError
+        meaning: Payment failed during processing.
+        retriable: false
+        remediation: Do not retry. Contact Member Support.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_Book
+  - name: GetBookingsError
+    status: 400
+    grpc_status: INVALID_ARGUMENT
+    title: Error details of a failed LodgingBookingService.GetBookings call
+    partial_failure: true
+    discriminators:
+      - field: errors
+        type: array of GetBookingError
+        meaning: >-
+          Per-booking failures. Each GetBookingError carries the bookingId that could not be
+          retrieved and, when available, a nested rpcStatus explaining why. GetBookings is a
+          partial-failure operation — some bookings can succeed while others fail.
+        remediation: Handle per-booking; retry only the failed ids.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_GetBookings
+  - name: GenerateFolioError
+    status: 400
+    grpc_status: FAILED_PRECONDITION
+    title: Error information returned in the error details of failed GenerateFolio calls
+    discriminators:
+      - field: invalidState
+        type: InvalidStateError
+        meaning: The booking for the given booking ID is not in a valid state — e.g. it has not been booked.
+        remediation: Only generate a folio for a confirmed booking.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_GenerateFolio
+  - name: PreviewCancellationError
+    status: 400
+    grpc_status: INVALID_ARGUMENT
+    title: Error details of a failed LodgingBookingService.PreviewCancellation call
+    discriminators:
+      - field: invalidState
+        type: InvalidStateError
+        meaning: The booking is not in a valid state — not booked, or already cancelled.
+        remediation: Check booking status with GetBookings first.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_PreviewCancellation
+  - name: SubmitCancellationError
+    status: 400
+    grpc_status: INVALID_ARGUMENT
+    title: Error information returned in the error details of failed SubmitCancellation calls
+    discriminators:
+      - field: actionNotAvailable
+        type: ActionNotAvailableError
+        meaning: The cancellation action is not available for this booking; carries the ActionAvailability detail.
+        remediation: Inspect actionAvailability; some bookings are non-cancellable by rate rule.
+      - field: cannotCancel
+        type: CannotCancelError
+        meaning: The requested booking is not cancellable.
+        remediation: Use PreviewCancellation first to test availability, means, and expected refund.
+      - field: invalidState
+        type: InvalidStateError
+        meaning: The booking is not in a valid state — not booked, or already cancelled.
+        remediation: Reconcile with GetBookings.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_SubmitCancellation
+  - name: Invalid request parameters
+    status: 400
+    grpc_status: INVALID_ARGUMENT
+    title: Invalid request parameters
+    untyped: true
+    note: >-
+      ContentService.GetProperties declares a 400 with no schema — the only untyped 400 in the
+      contract. Clients get only the rpcStatus message string.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#ContentService_GetProperties
+  - name: Rate limit exceeded
+    status: 429
+    grpc_status: RESOURCE_EXHAUSTED
+    title: Rate limit exceeded
+    documented_in: https://engine-public.github.io/engine-partner-api/rate-limits.html
+    in_spec: false
+    remediation: >-
+      Back off using ratelimit-reset. Note this response is documented in the rate-limits page
+      but is NOT declared on any operation in the Swagger document.
+non_retriable:
+  - BookingNeedsReviewError
+  - PaymentProcessingError
+support:
+  contact: partner-api-support@engine.com
+  requirement: Supply the com-engine-request-id response header value when opening a support request.
+gaps:
+  - The typed 400 error messages are declared only on the HTTP/JSON surface's 400 response; the marker sub-errors are empty messages, so clients discriminate by presence, not by a code string.
+  - No 401/403 responses are declared anywhere despite mTLS being mandatory.
+  - No 429 response is declared on any operation despite documented per-endpoint rate limits.

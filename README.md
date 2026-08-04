@@ -42,5 +42,18 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Engine is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/hotel-engine_stock/
+Engine (formerly Hotel Engine, rebranded in 2024) is a Denver, Colorado business travel and spend
+platform for booking and managing lodging, flights, rental cars, group travel, and meeting and event
+spaces, with travel policy enforcement, trip approvals, consolidated DirectBill invoicing, and the
+Engine X charge card.
+
+Its API product is **Omni** — a partner-facing lodging inventory API offered over gRPC and HTTP/JSON,
+authenticated with mutual TLS, covering property content, real-time rate shopping, booking, folio
+generation, and cancellation. Omni is protobuf-first: the proto contracts are published under Apache
+2.0 on GitHub, and the Swagger document, protobuf descriptor set, and JVM client bindings are
+generated from them and released per version.
+
+- Company site — https://www.engine.com/
+- Omni partner site — https://omni.engine.com/
+- API documentation — https://engine-public.github.io/engine-partner-api/
+- API definitions repository — https://github.com/engine-public/engine-partner-api

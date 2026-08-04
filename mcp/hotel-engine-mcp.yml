@@ -1,0 +1,84 @@
+generated: '2026-08-04'
+method: derived
+status: candidate
+source: openapi/_original/hotel-engine-omni-partner-api-2.4.0-swagger-original.json
+summary: >-
+  Engine publishes NO MCP server for the Omni Partner API. Searched the documentation site, the
+  engine-public and HotelEngine GitHub organizations, npm (@modelcontextprotocol and
+  engine-partner-api searches), and probed /.well-known/* on every Engine host — nothing. The
+  tool list below is a CANDIDATE derived one-to-one from the published HTTP/JSON operations, so
+  each tool inherits a real inputSchema from its backing operation. It is a design proposal for
+  Engine, not a claim that any server exists.
+published: false
+searched:
+  - {source: 'https://engine-public.github.io/engine-partner-api/', result: none}
+  - {source: 'https://github.com/engine-public', result: none, note: '4 public repos: engine-partner-api, protoc-gen-openapi, protoc-utils, protobuf fork'}
+  - {source: 'https://github.com/HotelEngine', result: none, note: '21 repos, all forks or archived internal tooling'}
+  - {source: 'npm registry search', result: none}
+  - {source: '/.well-known/ai-plugin.json on engine.com, omni.engine.com, hotelengine.com', result: 404}
+server:
+  name: omni-engine
+  transport: null
+  url: null
+authentication_constraint: >-
+  A hosted MCP server for Omni would have to bridge mutual TLS. The Partner API accepts only
+  client-certificate authentication, so an MCP server cannot pass a bearer token through to the
+  origin — it must hold the partner certificate itself and enforce tenancy above it. This is the
+  main design obstacle, and worth naming to Engine rather than papering over.
+tools:
+  - name: list_properties
+    description: List lodging properties near a point of interest, by geo, address, or text.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#ContentService_ListProperties
+    read_only: true
+  - name: get_properties
+    description: Retrieve full content details for specific property IDs.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#ContentService_GetProperties
+    read_only: true
+  - name: list_property_catalog
+    description: List the full lodging property catalog with per-entry catalog state.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#CatalogService_ListPropertyCatalog
+    read_only: true
+  - name: find_best_offers
+    description: Search for the best offer available across a set of properties for a stay.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingShoppingService_FindBestOffers
+    read_only: true
+  - name: find_availability
+    description: Search room groups and offers available at a given property.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingShoppingService_FindAvailability
+    read_only: true
+  - name: confirm_offer
+    description: Lock the availability, pricing, and details of an offer, producing a quote.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_ConfirmOffer
+    read_only: false
+    consequence: write
+  - name: book_lodging
+    description: Purchase and reserve a confirmed offer.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_Book
+    read_only: false
+    consequence: physical
+    escalation: human-in-the-loop recommended — spends real money and is not idempotent-retriable.
+  - name: get_bookings
+    description: Retrieve bookings by booking ID.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_GetBookings
+    read_only: true
+  - name: generate_folio
+    description: Generate an Engine-branded folio PDF for a booking.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_GenerateFolio
+    read_only: true
+    note: Returns google.api.HttpBody (binary PDF), not JSON.
+  - name: preview_cancellation
+    description: Get the availability, means, and expected refund for cancelling a booking.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_PreviewCancellation
+    read_only: true
+  - name: submit_cancellation
+    description: Attempt to cancel a booking.
+    source_operation: openapi/hotel-engine-omni-partner-api-openapi.yml#LodgingBookingService_SubmitCancellation
+    read_only: false
+    consequence: physical
+    escalation: human-in-the-loop recommended — irreversible and refund-bearing.
+grpc_only_not_exposed:
+  - LodgingShoppingService.FindBestOffersStreaming
+  - LodgingBookingService.GetBookingsStreaming
+related:
+  agentic_access: agentic-access/hotel-engine-agentic-access.yml
+  skills: skills/_index.yml

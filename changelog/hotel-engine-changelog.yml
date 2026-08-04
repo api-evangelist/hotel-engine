@@ -1,0 +1,75 @@
+generated: '2026-08-04'
+method: searched
+source: https://github.com/engine-public/engine-partner-api/releases
+summary: >-
+  The Omni Partner API changelog is published as dated GitHub Releases on
+  engine-public/engine-partner-api. Each release ships three downloadable artifacts — the
+  Swagger/OpenAPI document, the protobuf descriptor set, and a proto source archive — plus
+  matching Maven Central publications under com.engine. There is no separate changelog page on
+  the documentation site; the releases feed is the changelog.
+scheme: semver
+current_version: 2.4.0
+current_released: '2026-07-20'
+feed: https://github.com/engine-public/engine-partner-api/releases.atom
+releases_url: https://github.com/engine-public/engine-partner-api/releases
+release_count: 17
+first_release: '2025-02-05'
+artifacts_per_release:
+  - engine-partner-api-<version>.swagger.json
+  - engine-partner-api-descriptor_set-<version>.desc
+  - engine-partner-api-protos-<version>.zip
+entries:
+  - version: 2.4.0
+    date: '2026-07-20'
+    breaking: false
+    highlights:
+      - Release notes carry only the auto-generated full-changelog compare link.
+    compare: https://github.com/engine-public/engine-partner-api/compare/2.3.0...2.4.0
+  - version: 2.3.0
+    date: '2026-07-01'
+    breaking: false
+    highlights:
+      - Release notes carry only the auto-generated full-changelog compare link.
+    compare: https://github.com/engine-public/engine-partner-api/compare/2.2.0...2.3.0
+  - version: 2.2.0
+    date: '2026-05-18'
+    breaking: false
+    additions:
+      - Introduces the SellType proto and integrates it into the offer summary.
+      - Adds last_four and card_brand string fields to AppliedCardPayment so partners can identify the payment card used on booking responses.
+      - Moves shared repository context and protobuf policies into AGENTS.md (no rules or definitions changed).
+    compare: https://github.com/engine-public/engine-partner-api/compare/2.1.1...2.2.0
+  - version: 2.1.1
+    date: '2026-03-04'
+    breaking: false
+    additions:
+      - Surface client-provided rate codes in shopping responses.
+    compare: https://github.com/engine-public/engine-partner-api/compare/2.1.0...2.1.1
+  - version: 2.1.0
+    date: '2026-02-25'
+    breaking: false
+    additions:
+      - Added support for payment by card.
+    compare: https://github.com/engine-public/engine-partner-api/compare/2.0.0...2.1.0
+  - version: 2.0.0
+    date: '2026-02-11'
+    breaking: true
+    additions:
+      - Introduce Transactional APIs for lodging.
+      - Add guest and property details to the Booking APIs.
+      - Property content enhancements; folio and get-property documentation.
+    breaking_changes:
+      - Price.taxes deprecated; will be removed per the deprecation policy.
+      - Price.fees deprecated; will be removed per the deprecation policy.
+      - taxes and fees merged into a new taxes_and_fees field.
+    compare: https://github.com/engine-public/engine-partner-api/compare/1.0.0...2.0.0
+  - version: 2.0.0-pre.1 .. 2.0.0-pre.8
+    date_range: '2025-06-16 .. 2025-12-09'
+    breaking: false
+    note: Pre-release series leading to 2.0.0 GA. End of life 2026-09-01.
+  - version: 0.0.1-pre.2 / 0.0.1-pre.3
+    date_range: '2025-02-05 .. 2025-02-24'
+    breaking: false
+    note: Initial content-only preview (content.swagger.json). End of life 2026-09-01.
+related:
+  lifecycle: lifecycle/hotel-engine-lifecycle.yml

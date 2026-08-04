@@ -1,0 +1,111 @@
+generated: '2026-08-04'
+method: searched
+source: https://engine-public.github.io/engine-partner-api/
+summary: >-
+  Cross-cutting request/response semantics for the Omni Partner API, captured from Engine's
+  published documentation and the harvested proto/Swagger contracts. Omni is a protobuf-first
+  API offered over gRPC and HTTP/JSON; the two surfaces share one contract, but streaming RPCs
+  exist only on gRPC. Notably, Omni does NOT publish an idempotency-key mechanism — the
+  quote-then-book pattern (ConfirmOffer returns a continuation token that Book consumes once)
+  is its replay-safety design instead.
+authentication:
+  style: mutual-tls
+  see: authentication/hotel-engine-authentication.yml
+transports:
+  - style: grpc
+    endpoint: partner-api.engine.com:443
+    encoding: protobuf
+    notes: >-
+      Lower latency and smaller payloads; the only surface exposing the streaming RPCs
+      FindBestOffersStreaming and GetBookingsStreaming.
+  - style: http-json
+    host: partner-api.engine.com
+    scheme: https
+    encoding: application/json
+    notes: >-
+      Generated from the proto contracts via grpc-gateway protoc-gen-openapiv2 annotations.
+      Only a subset of RPCs carry google.api.http annotations, so HTTP/JSON is a strict subset
+      of gRPC (11 of 13 RPCs).
+idempotency:
+  documented: false
+  header: null
+  notes: >-
+    No Idempotency-Key header or equivalent is documented, and none appears in the protos or
+    the Swagger document. Replay safety is instead handled by the two-phase transact flow:
+    LodgingBookingService.ConfirmOffer locks a price and returns a continuation_token, and
+    LodgingBookingService.Book consumes that token. Re-submitting a consumed token fails with
+    InvalidStateError ("the booking associated with the given continuation token is not in a
+    valid state, e.g. it has already been booked"), which makes double-booking detectable but
+    is not an idempotent retry contract — a client that times out on Book cannot safely retry
+    and must instead reconcile with GetBookings.
+  retry_guidance:
+    - Book failures returning BookingNeedsReviewError are explicitly non-retriable and require manual review.
+    - PaymentProcessingError is documented as not safe to retry; contact Member Support.
+pagination:
+  style: page-token
+  request_params: [page_size, page_token]
+  response_fields: [next_page_token]
+  notes: >-
+    Google AIP-158 style token pagination on ContentService.ListProperties and
+    CatalogService.ListPropertyCatalog. Separately, FindBestOffers returns a per-property
+    continuation_token which is NOT pagination — it carries shop criteria forward into
+    FindAvailability for more accurate results.
+request_tracing:
+  header: com-engine-request-id
+  direction: response
+  format: UUID
+  notes: >-
+    Every gRPC and HTTP response carries com-engine-request-id. Engine's support page requires
+    this value to be supplied when opening a support request.
+rate_limit_signaling:
+  headers: [ratelimit-limit, ratelimit-remaining, ratelimit-reset]
+  throttled_status: 429
+  model: two-tier (burst per minute + sustained per hour), enforced per endpoint
+  known_gap: >-
+    Both burst and sustained limits are reported through the same three headers, so a client
+    cannot observe the remaining sustained count or its reset time once the sustained count
+    exceeds the current burst count. Engine documents this limitation explicitly.
+  see: rate-limits/hotel-engine-rate-limits.yml
+versioning:
+  scheme: semver + uri-path
+  current: 2.4.0
+  path_version: v1
+  notes: >-
+    The Omni API follows Semantic Versioning 2.0.0. Breaking changes ship with a major version
+    bump and the API is forked by version number; the prior version stays live until its
+    support window expires. Note the URI path segment (v1) tracks the proto package version,
+    not the release version.
+  see: lifecycle/hotel-engine-lifecycle.yml
+error_envelope:
+  format: google.rpc.Status
+  rfc9457: false
+  shape:
+    code: integer (google.rpc.Code enum value)
+    message: developer-facing English string
+    details: array of typed protobuf Any messages
+  notes: >-
+    Errors are canonical gRPC Status objects. The actionable information is in details[], which
+    carries a typed per-operation error message (e.g. BookError, SubmitCancellationError) whose
+    fields discriminate the failure cause. HTTP/JSON surfaces the same envelope; there is no
+    application/problem+json.
+  see: errors/hotel-engine-problem-types.yml
+streaming:
+  supported: true
+  transport: grpc-only
+  rpcs: [FindBestOffersStreaming, GetBookingsStreaming]
+  notes: >-
+    FindBestOffersStreaming emits BestOffers as they are discovered and may emit multiple
+    BestOffers per property; the last BestOffer received for a property always supersedes
+    earlier ones.
+content_negotiation:
+  consumes: [application/json]
+  produces: [application/json]
+  binary: >-
+    LodgingBookingService.GenerateFolio returns google.api.HttpBody — an Engine-branded
+    folio PDF — rather than a JSON envelope.
+cross_links:
+  authentication: authentication/hotel-engine-authentication.yml
+  errors: errors/hotel-engine-problem-types.yml
+  lifecycle: lifecycle/hotel-engine-lifecycle.yml
+  rate_limits: rate-limits/hotel-engine-rate-limits.yml
+  data_model: data-model/hotel-engine-data-model.yml

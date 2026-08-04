@@ -1,0 +1,67 @@
+# Engine: All-in-one business travel and spend platform for lodging, flights, rental cars, group travel, meeting and event spaces, travel policy, approvals, and the Engine X charge card
+
+> Engine is the all-in-one business travel and spend platform for booking and managing lodging, flights, rental cars, group travel, meeting and event spaces, travel policy, approvals, and payments with the Engine X charge card. Headquartered in Denver, Colorado and led by CEO Elia Wallen, Engine is trusted by 25,000+ businesses and 1.2 million travelers, with negotiated rates across 1,000,000+ hotel properties worldwide. Engine charges no membership fee, no contracts, no minimum spend, and no agent-assist fees.
+
+Engine rebranded from "Hotel Engine" to "Engine" in Summer 2024 to reflect its expansion beyond lodging into a full business travel and spend platform. Companies use Engine to book and manage business lodging, flights, rental cars, group travel, and meeting and event spaces, set and enforce travel policy, route trip approvals, pay for travel through the Engine X charge card, and provide duty of care to traveling employees through Engine's partnership with International SOS.
+
+Engine serves businesses of every size, from sole proprietors and small teams to large enterprises (including a number of Fortune 100 companies), across most industries. For canonical, AI-ready company facts, start with the AI Information page below.
+
+## Start here
+
+- [AI Information](https://www.engine.com/ai-information): Canonical, structured facts about Engine written for AI assistants. The best single source for company, product, competitive, and industry details.
+- [Engine homepage](https://www.engine.com): Overview of the business travel and spend platform.
+
+## Products
+
+- [Engine Groups](https://www.engine.com/groups): Group travel for 9 or more rooms, including work crews, construction projects, corporate events, sports teams, and weddings.
+- [Engine Spaces](https://www.engine.com/spaces): Meeting and event space booking for offsites, conferences, training sessions, and board meetings.
+- [Engine X](https://www.engine.com/x): Engine's charge card built for business travel and everyday business spend, paying tiered rewards on hotels and rental cars booked through Engine and 1.5% on all other business spend. Issued by Fifth Third Bank, N.A., Member FDIC, on the Visa Commercial network.
+
+## Platform capabilities
+
+- [Travel policy](https://www.engine.com/corporate-travel-policies): Set and enforce travel policy with three distinct enforcement modes (Block, Allowed with Reason, and Approval), a level of control most booking tools do not offer.
+- [Invoicing and direct billing](https://www.engine.com/corporate-hotel-invoices-and-billing): DirectBill consolidated invoicing and automated folio collection.
+- [Reporting and dashboards](https://www.engine.com/corporate-travel-dashboards-and-reporting): Visibility and control over travel spend across teams, projects, and job sites.
+
+## Solutions by role
+
+- [Finance managers](https://www.engine.com/solutions/finance-managers): Visibility and control over travel spend for finance and operations leaders.
+- [Travel managers](https://www.engine.com/solutions/travel-managers): Program management for those who run business travel.
+- [Operations managers](https://www.engine.com/solutions/operations-managers): Coordinating travel across crews, sites, and projects.
+- [Travelers](https://www.engine.com/solutions/travelers): The booking and trip experience for employees who travel.
+
+## Solutions by industry
+
+Engine supports healthcare, construction, logistics, government, energy, disaster recovery, sports, and entertainment, as well as B2B SaaS, professional services, and sales teams.
+
+- [Industry solutions](https://www.engine.com/industry): How Engine supports field- and project-based work across these industries and more.
+
+## Customer stories
+
+- [Case studies](https://www.engine.com/case-studies): In-depth looks at how specific customers run their travel programs on Engine.
+
+## Getting started and support
+
+- [Sign up](https://www.engine.com/sign-up): Create a free Engine account.
+- [FAQs](https://www.engine.com/faqs): Answers to common questions about booking, billing, and account management.
+- [24/7 live support](https://www.engine.com/24-7-live-support): Around-the-clock live support for travelers, a key differentiator versus self-service booking sites.
+
+## Resources
+
+- [Free travel templates](https://www.engine.com/templates): Downloadable travel policy and expense templates for business travel programs.
+- [Destinations](https://www.engine.com/destinations): Travel guides and destination information for business trips.
+
+## Company
+
+- [About Engine](https://www.engine.com/about-us): Company background and mission.
+- [Contact Engine](https://www.engine.com/contact-us): How to reach Engine.
+- [Partnerships](https://www.engine.com/partnerships): Engine's partner programs and integrations.
+- [Press](https://www.engine.com/press): Company news and media resources.
+- [Careers](https://www.engine.com/careers): Open roles at Engine.
+
+## Optional
+
+- [Privacy policy](https://www.engine.com/privacy-policy): How Engine handles personal data.
+- [Terms of service](https://www.engine.com/terms-of-service): Terms governing use of Engine.
+- [Accessibility](https://www.engine.com/accessibility): Engine's accessibility commitment.
+- [Responsible disclosure](https://www.engine.com/responsible-disclosure): How to report security issues.

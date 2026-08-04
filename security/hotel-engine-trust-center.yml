@@ -1,0 +1,33 @@
+generated: '2026-08-04'
+method: searched
+probe: true
+url: https://trust.engine.com/
+source: https://trust.engine.com/
+summary: >-
+  Engine operates a hosted Trust Center at trust.engine.com, powered by Conveyor. The public
+  landing surface advertises SOC 2 Type II and GDPR/CCPA posture; the underlying evidence
+  documents are gated behind an NDA/access request, which is the normal Conveyor pattern.
+platform: Conveyor
+certifications:
+  - SOC 2 Type II
+privacy_frameworks:
+  - GDPR
+  - CCPA
+access: >-
+  Report and document downloads require requesting access through the Conveyor portal;
+  only the certification/framework badges are anonymously visible.
+evidence:
+  - source: https://trust.engine.com/
+    http_status: 200
+    page_title: Engine Trust Center | Powered by Conveyor
+    keywords: [soc2, 'SOC 2 Type II', gdpr, ccpa]
+    fetched: '2026-08-04'
+hosts_probed:
+  - {url: 'https://trust.engine.com', status: 200, result: trust-center}
+  - {url: 'https://security.engine.com', status: null, result: no-dns}
+  - {url: 'https://www.engine.com/trust', status: 404}
+  - {url: 'https://www.engine.com/security', status: 404}
+  - {url: 'https://www.engine.com/compliance', status: 404}
+related:
+  vulnerability_disclosure: security/hotel-engine-vulnerability-disclosure.yml
+  domain_security: security/hotel-engine-domain-security.yml

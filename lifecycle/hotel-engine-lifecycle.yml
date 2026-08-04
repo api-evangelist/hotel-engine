@@ -1,0 +1,69 @@
+generated: '2026-08-04'
+method: searched
+source: https://engine-public.github.io/engine-partner-api/versioning.html
+summary: >-
+  Engine publishes an explicit, unusually rigorous versioning and deprecation policy for the
+  Omni Partner API, enumerating exactly which proto-level changes count as breaking, minor, and
+  patch. Deprecations carry a minimum six-month notice and a published end-of-life date. There
+  is no public status page and no published SLA/uptime target.
+versioning:
+  scheme: semver
+  spec: https://semver.org
+  current: 2.4.0
+  released: '2026-07-20'
+  path_version: v1
+  docs: https://engine-public.github.io/engine-partner-api/versioning.html
+  notes: >-
+    Semantic Versioning 2.0.0. On a breaking change the API is forked by version number and the
+    prior version stays available until its support window expires. Minor releases are always
+    wire compatible with prior minors of the same major, though generated clients in
+    nullability-strict or exhaustiveness-checked languages (Kotlin, Scala, TypeScript) may
+    still need code changes. Patch releases are documentation and comments only.
+breaking_change_definition:
+  - Deletion of Messages or Services
+  - Moving a definition from one proto file to another
+  - Removing a field from a Message
+  - Removing an RPC from a Service
+  - Removing an enum constant
+  - Making an implicit field optional in a response message
+  - Making an optional field implicit in a request message
+minor_change_definition:
+  - Introduction of new Services, or new RPCs to existing Services
+  - Introduction of new Messages
+  - Addition of new fields to Messages
+  - Addition of new enum constants
+  - Making an implicit request message field optional
+  - Making an optional response message field implicit
+deprecation:
+  policy_url: https://engine-public.github.io/engine-partner-api/versioning.html
+  notice_period: 6 months minimum
+  sunset_header: false
+  rfc8594: false
+  process: >-
+    A minor release marks the member deprecated before any removal, and deprecations must
+    document the replacement and a removal timeline (an enforced repository policy, per AGENTS.md).
+  scheduled:
+    - versions: ['0.*.*', '1.*.*', '2.*-pre.*']
+      end_of_life: '2026-09-01'
+      changelog: https://github.com/engine-public/engine-partner-api/releases/tag/2.0.0
+status_page:
+  published: false
+  probed:
+    - {url: 'https://status.engine.com', result: no-dns}
+sla:
+  published: false
+  note: No public uptime target or SLA document was found; terms are presumably in the partnership agreement.
+support:
+  contact: partner-api-support@engine.com
+  page: https://engine-public.github.io/engine-partner-api/support.html
+  requirement: Provide the com-engine-request-id response header value.
+  partnerships: omni-partnerships@engine.com
+deprecated_operations: []
+deprecated_operations_note: >-
+  No operation in the 2.4.0 Swagger document carries deprecated: true, and no proto member in
+  the harvested 2.4.0 protos is marked deprecated.
+release_cadence:
+  observed: >-
+    17 tagged releases since 2025-02; 2.0.0 GA on 2026-02-11, then 2.1.0 (2026-02-25),
+    2.1.1 (2026-03-04), 2.2.0 (2026-05-18), 2.3.0 (2026-07-01), 2.4.0 (2026-07-20).
+  see: changelog/hotel-engine-changelog.yml

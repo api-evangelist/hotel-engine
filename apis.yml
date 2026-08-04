@@ -1,18 +1,91 @@
 aid: hotel-engine
 name: Engine
-description: 'Engine is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Engine (formerly Hotel Engine, rebranded in 2024) is a Denver, Colorado business travel and
+  spend platform for booking and managing lodging, flights, rental cars, group travel, and
+  meeting and event spaces, with travel policy enforcement, trip approvals, consolidated
+  DirectBill invoicing, and the Engine X charge card. Engine says it serves 25,000+ businesses
+  and 1.2 million travelers with negotiated rates across 1,000,000+ hotel properties. Its API
+  product is Omni — a partner-facing lodging inventory API offered over gRPC and HTTP/JSON,
+  authenticated with mutual TLS, that covers property content, real-time rate shopping,
+  booking, folio generation, and cancellation. Omni is protobuf-first: the proto contracts are
+  published under Apache 2.0 on GitHub and the Swagger document, descriptor set, and JVM client
+  bindings are generated from them and released per version.
+image: https://engine.com/_astro/engine-og-default.BAjJjAAC.png
 url: https://raw.githubusercontent.com/api-evangelist/hotel-engine/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-source-url: https://forgeglobal.com/hotel-engine_stock/
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
-apis: []
+- Travel
+- Business Travel
+- Lodging
+- Hotels
+- Booking
+- Travel Management
+- Expense Management
+- Payments
+- gRPC
+- Protobuf
+- Partner API
+apis:
+- name: Omni Partner API
+  description: >-
+    Engine's partner-facing lodging API. Omni exposes property discovery and content, real-time
+    rate shopping (best offers and per-property availability), the full booking lifecycle
+    (confirm offer, book, retrieve bookings, generate an Engine-branded folio PDF, preview and
+    submit cancellations), and a full property catalog feed for local mirroring. It is offered
+    over gRPC (protobuf, including two streaming RPCs) and over a generated HTTP/JSON
+    projection covering 11 of the 13 RPCs. Authentication is mutual TLS on both surfaces;
+    access requires a signed partnership agreement and Engine-issued client certificates.
+  humanURL: https://engine-public.github.io/engine-partner-api/
+  baseURL: https://partner-api.engine.com
+  image: https://engine.com/_astro/engine-og-default.BAjJjAAC.png
+  tags:
+  - Travel
+  - Lodging
+  - Hotels
+  - Booking
+  - Property Content
+  - Rate Shopping
+  - Reservations
+  - gRPC
+  - Protobuf
+  - Partner API
+  properties:
+  - type: OpenAPI
+    url: openapi/hotel-engine-omni-partner-api-openapi.yml
+  - type: OpenAPI
+    name: Omni Partner API 2.4.0 (original Swagger 2.0)
+    url: openapi/_original/hotel-engine-omni-partner-api-2.4.0-swagger-original.json
+  - type: Protobuf
+    url: grpc/_index.yml
+  - type: Overlay
+    url: overlays/hotel-engine-omni-partner-api-overlay.yaml
+  - type: Authentication
+    url: authentication/hotel-engine-authentication.yml
+  - type: Conventions
+    url: conventions/hotel-engine-conventions.yml
+  - type: ErrorCatalog
+    url: errors/hotel-engine-problem-types.yml
+  - type: DataModel
+    url: data-model/hotel-engine-data-model.yml
+  - type: RateLimits
+    url: rate-limits/hotel-engine-rate-limits.yml
+  - type: MCPServer
+    url: mcp/hotel-engine-mcp.yml
+  - type: Documentation
+    url: https://engine-public.github.io/engine-partner-api/
+  - type: APIReference
+    url: https://engine-public.github.io/engine-partner-api/swagger-ui/index.html
+  - type: GettingStarted
+    url: https://engine-public.github.io/engine-partner-api/getting-started.html
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +93,72 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/hotel-engine_stock/
+  url: https://www.engine.com/
+- type: DeveloperPortal
+  url: https://omni.engine.com/
+- type: Documentation
+  url: https://engine-public.github.io/engine-partner-api/
+- type: APIReference
+  name: HTTP/JSON reference (Swagger UI)
+  url: https://engine-public.github.io/engine-partner-api/swagger-ui/index.html
+- type: APIReference
+  name: gRPC reference
+  url: https://engine-public.github.io/engine-partner-api/api/grpc/index.html
+- type: GettingStarted
+  url: https://engine-public.github.io/engine-partner-api/getting-started.html
+- type: Support
+  url: https://engine-public.github.io/engine-partner-api/support.html
+- type: HelpCenter
+  url: https://www.engine.com/faqs
+- type: Blog
+  url: https://www.engine.com/blog
+- type: GitHubOrganization
+  url: https://github.com/engine-public
+- type: SourceCode
+  url: https://github.com/engine-public/engine-partner-api
+- type: Pricing
+  url: https://www.engine.com/pricing
+- type: SignUp
+  url: https://www.engine.com/sign-up
+- type: TermsOfService
+  url: https://www.engine.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.engine.com/privacy-policy
+- type: ChangeLog
+  url: https://github.com/engine-public/engine-partner-api/releases
+- type: ChangeLog
+  name: Structured changelog
+  url: changelog/hotel-engine-changelog.yml
+- type: Deprecation
+  url: https://engine-public.github.io/engine-partner-api/versioning.html#support-for-deprecated-versions
+- type: Lifecycle
+  url: lifecycle/hotel-engine-lifecycle.yml
+- type: Security
+  url: https://www.engine.com/responsible-disclosure
+- type: VulnerabilityDisclosure
+  url: security/hotel-engine-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: https://trust.engine.com/
+- type: Compliance
+  url: security/hotel-engine-trust-center.yml
+- type: Conformance
+  url: conformance/hotel-engine-conformance.yml
+- type: Packages
+  url: packages/hotel-engine-packages.yml
+- type: SDKs
+  url: packages/hotel-engine-packages.yml
+- type: Sandbox
+  url: sandbox/hotel-engine-sandbox.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/hotel-engine-llms.txt
+- type: AgenticAccess
+  url: agentic-access/hotel-engine-agentic-access.yml
+- type: DomainSecurity
+  url: security/hotel-engine-domain-security.yml
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 74
+  pass: local-v1

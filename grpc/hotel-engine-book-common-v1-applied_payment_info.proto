@@ -1,0 +1,63 @@
+//
+// Copyright 2025 HotelEngine, Inc., d/b/a Engine
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at:
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax = "proto3";
+
+package engine.book.common.v1;
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "engine.com/engine-partner-api/book/common/v1";
+option java_package = "com.engine.book.common.v1";
+option java_multiple_files = true;
+
+// Information about the form of payment used in a request.
+message AppliedPaymentInfo {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Book_Common_AppliedPaymentInfo_v1"
+    }
+  };
+
+  oneof method {
+    AppliedEngineDirectBill engine_direct_bill = 1;
+    AppliedCardPayment card = 2;
+  }
+}
+
+// Indicates that Engine Direct Bill was used.
+message AppliedEngineDirectBill {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Book_Common_AppliedEngineDirectBill_v1"
+    }
+  };
+}
+
+// Indicates a card payment was used.
+message AppliedCardPayment {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Book_Common_AppliedCardPayment_v1"
+    }
+  };
+
+  // The last four digits of the payment card number used for the transaction.
+  string last_four = 1;
+
+  // The brand or network of the payment card (e.g. "Visa", "Mastercard", "American Express").
+  string card_brand = 2;
+}

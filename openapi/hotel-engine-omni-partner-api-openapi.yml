@@ -1,0 +1,2567 @@
+swagger: '2.0'
+info:
+  title: Omni, Powered by Engine
+  description: Definitions for the Omni travel API.
+  version: 2.4.0
+  contact:
+    name: Omni API Support
+    url: https://omni.engine.com/
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/engine-public/engine-partner-api/blob/main/LICENSE
+externalDocs: https://engine-public.github.io/engine-partner-api
+host: partner-api.engine.com
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: LodgingShoppingService
+- name: CatalogService
+- name: ContentService
+- name: LodgingBookingService
+paths:
+  /shop/v1/lodging/availability:
+    post:
+      summary: Search for Availability at a given Property.
+      description: Finds availability for a given property, broken down by individual room type.  RoomGroups describe the
+        various rooms available to book.  Offers describe the cheapest [OfferSummary] along various dimensions like refundability
+        and loyalty eligible within the [RoomGroup].
+      operationId: LodgingShoppingService_FindAvailability
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1FindAvailabilityResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1FindAvailabilityRequest'
+      tags:
+      - LodgingShoppingService
+  /shop/v1/lodging/best-offers:
+    post:
+      summary: Search for the Best Offer available for a set of Properties.
+      description: Identifies a set of candidate properties that match the provided criteria.  Once the appropriate properties
+        have been identified, the Best Offer available for each property is selected and augmented with the details of other
+        available Offers.
+      operationId: LodgingShoppingService_FindBestOffers
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1FindBestOffersResponse'
+        '400':
+          description: Error details for gRPC Status of INVALID_ARGUMENT(3).
+          schema:
+            $ref: '#/definitions/v1FindBestOffersError'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1FindBestOffersRequest'
+      tags:
+      - LodgingShoppingService
+  /content/v1/catalog/property:
+    post:
+      summary: List the full property catalog.
+      description: Retrieves one page of the lodging properties catalog.
+      operationId: CatalogService_ListPropertyCatalog
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1ListPropertyCatalogResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: A request to retrieve one page of the property catalog.
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1ListPropertyCatalogRequest'
+      tags:
+      - CatalogService
+  /content/v1/properties:
+    post:
+      summary: Retrieves details for specific properties.
+      description: Retrieves details for the set of properties specified in the request
+      operationId: ContentService_GetProperties
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1GetPropertiesResponse'
+        '400':
+          description: Invalid request parameters.
+          schema: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: A request to retrieve specific Properties by their IDs.
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1GetPropertiesRequest'
+      tags:
+      - ContentService
+  /content/v1/property:
+    get:
+      summary: List properties near a point of interest.
+      operationId: ContentService_ListProperties
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1ListPropertiesResponse'
+          examples:
+            application/json:
+              properties:
+              - property:
+                  id: L00000000000000140124
+                  name: Holiday Inn Express & Suites Austin Downtown - University
+                  physicalAddress:
+                    addressLine:
+                    - 805 Neches St
+                    administrativeArea: TX
+                    locality: Austin
+                    postalCode: '78701'
+                    countryCode: US
+                  coordinates:
+                    latitude: 30.2693
+                    longitude: -97.737122
+                  heroImageUri: https://i.travelapi.com/lodging/13000000/12310000/12303000/12302973/8299c3c9_z.jpg
+                  description: Attractively located in the center of Austin, Holiday Inn Express Hotel & Suites Austin Downtown
+                    - University, an IHG Hotel has air-conditioned rooms, an outdoor swimming pool, free WiFi and a fitness
+                    center. This 3-star hotel offers a 24-hour front desk and an ATM. Private parking is available on site.
+                    The rooms at the hotel come with a seating area and a flat-screen TV with satellite channels. At Holiday
+                    Inn Express Hotel & Suites Austin Downtown - University, an IHG Hotel rooms contain a private bathroom
+                    with free toiletries and a hairdryer. Breakfast is available each morning, and includes buffet, continental
+                    and American options. The accommodation has a sun terrace. Guests can use the business center or relax
+                    in the snack bar. Popular points of interest near Holiday Inn Express Hotel & Suites Austin Downtown -
+                    University, an IHG Hotel include Shoal Beach, Capitol Building and Austin Convention Center. Austin-Bergstrom
+                    International Airport is 5.6 miles from the property.
+                distance:
+                  value: 5.2
+                  unit: DISTANCE_UNIT_MILE
+              - property:
+                  id: L00000000000000092817
+                  name: Sonesta Select Austin North
+                  physicalAddress:
+                    addressLine:
+                    - 7522 N Interstate Hwy 35
+                    administrativeArea: TX
+                    locality: Austin
+                    postalCode: '78752'
+                    countryCode: US
+                  coordinates:
+                    latitude: 30.33843
+                    longitude: -97.703827
+                  heroImageUri: https://i.travelapi.com/lodging/1000000/50000/41300/41290/232ce1b7_z.jpg
+                  description: Featuring an outdoor pool, Sonesta Select Austin North Central is 5 mi from Austin city center.
+                    This hotel offers free WiFi access. Rooms at Sonesta Select Austin North Central will provide you with
+                    a flat-screen TV with cable and an air-conditioned seating area. Complete with a refrigerator, the dining
+                    area also has a coffee machine. At Sonesta Select Austin North Central you will find a fitness center.
+                    Other facilities offered include meeting facilities, a shared lounge and dry cleaning. The hotel is 4.2
+                    mi from University of Texas and 5.6 mi from Austin Convention Center. Bergstrom Airport is 8.7 mi away.
+                    The property offers free parking. When traveling with pets, please note that an extra charge of $75 per
+                    pet, per stay applies. A maximum of 2 pets per room is allowed
+                distance:
+                  value: 6.7
+                  unit: DISTANCE_UNIT_MILE
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: request.criteria.radius.coordinates.latitude
+        description: The center-point latitude.
+        in: query
+        required: false
+        type: number
+        format: double
+      - name: request.criteria.radius.coordinates.longitude
+        description: The center-point longitude.
+        in: query
+        required: false
+        type: number
+        format: double
+      - name: request.criteria.radius.physicalAddress.recipients
+        description: 'Optionally, any individual recipients.
+
+          For example, "Alexander Hamilton", "Aaron Burr"
+
+          May be empty.'
+        in: query
+        required: false
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+      - name: request.criteria.radius.physicalAddress.organization
+        description: 'Optionally, any organization or company as a recipient.
+
+          For example, "Engine".'
+        in: query
+        required: false
+        type: string
+      - name: request.criteria.radius.physicalAddress.addressLine
+        description: 'Optionally, any address lines, in order as they''d appear on an envelope.
+
+          For example, "233 S Wacker Dr", "108th Floor".
+
+          May be empty.'
+        in: query
+        required: false
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+      - name: request.criteria.radius.physicalAddress.administrativeArea
+        description: 'Optionally, the State, province, prefecture, oblast, or area.
+
+          For example, "Texas"'
+        in: query
+        required: false
+        type: string
+      - name: request.criteria.radius.physicalAddress.locality
+        description: 'Optionally, the City, or Post Town
+
+          For example, "Austin"'
+        in: query
+        required: false
+        type: string
+      - name: request.criteria.radius.physicalAddress.postalCode
+        description: 'Optionally, the postal code, if one exists, for the address.
+
+          For example, "78757".'
+        in: query
+        required: false
+        type: string
+      - name: request.criteria.radius.physicalAddress.countryCode
+        description: 'Optionally, the ISO 3166-1 alpha-2 country code.
+
+          For example, "US".
+
+          See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
+          See https://www.iso.org/iso-3166-country-codes.html'
+        in: query
+        required: false
+        type: string
+      - name: request.criteria.radius.freeformSearchText
+        description: 'A description of a point of interest, an unstructured address, etc.
+
+          Freeform input will make a "best effort" match to a point of interest and its corresponding geo coordinates.
+
+          If available, using `coordinates` or `physical_address` will yield better results.'
+        in: query
+        required: false
+        type: string
+      - name: request.criteria.radius.radius.value
+        description: The distance quantity.
+        in: query
+        required: false
+        type: number
+        format: double
+      - name: request.criteria.radius.radius.unit
+        description: "The unit of distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n\
+          \ - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
+        in: query
+        required: false
+        type: string
+        enum:
+        - DISTANCE_UNIT_MILE
+        - DISTANCE_UNIT_KILOMETER
+        default: DISTANCE_UNIT_MILE
+      - name: request.criteria.excludePropertiesWithoutHeroImage
+        description: 'Optionally, if true, properties that do not have a `Property#hero_image_uri` will not be returned.
+
+          Excluded properties will not count against the page size or limit.'
+        in: query
+        required: false
+        type: boolean
+        default: 'false'
+      - name: request.criteria.excludePropertiesWithoutDescription
+        description: 'Optionally, if true, properties that do not have a `Property#description` will not be returned.
+
+          Excluded properties will not count against the page size or limit.'
+        in: query
+        required: false
+        type: boolean
+        default: 'false'
+      - name: request.criteria.sortMode
+        description: "The order in which the properties will be returned.\n\n - PROPERTY_SORT_MODE_DISTANCE: Results are returned\
+          \ in ascending order from the center point of the `ListProperties.inclusion_type`."
+        in: query
+        required: false
+        type: string
+        enum:
+        - PROPERTY_SORT_MODE_DISTANCE
+        default: PROPERTY_SORT_MODE_DISTANCE
+      - name: request.pageSize
+        description: 'The maximum number of search results to be returned in a page.
+
+          Default: 100
+
+          Minimum: 1
+
+          Maximum: 500'
+        in: query
+        required: false
+        type: integer
+        format: int32
+        default: '100'
+      - name: nextPageToken
+        description: Optionally, a `next_page_token` retrieved from a `ListPropertiesResponse`.
+        in: query
+        required: false
+        type: string
+      tags:
+      - ContentService
+  /book/v1/lodging/booking:
+    post:
+      summary: Retrieve bookings given the provided Booking IDs.
+      description: In case of error, the status will contain a [GetBookingsError] within the [Status.details] field.
+      operationId: LodgingBookingService_GetBookings
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1GetBookingsResponse'
+        '400':
+          description: Error details for gRPC Status of INVALID_ARGUMENT(3).
+          schema:
+            $ref: '#/definitions/v1GetBookingsError'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: A request to retrieve one or more [BookingDetails].
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1GetBookingsRequest'
+      tags:
+      - LodgingBookingService
+    put:
+      summary: Purchase and reserve an Offer.
+      description: In case of error, the status will contain a [BookError] within the [Status.details] field.
+      operationId: LodgingBookingService_Book
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1BookResponse'
+        '400':
+          description: Error details for gRPC Status of INVALID_ARGUMENT(3).
+          schema:
+            $ref: '#/definitions/v1BookError'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: A request to purchase and reserve an [OfferSummary].
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1BookRequest'
+      tags:
+      - LodgingBookingService
+  /book/v1/lodging/booking/generate-folio:
+    post:
+      summary: Generate a folio.
+      description: In case of error, the status will contain a [GenerateFolioError] within the [Status.details] field.
+      operationId: LodgingBookingService_GenerateFolio
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/apiHttpBody'
+        '400':
+          description: Error details for gRPC Status of FAILED_PRECONDITION(9).
+          schema:
+            $ref: '#/definitions/v1GenerateFolioError'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: Generates a folio HTTP response for a Booking.
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1GenerateFolioRequest'
+      tags:
+      - LodgingBookingService
+  /book/v1/lodging/booking/preview-cancellation:
+    post:
+      summary: Get the availability, means, and expected refund for a booking cancellation.
+      description: In case of error, the status will contain a [PreviewCancellationError] within the [Status.details] field.
+      operationId: LodgingBookingService_PreviewCancellation
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1PreviewCancellationResponse'
+        '400':
+          description: Error details for gRPC Status of INVALID_ARGUMENT(3).
+          schema:
+            $ref: '#/definitions/v1PreviewCancellationError'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: Requests the expected result of a cancellation.
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1PreviewCancellationRequest'
+      tags:
+      - LodgingBookingService
+  /book/v1/lodging/booking/submit-cancellation:
+    post:
+      summary: Attempt to cancel a booking.
+      description: In case of error, the status will contain a [SubmitCancellationError] within the [Status.details] field.
+      operationId: LodgingBookingService_SubmitCancellation
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1SubmitCancellationResponse'
+        '400':
+          description: Error details for gRPC Status of INVALID_ARGUMENT(3).
+          schema:
+            $ref: '#/definitions/v1SubmitCancellationError'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: Requests cancellation of a Booking.
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1SubmitCancellationRequest'
+      tags:
+      - LodgingBookingService
+  /book/v1/lodging/confirm-offer:
+    post:
+      summary: Confirm the availability, pricing, and details of an Offer prior to booking.
+      description: In case of error, the status will contain a [ConfirmOfferError] within the [Status.details] field.
+      operationId: LodgingBookingService_ConfirmOffer
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1ConfirmOfferResponse'
+        '400':
+          description: Error details for gRPC Status of INVALID_ARGUMENT(3).
+          schema:
+            $ref: '#/definitions/v1ConfirmOfferError'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+      - name: body
+        description: A request to confirm final pricing and availability of an [OfferSummary].
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1ConfirmOfferRequest'
+      tags:
+      - LodgingBookingService
+definitions:
+  lodgingExternalCatalogIdentifierList:
+    type: object
+    properties:
+      identifiers:
+        type: array
+        items:
+          type: string
+        description: 'Supplier property identifiers for the associated catalog key.
+
+          May contain multiple identifiers when more than one external record is mapped to the Engine record.'
+    description: A list of external catalog identifiers for a single catalog key.
+    title: Content_ExternalCatalogIdentifierList_v1
+  lodgingExternalCatalogIdentifiers:
+    type: object
+    properties:
+      giataIdentifier:
+        type: string
+        description: GIATA identifier for this property.
+      catalogIdentifiers:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/lodgingExternalCatalogIdentifierList'
+        description: Catalog identifiers keyed by source keys.
+    description: External catalog identifiers for property mapping.
+    title: Content_ExternalCatalogIdentifiers_v1
+  lodgingLodgingAmenityCode:
+    type: string
+    enum:
+    - LODGING_AMENITY_CODE_UNKNOWN
+    - LODGING_AMENITY_CODE_AIR_CONDITIONING
+    - LODGING_AMENITY_CODE_DINING
+    - LODGING_AMENITY_CODE_DRY_CLEANING
+    - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
+    - LODGING_AMENITY_CODE_FITNESS_CENTER
+    - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
+    - LODGING_AMENITY_CODE_FREE_BREAKFAST
+    - LODGING_AMENITY_CODE_FREE_PARKING
+    - LODGING_AMENITY_CODE_FULL_KITCHEN
+    - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
+    - LODGING_AMENITY_CODE_KITCHENETTE
+    - LODGING_AMENITY_CODE_MEETING_SPACE
+    - LODGING_AMENITY_CODE_PET_FRIENDLY
+    - LODGING_AMENITY_CODE_SPA
+    - LODGING_AMENITY_CODE_SWIMMING_POOL
+    - LODGING_AMENITY_CODE_TRUCK_PARKING
+    default: LODGING_AMENITY_CODE_UNKNOWN
+    title: Content_LodgingAmenityCode_v1
+  lodgingProperty:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The [Engine] identifier for this [Property].
+      name:
+        type: string
+        description: The full name of this [Property].
+      physicalAddress:
+        $ref: '#/definitions/v1PostalAddress'
+        description: 'The physical address of this [Property].
+
+          This may differ from the mailing, billing, or other administrative addresses.'
+      coordinates:
+        $ref: '#/definitions/v1GeoPoint'
+        description: The geographic location of this [Property].
+      heroImageUri:
+        type: string
+        description: If available, A URI to the image to use as the primary image to identify this [Property].
+      description:
+        type: string
+        description: If available, a brief textual description of this [Property].
+      phoneNumber:
+        type: string
+        title: 'If available, an E.164-compliant primary phone number for this [Property].
+
+          See https://en.wikipedia.org/wiki/E.164'
+      emails:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1ContactEmail'
+        description: 'Contact email addresses for this property.
+
+          May include general contact, billing, or reservation emails.'
+      starRating:
+        type: string
+        title: 'Star rating for this property.
+
+          Represents the official star rating classification system.
+
+          See https://en.wikipedia.org/wiki/Hotel_rating
+
+          Examples: "4", "5", "3.5"'
+      amenities:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/lodgingPropertyAmenity'
+        title: 'Property amenities for this [Property].
+
+          List of amenity names describing features and services available to guests.
+
+          Examples: "Free WiFi", "Pool", "Fitness Center", "Free Breakfast"'
+      mediaItems:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1MediaItem'
+        description: 'Media items for property gallery.
+
+          Collection of media URIs for detailed property viewing and marketing.'
+      catalog:
+        $ref: '#/definitions/lodgingExternalCatalogIdentifiers'
+        description: 'External catalog identifiers for this property.
+
+          Used for integration with external booking systems.'
+      checkInTime:
+        type: string
+        description: Check-in time in local time HH:MM 24-hour format (e.g., "15:00") for the [Property].
+      checkOutTime:
+        type: string
+        description: Check-out time in local time HH:MM 24-hour format (e.g., "11:00") for the [Property].
+      loyaltyRewardsProgram:
+        $ref: '#/definitions/v1LoyaltyRewardsProgram'
+        description: The loyalty rewards program associated with the [Property].
+      timeZone:
+        type: string
+        title: 'The time zone for the [Property] in the IANA format.
+
+          See https://www.iana.org/time-zones
+
+          Examples: "America/Denver", "Atlantic/Madeira"'
+    description: An individual Lodging location identified by [Engine].
+    title: Content_Property_v1
+  lodgingPropertyAmenity:
+    type: object
+    properties:
+      amenityName:
+        type: string
+        title: 'Amenity name describing a [Property] feature or service.
+
+          Examples: "Free WiFi", "Free Breakfast"'
+      amenityCode:
+        $ref: '#/definitions/lodgingLodgingAmenityCode'
+        description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
+
+          service, if mapped.'
+    description: '[Property] amenity containing name for property features and services.'
+    title: Content_PropertyAmenity_v1
+  lodgingRoomAmenity:
+    type: object
+    properties:
+      amenityName:
+        type: string
+        title: 'Amenity name describing room features and services.
+
+          Examples: "Housekeeping on request", "Free WiFi"'
+    description: Room amenity containing name for room features and services.
+    title: Content_RoomAmenity_v1
+  protobufAny:
+    type: object
+    properties:
+      '@type':
+        type: string
+        description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This\
+          \ string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully\
+          \ qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n\
+          (e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\n\
+          expect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one\
+          \ can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme\
+          \ is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary\
+          \ format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have\
+          \ them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n\
+          \  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is\
+          \ not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\
+          \ As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes\
+          \ other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+    additionalProperties: {}
+    description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type\
+      \ of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility\
+      \ functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n   \
+      \ Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\n\
+      Example 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class))\
+      \ {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n\
+      \      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n  \
+      \  foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n\
+      \      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n\
+      \     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err\
+      \ != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name'\
+      \ as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL,\
+      \ for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any`\
+      \ value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which\
+      \ contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n\
+      \      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n    \
+      \  \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has\
+      \ a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom\
+      \ JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\"\
+      : \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+  rpcStatus:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 'The status code, which should be an enum value of
+
+          [google.rpc.Code][google.rpc.Code].'
+      message:
+        type: string
+        description: 'A developer-facing error message, which should be in English. Any
+
+          user-facing error message should be localized and sent in the
+
+          [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+          by the client.'
+      details:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/protobufAny'
+        description: 'A list of messages that carry the error details.  There is a common set of
+
+          message types for APIs to use.'
+    description: 'The `Status` type defines a logical error model that is suitable for
+
+      different programming environments, including REST APIs and RPC APIs. It is
+
+      used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+      three pieces of data: error code, error message, and error details.
+
+
+      You can find out more about this error model and how to work with it in the
+
+      [API Design Guide](https://cloud.google.com/apis/design/errors).'
+  shoplodgingservicev1RadiusSearch:
+    type: object
+    properties:
+      coordinates:
+        $ref: '#/definitions/v1GeoPoint'
+        description: Latitude and Longitude coordinates to use as the center point of the search.
+      radius:
+        $ref: '#/definitions/v1Distance'
+        title: 'The size of the search area.
+
+          Default: 10 miles
+
+          Minimum: 1 mile (~1.6 kilometers)
+
+          Maximum: 50 miles (~80 kilometers)'
+    description: A search area in a perfect circle around a central point.
+    title: Shop_Lodging_Service_RadiusSearch_v1
+  shoplodgingservicev1ResponsiveProperty:
+    type: object
+    properties:
+      property:
+        $ref: '#/definitions/lodgingProperty'
+        description: The details of the returned property.
+      distance:
+        $ref: '#/definitions/v1Distance'
+        description: The distance from the center point of the search area, if appropriate.
+    description: A Property that is responsive to the current shopping search.
+    title: Shop_Lodging_Service_ResponsiveProperty_v1
+  v1AmenityAvailability:
+    type: string
+    enum:
+    - AMENITY_AVAILABILITY_UNKNOWN
+    - AMENITY_AVAILABILITY_UNAVAILABLE
+    - AMENITY_AVAILABILITY_INCLUDED
+    - AMENITY_AVAILABILITY_VIA_VENDOR
+    default: AMENITY_AVAILABILITY_UNKNOWN
+    description: "Describes the condition of an amenity's inclusion on a [Property], [RoomDescription], [OfferSummary], or\
+      \ [BookingDetails].\n\n - AMENITY_AVAILABILITY_UNKNOWN: The availability of an amenity cannot be confirmed.\n - AMENITY_AVAILABILITY_UNAVAILABLE:\
+      \ The amenity is confirmed to not be available.\n - AMENITY_AVAILABILITY_INCLUDED: The amenity is confirmed to be included.\n\
+      \ - AMENITY_AVAILABILITY_VIA_VENDOR: The amenity is not included, but may be purchased directly from the hotel, airline,\
+      \ car rental vendor, etc.\nFor example, a seat upgrade or breakfast vouchers."
+    title: Common_AmenityAvailability_v1
+  v1AnonymousAdult:
+    type: object
+    description: An adult traveler whose personal details have not yet been collected.
+    title: Common_AnonymousAdult_v1
+  v1AnonymousChild:
+    type: object
+    properties:
+      age:
+        type: integer
+        format: int32
+        description: 'The child''s age on the date of travel.
+
+          If the child''s birthday is during travel, use the age they will be at the end of travel.'
+      birthdate:
+        type: string
+        title: 'An ISO-8601-compliant date representing the child''s birthdate.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+    description: 'A child traveler whose personal details have not yet been collected.
+
+      A child''s age is necessary to retrieve the correct prices.
+
+      Failure to provide an accurate age may result in loss of bookings or refusal to provide service to the traveler.'
+    title: Common_AnonymousChild_v1
+  v1AnonymousTraveler:
+    type: object
+    properties:
+      adult:
+        $ref: '#/definitions/v1AnonymousAdult'
+      child:
+        $ref: '#/definitions/v1AnonymousChild'
+    description: A traveler whose personal details have not yet been collected.
+    title: Common_AnonymousTraveler_v1
+  v1Bedding:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: The number of this bed type in the room.
+      description:
+        type: string
+        description: 'A textual description of the type of this bed in the room.
+
+          For example, "KING", "QUEEN", or "SLEEPER".'
+    description: A description of the quantity and type of beds in the room.
+    title: Shop_Lodging_Bedding_v1
+  v1BestOffer:
+    type: object
+    properties:
+      continuationToken:
+        type: string
+        title: 'An opaque token that may be used to see all available Offers for the property, or to book the offer directly.
+
+          See [LodgingShoppingService.FindAvailability]
+
+          See [LodgingBookingService.ConfirmOffer]'
+      bestOffer:
+        $ref: '#/definitions/v1OfferSummary'
+        description: The specific details of the Best Offer available for a Property.
+      isRefundableAvailable:
+        type: boolean
+        description: True if it is known that at least one refundable Offer is available for the property.
+      isLoyaltyAvailable:
+        type: boolean
+        description: True if it is known that at least one Offer is available that earns loyalty points.
+      isFreeParkingAvailable:
+        type: boolean
+        description: 'True if it is known that at least one Offer is available that has free parking included.
+
+          Please note: this value will be false if it is known that the Property offers free parking to all guests.'
+      isFreeBreakfastAvailable:
+        type: boolean
+        description: 'True if it is known that at least one Offer is available that has free breakfast included.
+
+          Please note: this value will be false if it is known that the Property offers free breakfast to all guests.'
+      isLoyaltyMembershipRateAvailable:
+        type: boolean
+        description: True if it is known that at least one Offer is available that requires a loyalty membership id to book.
+    description: 'The details of the Best Offer available for a property given the search criteria and aggregated data about
+      other Offers that are available at the same property.
+
+      A [BestOffer] is not an exhaustive representation of all amenities and options available at a [Property].
+
+      For example, it is possible that a [BestOffer] might indicate no loyalty is available because it cannot be known until
+      full availability has been pulled.
+
+      To retrieve the full availability for a Property, see [LodgingShoppingService.FindAvailability].'
+    title: Shop_Lodging_Service_BestOffer_v1
+  v1CommissionableModel:
+    type: object
+    properties:
+      commissionValue:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: The commission amount the seller will receive for selling this offer.
+    description: 'Details for a commissionable pricing model.
+
+      Under this model, offers must be sold at the exact price quoted by Engine without markup.
+
+      The seller receives a fixed commission amount for each sale.
+
+      This model does not override your agreement with Engine.
+
+      Refer to your agreement or contact your Engine sales support team for questions.'
+    title: Common_CommissionableModel_v1
+  v1Condition:
+    type: object
+    properties:
+      beforeTimestamp:
+        type: string
+        title: 'If present, this condition applies before and up to this ISO-8601-compliant timestamp.
+
+          For example, Changing this flight is free before May 30th.
+
+          This field may interact with [Condition.after_timestamp].
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations'
+      afterTimestamp:
+        type: string
+        title: 'If present, this condition applies on or after this ISO-8601-compliant timestamp.
+
+          For example, Canceling this flight incurs a $75 fee after June 1st.
+
+          This field may interact with [Condition.before_timestamp] and [Condition.before_event].
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations'
+      beforeEvent:
+        $ref: '#/definitions/v1ConditionEventType'
+        description: 'If present, this condition applies up until the described event occurs.
+
+          For example, Cancelling this flight is free until departure.'
+      penalty:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: 'Optionally, any charge incurred as a result of the intended action within the constraints of
+
+          [Condition.before_timestamp], [Condition.after_timestamp], and [Condition.before_event].
+
+          penalty may be absent if the penalty is unknown. A missing penalty does not imply that there is no penalty.
+
+          If the penalty is known to be zero, penalty will be present with a value of 0.'
+      isAllowed:
+        type: boolean
+        description: If false, the intended operation is not allowed.
+    description: 'An individual condition to be applied to an interaction with a booked item.
+
+      For example, to cancel, or extend a Lodging [BookingDetails].'
+    title: Common_Condition_v1
+  v1ConditionEventType:
+    type: string
+    enum:
+    - CONDITION_EVENT_TYPE_UNKNOWN
+    - CONDITION_EVENT_TYPE_DEPARTURE
+    - CONDITION_EVENT_TYPE_CHECKIN
+    default: CONDITION_EVENT_TYPE_UNKNOWN
+    description: Events that affect the availability of an action when a specific timestamp is not available.
+    title: Common_ConditionEventType_v1
+  v1Conditions:
+    type: object
+    properties:
+      modifyConditions:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Condition'
+        description: 'Conditions that apply to modification of a [BookingDetails].
+
+          If no modify_conditions exist, the [BookingDetails] may not be modified.'
+      cancelConditions:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Condition'
+        description: 'Conditions that apply to cancellation of a [BookingDetails].
+
+          If no cancel_conditions exist, the [BookingDetails] may not be canceled.'
+    description: Conditions that describe the availability, penalty, and timing constraints on modification to a booked item.
+    title: Common_Conditions_v1
+  v1ContactEmail:
+    type: object
+    properties:
+      emailAddress:
+        type: string
+        description: The email address.
+      emailType:
+        $ref: '#/definitions/v1EmailType'
+        description: Optional type of email contact.
+    description: Contact email information.
+    title: Common_ContactEmail_v1
+  v1CurrencyValue:
+    type: object
+    properties:
+      currencyCode:
+        type: string
+        title: 'The 3-character ISO-4217 alphabetic currency code.
+
+          For example: USD
+
+          See https://www.iso.org/iso-4217-currency-codes.html'
+      value:
+        type: string
+        description: 'The non-localized decimal representation of the amount of currency represented by this object.
+
+          For example, "123456.789".'
+    description: A safe encoding of a monetary value and its paired currency code.
+    title: Common_CurrencyValue_v1
+  v1Distance:
+    type: object
+    properties:
+      value:
+        type: number
+        format: double
+        description: The distance quantity.
+      unit:
+        $ref: '#/definitions/v1DistanceUnit'
+        description: The unit of distance measurement.
+    description: The distance between two geographic points.
+    title: Common_Distance_v1
+  v1DistanceUnit:
+    type: string
+    enum:
+    - DISTANCE_UNIT_MILE
+    - DISTANCE_UNIT_KILOMETER
+    default: DISTANCE_UNIT_MILE
+    description: "The unit type for a distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n\
+      \ - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
+    title: Common_DistanceUnit_v1
+  v1EmailType:
+    type: string
+    enum:
+    - EMAIL_TYPE_UNSPECIFIED
+    - EMAIL_TYPE_GENERAL
+    - EMAIL_TYPE_BILLING
+    - EMAIL_TYPE_RESERVATIONS
+    - EMAIL_TYPE_SUPPORT
+    default: EMAIL_TYPE_UNSPECIFIED
+    description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL:\
+      \ General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and\
+      \ booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
+    title: Common_EmailType_v1
+  v1FindAvailabilityPropertyRequest:
+    type: object
+    properties:
+      propertyId:
+        type: string
+        title: The Engine [Property] ID
+      checkInDate:
+        type: string
+        title: 'An ISO-8601-compliant date on which you will check in to the property.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+        pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
+      checkOutDate:
+        type: string
+        title: 'An ISO-8601-compliant date on which you will check out of the property.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+        pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
+      numRooms:
+        type: integer
+        format: int32
+        default: '1'
+        title: 'The number of rooms to book.
+
+          May not exceed 8'
+        maximum: 8.0
+        minimum: 1.0
+      currencyCode:
+        type: string
+        title: 'The 3-character ISO-4217 alphabetic currency code to be used to convey pricing information.
+
+          https://www.iso.org/iso-4217-currency-codes.html'
+        pattern: ^[A-Z]{3}$
+      travelers:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1AnonymousTraveler'
+        description: 'Describes the travelers for whom you are searching.
+
+          Changes to the quantity or age of travelers has an impact on the Offer price.
+
+          Failure to properly identify your travelers may incur additional charges at checkin or cancellation of the booking.'
+      salesChannel:
+        $ref: '#/definitions/v1SalesChannel'
+        title: If available, the sales channel for the customer
+    description: A request to find availability for a single [Property].
+    title: Shop_Lodging_Service_FindAvailabilityPropertyRequest_v1
+  v1FindAvailabilityRequest:
+    type: object
+    properties:
+      continuationToken:
+        type: string
+        description: 'A [BestOffer.continuation_token].
+
+          Passing a continuation_token allows you to continue the shopping flow from a BestOffers search with the necessary
+          search context preserved.'
+      singleProperty:
+        $ref: '#/definitions/v1FindAvailabilityPropertyRequest'
+        description: A request to find availability for a [Property] directly, skipping the BestOffers search.
+    title: Shop_Lodging_Service_FindAvailabilityRequest_v1
+  v1FindAvailabilityResponse:
+    type: object
+    properties:
+      roomGroups:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1RoomGroup'
+        description: A list of available [OfferSummary], grouped by [RoomDescription].
+    description: A response to a [LodgingShoppingService.FindBestOffers] call.
+    title: Shop_Lodging_Service_FindAvailabilityResponse_v1
+  v1FindBestOffersError:
+    type: object
+    properties:
+      invalidSort:
+        $ref: '#/definitions/v1InvalidSortError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and [FindBestOffersRequest.sort_mode]
+
+          is not valid for the given search criteria.'
+    description: Error details of a failed [LodgingShoppingService.FindBestOffers] call.
+    title: Shop_Lodging_Service_FindBestOffersError_v1
+  v1FindBestOffersRequest:
+    type: object
+    properties:
+      criteria:
+        $ref: '#/definitions/v1FindBestOffersRequestCriteria'
+        description: The criteria to be used to identify and filter Properties and Offers.
+      includePropertiesWithNoAvailability:
+        type: boolean
+        default: 'false'
+        description: 'By default, only Properties that have rooms matching your criteria will be returned.
+
+          This differs from [LodgingShoppingService.FindBestOffersStreaming] which returns all considered properties.
+
+          You may wish to set this to true if you are building a shopping experience that indicates availability may differ
+          with different criteria, such as dates, but streaming is not viable.'
+      sortMode:
+        $ref: '#/definitions/v1FindBestOffersSortMode'
+        description: The order in which the results will be returned.
+    title: Shop_Lodging_Service_FindBestOffersRequest_v1
+  v1FindBestOffersRequestCriteria:
+    type: object
+    properties:
+      pointAndRadius:
+        $ref: '#/definitions/shoplodgingservicev1RadiusSearch'
+        description: Check the availability of up to `max_property_candidates` hotels nearest the center of the provided radius.
+      propertyId:
+        $ref: '#/definitions/v1PropertyIdSearch'
+        description: Check the availability of properties as identified by the provided Engine Property IDs.
+      checkInDate:
+        type: string
+        title: 'An ISO-8601-compliant date on which you will check in to the property.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+        pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
+      checkOutDate:
+        type: string
+        title: 'An ISO-8601-compliant date on which you will check out of the property.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+        pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
+      numRooms:
+        type: integer
+        format: int32
+        default: '1'
+        title: 'The number of rooms to book.
+
+          May not exceed 8'
+        maximum: 8.0
+        minimum: 1.0
+      currencyCode:
+        type: string
+        title: 'The 3-character ISO-4217 alphabetic currency code to be used to convey pricing information.
+
+          https://www.iso.org/iso-4217-currency-codes.html'
+        pattern: ^[A-Z]{3}$
+      travelers:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1AnonymousTraveler'
+        description: 'Describes the travelers for whom you are searching.
+
+          Changes to the quantity or age of travelers has an impact on the Offer price.
+
+          Failure to properly identify your travelers may incur additional charges at checkin or cancellation of the booking.'
+      salesChannel:
+        $ref: '#/definitions/v1SalesChannel'
+        title: If available, the sales channel for the customer
+      maxPropertyCandidates:
+        type: integer
+        format: int32
+        default: '100'
+        description: 'The maximum number of properties to be considered for Offers.
+
+          Properties with no availability will count against this limit, but may not be returned if there is no availability.
+
+          May not exceed 250.
+
+          This limit is not honored when Property IDs are provided via [property_ids].'
+        maximum: 250.0
+        minimum: 1.0
+    description: Defines the base criteria used in a "Best Offers" search.
+    title: Shop_Lodging_Service_FindBestOffersRequestCriteria_v1
+  v1FindBestOffersResponse:
+    type: object
+    properties:
+      offers:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1PropertyBestOffer'
+        description: The full list of offers responsive your search.
+    description: The results of a [LodgingShoppingService.FindBestOffers] search.
+    title: Shop_Lodging_Service_FindBestOffersResponse_v1
+  v1FindBestOffersSortMode:
+    type: string
+    enum:
+    - FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED
+    - FIND_BEST_OFFERS_SORT_MODE_DISTANCE
+    default: FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED
+    description: "Describes the various ways a [LodgingShoppingService.FindBestOffers] search maybe sorted.\n\n - FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED:\
+      \ No specific sort criteria will be used.\n - FIND_BEST_OFFERS_SORT_MODE_DISTANCE: Properties are returned in order\
+      \ of increasing distance.\nIn case of ties, Property names are sorted lexically.\nOnly valid when candidate properties\
+      \ are identified via [RadiusSearch] (`point_and_radius`)."
+    title: Shop_Lodging_Service_FindBestOffersSortMode_v1
+  v1FindBestOffersStreamingResponse:
+    type: object
+    properties:
+      property:
+        $ref: '#/definitions/shoplodgingservicev1ResponsiveProperty'
+        description: 'A property that will be used as a candidate for Offer retrieval.
+
+          Not every property sent will have a BestOffer associated with it if there is no availability within your specified
+          parameters.
+
+          While it is possible for Properties and BestOffers to be interleaved, the [ResponsiveProperty] for a [BestOffer]
+          will always be sent and received first.'
+      offer:
+        $ref: '#/definitions/v1BestOffer'
+        description: 'A [BestOffer] candidate for a Property.
+
+          A [BestOffer] will never be sent for a property before its responsive property is sent.
+
+          A single property may have multiple BestOffers returned if a better offer is encountered after the first has already
+          been sent.
+
+          If multiple BestOffers are received for a single Property, the last always wins.'
+    description: Unavailable in the HTTP/JSON API.
+    title: Shop_Lodging_Service_FindBestOffersStreamingResponse_v1
+    readOnly: true
+  v1FixedModel:
+    type: object
+    description: 'Details for a fixed pricing model.
+
+      Under this model, offers must be sold at the exact price quoted by Engine without markup.
+
+      The seller does not receive commission for offers indicated with this pricing model.
+
+      Compensation terms are defined exclusively by the seller''s agreement with Engine.
+
+      Refer to your agreement or contact your Engine sales support team for questions.'
+    title: Common_FixedModel_v1
+  v1GeoPoint:
+    type: object
+    properties:
+      latitude:
+        type: number
+        format: double
+        description: The center-point latitude.
+      longitude:
+        type: number
+        format: double
+        description: The center-point longitude.
+    description: A single geographic point, defined by latitude and longitude.
+    title: Common_GeoPoint_v1
+  v1Image:
+    type: object
+    properties:
+      uri:
+        type: string
+        title: 'The URI of the [Image].
+
+          For example, "https://example.com/image.jpg"'
+    description: Represents an [Image] with optional metadata.
+    title: Common_Image_v1
+  v1InvalidSortError:
+    type: object
+    description: An error indicating that the requested sorting option provided is not valid for the given search criteria.
+    title: Service_Common_InvalidSortError_v1
+  v1LoyaltyRewardsProgram:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the loyalty reward program.
+    description: Represents a single loyalty rewards program.
+    title: Common_LoyaltyRewardsProgram_v1
+  v1MediaItem:
+    type: object
+    properties:
+      image:
+        $ref: '#/definitions/v1Image'
+        title: An [Image] this media item represents
+      description:
+        type: string
+        title: 'A description of this media item
+
+          Example: "A large restaurant"'
+      tags:
+        type: array
+        items:
+          type: string
+        title: 'Tags categorizing the content of this media item
+
+          Example: ["outdoor", "pool"]'
+    description: A media item for visual or marketing context.
+    title: Common_MediaItem_v1
+  v1NetModel:
+    type: object
+    description: 'Details for a net pricing model.
+
+      Under this model, offers are provided at a net price which the seller is expected to mark up.
+
+      The seller''s earnings consist of the margin between the net price and the final price charged to the customer.
+
+      The markup amount and strategy are determined by the seller within the terms of their agreement.
+
+      Net rates can be sold at any price no lower than [OfferSummary.price.price.total] and no higher than [OfferSummary.price.price.strike].
+
+      This model does not override your agreement with Engine.
+
+      Refer to your agreement or contact your Engine sales support team for questions.'
+    title: Common_NetModel_v1
+  v1Offer:
+    type: object
+    properties:
+      continuationToken:
+        type: string
+        description: An opaque token that may be passed to [LodgingBookingService.ConfirmOffer] to begin the booking process.
+      summary:
+        $ref: '#/definitions/v1OfferSummary'
+        description: The details of the Offer to book.
+    description: A bookable Offer representing a set of amenities and a price for the booking.
+    title: Shop_Lodging_Service_Offer_v1
+  v1OfferAmenities:
+    type: object
+    properties:
+      freeBreakfast:
+        $ref: '#/definitions/v1AmenityAvailability'
+        description: Describes the availability of free breakfast for the offer or booking.
+      freeParking:
+        $ref: '#/definitions/v1AmenityAvailability'
+        description: Describes the availability of free parking for the offer or booking.
+      otherAmenities:
+        type: array
+        items:
+          type: string
+        description: Textual descriptions for display purposes of assorted amenities of the offer or booking that have not
+          been explicitly hoisted to their own attribute.
+    description: 'OfferAmenities represent the value added by the individual offer to be evaluated against other offers.
+
+      OfferAmenities do not include amenities conferred by the Property.
+
+      For example, if a given Property provides free breakfast to all guests, none of the Offers for that property will have
+      Free Breakfast as an amenity.'
+    title: Shop_Lodging_OfferAmenities_v1
+  v1OfferSummary:
+    type: object
+    properties:
+      propertyId:
+        type: string
+        description: The Engine identifier for the Property to which this Offer belongs.
+      description:
+        type: string
+        description: A textual description of the Offer.
+      price:
+        $ref: '#/definitions/v1PriceWithPerUnit'
+        description: 'The pricing details for the Offer.
+
+          This price indicates the amount owed to Engine at the time of booking.
+
+          Refer to [OfferSummary.sell_type] for details on how the offer may be priced to the customer.'
+      offerAmenities:
+        $ref: '#/definitions/v1OfferAmenities'
+        description: 'Amenities that may only apply to this Offer.
+
+          For example, some Offers may include parking.'
+      conditions:
+        $ref: '#/definitions/v1Conditions'
+        description: The conditions covering refundability and cancellation.
+      isLoyaltyEligible:
+        type: boolean
+        description: If true, this Offer may earn loyalty points.
+      isLoyaltyMembershipIdRequired:
+        type: boolean
+        description: If true, this offer requires a loyalty membership id to book.
+      rateData:
+        $ref: '#/definitions/v1RateData'
+        description: Optionally, if this offer represents a negotiated rate specifically configured for your credential, the
+          details of that rate will be included here.
+      sellType:
+        $ref: '#/definitions/v1SellType'
+        description: 'The sell type for this offer.
+
+          Defines how the seller is compensated and the pricing guidelines for this offer.
+
+          See [SellType] for details on available model types and their pricing rules.'
+    description: A summary of the attributes available to a specific Offer.
+    title: Shop_Lodging_OfferSummary_v1
+  v1PerUnitPrice:
+    type: object
+    properties:
+      key:
+        type: string
+        description: 'A key to distinguish which unit is represented by this price.
+
+          For example, which date, or which passenger.'
+      unit:
+        type: string
+        description: 'The type of unit.
+
+          For example, "night" or "person".'
+      price:
+        $ref: '#/definitions/v1Price'
+        description: The cost for this unit.
+    description: 'A price representing the cost of a single unit in a multi-unit breakdown.
+
+      For example, price per night.'
+    title: Common_PerUnitPrice_v1
+  v1PostalAddress:
+    type: object
+    properties:
+      recipients:
+        type: array
+        items:
+          type: string
+        description: 'Optionally, any individual recipients.
+
+          For example, "Alexander Hamilton", "Aaron Burr"
+
+          May be empty.'
+      organization:
+        type: string
+        description: 'Optionally, any organization or company as a recipient.
+
+          For example, "Engine".'
+      addressLine:
+        type: array
+        items:
+          type: string
+        description: 'Optionally, any address lines, in order as they''d appear on an envelope.
+
+          For example, "233 S Wacker Dr", "108th Floor".
+
+          May be empty.'
+      administrativeArea:
+        type: string
+        title: 'Optionally, the State, province, prefecture, oblast, or area.
+
+          For example, "Texas"'
+      locality:
+        type: string
+        title: 'Optionally, the City, or Post Town
+
+          For example, "Austin"'
+      postalCode:
+        type: string
+        description: 'Optionally, the postal code, if one exists, for the address.
+
+          For example, "78757".'
+      countryCode:
+        type: string
+        title: 'Optionally, the ISO 3166-1 alpha-2 country code.
+
+          For example, "US".
+
+          See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
+          See https://www.iso.org/iso-3166-country-codes.html'
+    description: Represents a Postal Address.
+    title: Common_PostalAddress_v1
+  v1Price:
+    type: object
+    properties:
+      subTotal:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: 'The sum total for the booking excluding taxes and fees.
+
+          The subtotal includes all [Price.line_items].'
+      total:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: 'The full liability to purchase the item.
+
+          This is not necessarily the amount due at time of booking due to discounts, incentives, or postpaid items.'
+      taxes:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Surcharge'
+        description: 'Any taxes to be collected at time of payment.
+
+          This field is deprecated. Use [Price.taxes_and_fees] instead.'
+      fees:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Surcharge'
+        description: 'Any fees applied to the item or service.
+
+          This field is deprecated. Use [Price.taxes_and_fees] instead.'
+      base:
+        $ref: '#/definitions/v1CurrencyValue'
+        title: 'The cost of the main item or service in the booking, less upgrades or additional services, fees, and taxes.
+
+          The base is equivalent to:  [Price.sub_total] - sum([Price.line_items])'
+      lineItems:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1PriceLineItem'
+        description: 'Additional upgrades to an item or service added during the shopping experience.
+
+          Line items are represented in the [Price.sub_total].'
+      taxesAndFeesTotal:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: The sum of all individual [Price.taxes] and [Price.fees].
+      strike:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: A representative market price for the item or service without any discounts applied.
+      totalDueNow:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: The total amount due at time of booking.
+      totalDueLater:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: The total amount due at the time of the travel event.
+      taxesAndFees:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Surcharge'
+        description: Any taxes and fees to be collected at time of payment. This includes all taxes and fees due at time of
+          booking.
+    description: The details of the cost of an item or service.
+    title: Common_Price_v1
+  v1PriceLineItem:
+    type: object
+    properties:
+      description:
+        type: string
+        description: A textual description of the individual charge.
+      price:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: The price of this line item.
+      group:
+        type: string
+        description: 'Optionally, an identifier to group line items for visual display.
+
+          For example, "Extras" or "Loyalty Benefits".'
+    description: A individual service or upgrade added to an item during the shopping experience.
+    title: Common_PriceLineItem_v1
+  v1PriceWithPerUnit:
+    type: object
+    properties:
+      price:
+        $ref: '#/definitions/v1Price'
+        description: The total price for the item.
+      perUnitPrice:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1PerUnitPrice'
+        title: The total price broken into per-unit costs
+    description: 'The total price, along with a breakdown by a given unit.
+
+      For example, the total stay cost and the per-night cost.'
+    title: Common_PriceWithPerUnit_v1
+  v1PropertyBestOffer:
+    type: object
+    properties:
+      property:
+        $ref: '#/definitions/shoplodgingservicev1ResponsiveProperty'
+        description: Details of the Property for which this [BestOffer] applies.
+      bestOffer:
+        $ref: '#/definitions/v1BestOffer'
+        description: The details of the available [BestOffer].
+    description: A Property and the BestOffer available for that Property given the provided search criteria.
+    title: Shop_Lodging_Service_PropertyBestOffer_v1
+  v1PropertyIdSearch:
+    type: object
+    properties:
+      propertyIds:
+        type: array
+        items:
+          type: string
+        title: 'The list of Engine Property IDs.
+
+          Minimum: 1
+
+          Maximum: 250'
+        maxItems: 250.0
+        minItems: 1.0
+    description: A list of Engine Property IDs to shop for Best Offers.
+    title: Shop_Lodging_Service_PropertyIdSearch_v1
+  v1RateData:
+    type: object
+    properties:
+      rateCode:
+        type: string
+        title: 'The rate code associated with the Offer.
+
+          For example, if a Partner has negotiated a rate code of "123", and an Offer corresponds to that rate code, this
+          field will be "123".
+
+          Contact Engine to load any rates codes for your credential'
+    description: RateData contains rate information if and only if an Offer corresponds to a rate negotiated and contracted
+      with the calling credential.
+    title: Shop_Lodging_RateData_v1
+  v1RoomDescription:
+    type: object
+    properties:
+      title:
+        type: string
+        description: 'The title of a room.
+
+          For example, "Standard 1 King Bed", or "Suite 1 King Bed", "The Canary Suite".'
+      description:
+        type: string
+        title: 'A textual marketing description of the room.
+
+          For example, "SKYLINE VIEW KING ROOM -CITY OR RIVER VIEW 1 KING -430 SQF"'
+      beds:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Bedding'
+        description: The available bedding for the room.
+      photos:
+        type: array
+        items:
+          type: string
+        description: URIs to photos of this room.
+      amenities:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/lodgingRoomAmenity'
+        description: A list of amenities that are available in the room.
+    description: Generalized details of the room to which an Offer applies.
+    title: Shop_Lodging_RoomDescription_v1
+  v1RoomGroup:
+    type: object
+    properties:
+      roomDescription:
+        $ref: '#/definitions/v1RoomDescription'
+        description: 'A description of the rooms for which the Offer applies.
+
+          For example, "Standard 1 King Bed", "Standard 2 Queen Beds", or "Suite 1 King Bed".'
+      offers:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Offer'
+        description: A list of bookable Offers for the room.
+    description: A grouping of bookable Offers, collected by the [RoomDescription] to which they apply.
+    title: Shop_Lodging_Service_RoomGroup_v1
+  v1SalesChannel:
+    type: string
+    enum:
+    - SALES_CHANNEL_UNKNOWN
+    - SALES_CHANNEL_MOBILE_NATIVE
+    - SALES_CHANNEL_MOBILE_WEB
+    - SALES_CHANNEL_WEB
+    default: SALES_CHANNEL_UNKNOWN
+    description: "- SALES_CHANNEL_UNKNOWN: The sales channel cannot be determined.\n - SALES_CHANNEL_MOBILE_NATIVE: The customer\
+      \ is shopping via a mobile application.\n - SALES_CHANNEL_MOBILE_WEB: The customer is shopping via a mobile web browser.\n\
+      \ - SALES_CHANNEL_WEB: The customer is shopping via a web browser on a desktop or laptop computer."
+    title: Common_SalesChannel_v1
+  v1SellType:
+    type: object
+    properties:
+      commissionable:
+        $ref: '#/definitions/v1CommissionableModel'
+        description: 'Indicates this offer uses a commissionable sell type.
+
+          Offers with this type must be sold at the exact price quoted by Engine.
+
+          The seller earns a commission specified in [CommissionableModel].
+
+          See [CommissionableModel] for details.'
+      net:
+        $ref: '#/definitions/v1NetModel'
+        description: 'Indicates this offer uses a net sell type.
+
+          Offers with this type are expected to be marked up by the seller.
+
+          The seller earns the margin between the net price and the marked-up price.
+
+          See [NetModel] for details.'
+      fixed:
+        $ref: '#/definitions/v1FixedModel'
+        description: 'Indicates this offer uses a fixed sell type.
+
+          Offers with this type must be sold at the exact price quoted by Engine.
+
+          Compensation terms are defined exclusively by the seller''s agreement with Engine.
+
+          See [FixedModel] for details.'
+    description: 'The sell type of an offer.
+
+      Defines seller compensation and pricing guidelines for this offer.
+
+      The type determines whether the seller earns through commission, markup margin, or other contractual arrangements.'
+    title: Common_SellType_v1
+  v1Surcharge:
+    type: object
+    properties:
+      description:
+        type: string
+        description: A textual description of the purpose of the Surcharge.
+      amount:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: The amount levied.
+      type:
+        $ref: '#/definitions/v1SurchargeType'
+        title: The type of surcharge
+    description: An additional charge, fee, or tax.
+    title: Common_Surcharge_v1
+  v1SurchargeType:
+    type: string
+    enum:
+    - SURCHARGE_TYPE_PREPAID_FEE
+    - SURCHARGE_TYPE_POSTPAID_FEE
+    - SURCHARGE_TYPE_TAX
+    default: SURCHARGE_TYPE_PREPAID_FEE
+    description: "A programmatic classification of types of surcharges that could be levied.\n\n - SURCHARGE_TYPE_PREPAID_FEE:\
+      \ A fee due at time of booking.\n - SURCHARGE_TYPE_POSTPAID_FEE: A fee due at time of travel.\n - SURCHARGE_TYPE_TAX:\
+      \ Taxes due at time of booking."
+    title: Common_SurchargeType_v1
+  enginecontentservicev1RadiusSearch:
+    type: object
+    properties:
+      coordinates:
+        $ref: '#/definitions/v1GeoPoint'
+        description: Latitude and Longitude coordinates to use as the center point of the search.
+      physicalAddress:
+        $ref: '#/definitions/v1PostalAddress'
+        description: A physical address to use as the center point of the search.
+      freeformSearchText:
+        type: string
+        description: 'A description of a point of interest, an unstructured address, etc.
+
+          Freeform input will make a "best effort" match to a point of interest and its corresponding geo coordinates.
+
+          If available, using `coordinates` or `physical_address` will yield better results.'
+      radius:
+        $ref: '#/definitions/v1Distance'
+        title: 'The size of the search area.
+
+          Default: 10 miles
+
+          Minimum: 1 mile (~1.6 kilometers)
+
+          Maximum: 50 miles (~80 kilometers)'
+    description: A search area in a perfect circle around a central point.
+    title: RadiusSearch_v1
+  enginecontentservicev1ResponsiveProperty:
+    type: object
+    properties:
+      property:
+        $ref: '#/definitions/lodgingProperty'
+        description: The property details.
+      distance:
+        $ref: '#/definitions/v1Distance'
+        description: The distance between the center point of the `ListProperties.inclusion_type` and the property.
+    description: A `Property` that meets the criteria of a `ContentServiceV1.ListProperties` request.
+    title: ResponsiveProperty_v1
+  v1GetPropertiesRequest:
+    type: object
+    properties:
+      propertyIds:
+        type: array
+        items:
+          type: string
+        description: 'The list of Engine [Property] IDs.
+
+          Maximum of 50 property IDs per request.'
+        maxItems: 50.0
+        minItems: 1.0
+    description: A request to retrieve specific Properties by their IDs.
+    title: GetPropertiesRequest_v1
+  v1GetPropertiesResponse:
+    type: object
+    properties:
+      properties:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/lodgingProperty'
+        description: The list of available [Property] objects including phone numbers.
+      inaccessiblePropertyIds:
+        type: array
+        items:
+          type: string
+        description: The list of [Property] IDs that were requested but not found.
+    description: A response containing [Property] information.
+    title: GetPropertiesResponse_v1
+  v1ListPropertiesCriteria:
+    type: object
+    properties:
+      radius:
+        $ref: '#/definitions/enginecontentservicev1RadiusSearch'
+      excludePropertiesWithoutHeroImage:
+        type: boolean
+        default: 'false'
+        description: 'Optionally, if true, properties that do not have a `Property#hero_image_uri` will not be returned.
+
+          Excluded properties will not count against the page size or limit.'
+      excludePropertiesWithoutDescription:
+        type: boolean
+        default: 'false'
+        description: 'Optionally, if true, properties that do not have a `Property#description` will not be returned.
+
+          Excluded properties will not count against the page size or limit.'
+      sortMode:
+        $ref: '#/definitions/v1ListPropertiesSortMode'
+        default: FIND_PROPERTIES_SORT_MODE_DISTANCE
+        description: The order in which the properties will be returned.
+    description: Criteria that define the properties that may be responsive to a `ContentServiceV1.ListProperties` request.
+    title: ListPropertiesCriteria_v1
+  v1ListPropertiesRequestDetails:
+    type: object
+    properties:
+      criteria:
+        $ref: '#/definitions/v1ListPropertiesCriteria'
+        description: The criteria that defines responsive properties for a `ListPropertiesRequest`.
+      pageSize:
+        type: integer
+        format: int32
+        default: '100'
+        title: 'The maximum number of search results to be returned in a page.
+
+          Default: 100
+
+          Minimum: 1
+
+          Maximum: 500'
+        maximum: 500.0
+        minimum: 1.0
+    description: The request definition for a `ListPropertiesRequest`.
+    title: ListPropertiesRequestDetails_v1
+  v1ListPropertiesResponse:
+    type: object
+    properties:
+      properties:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/enginecontentservicev1ResponsiveProperty'
+        title: Up to `ListPropertiesRequest.page_size` responsive to
+      nextPageToken:
+        type: string
+        description: Optionally, an opaque token to be passed into the next `ListPropertiesRequest` in order to retrieve the
+          next page of results.
+    description: A response to a `ContentServiceV1.ListProperties` request.
+    title: ListPropertiesResponse_v1
+  v1ListPropertiesSortMode:
+    type: string
+    enum:
+    - PROPERTY_SORT_MODE_DISTANCE
+    default: PROPERTY_SORT_MODE_DISTANCE
+    description: "Controls the order in which `Property` results are returned from `ContentServiceV1.ListProperties`.\n\n\
+      \ - PROPERTY_SORT_MODE_DISTANCE: Results are returned in ascending order from the center point of the `ListProperties.inclusion_type`."
+    title: ListPropertiesSortMode_v1
+  v1ListPropertyCatalogRequest:
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/v1ListPropertyCatalogRequestDetails'
+        description: The parameters and filters to retrieve the first page of the catalog.
+      pageToken:
+        type: string
+        description: Optionally, a `page_token` retrieved from a previous call.
+    description: A request to retrieve one page of the property catalog.
+    title: ListPropertyCatalogRequest_v1
+  v1ListPropertyCatalogRequestDetails:
+    type: object
+    properties:
+      pageSize:
+        type: integer
+        format: int32
+        default: '100'
+        title: 'The maximum number of records to be returned in a page.
+
+          Default: 100
+
+          Minimum: 1
+
+          Maximum: 250'
+        maximum: 250.0
+        minimum: 1.0
+      updatedAfter:
+        type: string
+        title: 'Optionally, return only properties updated after this timestamp.
+
+          When omitted, the full catalog is returned.
+
+          Conforms to ISO-8601, see https://en.wikipedia.org/wiki/ISO_8601'
+    description: Parameters and filters to be applied to a property catalog request.
+    title: ListPropertyCatalogRequestDetails_v1
+  v1ListPropertyCatalogResponse:
+    type: object
+    properties:
+      entries:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1PropertyCatalogEntry'
+        description: 'The catalog entries returned by the request.
+
+          It will contain up to [ListPropertyCatalogRequestDetails].page_size records.'
+      nextPageToken:
+        type: string
+        description: Optionally, an opaque token to be passed into the next [ListPropertyCatalogRequest] to retrieve the next
+          page.
+    description: A response to a [CatalogService.ListPropertyCatalog] request.
+    title: ListPropertyCatalogResponse_v1
+  v1PropertyCatalogEntry:
+    type: object
+    properties:
+      state:
+        $ref: '#/definitions/v1PropertyCatalogState'
+        description: The [PropertyCatalogState] of this entry within the catalog.
+      property:
+        $ref: '#/definitions/lodgingProperty'
+        description: The [Property] content for this entry.
+    description: A single entry in the property catalog, wrapping a [Property] together with its state.
+    title: PropertyCatalogEntry_v1
+  v1PropertyCatalogState:
+    type: string
+    enum:
+    - PROPERTY_CATALOG_STATE_UNSPECIFIED
+    - PROPERTY_CATALOG_STATE_ACTIVE
+    - PROPERTY_CATALOG_STATE_INACTIVE
+    default: PROPERTY_CATALOG_STATE_UNSPECIFIED
+    description: "The state of a property within the catalog.\n\n - PROPERTY_CATALOG_STATE_UNSPECIFIED: The state is unknown\
+      \ or unspecified.\n - PROPERTY_CATALOG_STATE_ACTIVE: The property is active within the catalog\n - PROPERTY_CATALOG_STATE_INACTIVE:\
+      \ The property is inactive within the catalog."
+    title: PropertyCatalogState_v1
+  apiHttpBody:
+    type: object
+    properties:
+      contentType:
+        type: string
+        description: The HTTP Content-Type header value specifying the content type of the body.
+      data:
+        type: string
+        format: byte
+        description: The HTTP request/response body as raw binary.
+      extensions:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/protobufAny'
+        description: 'Application specific response metadata. Must be set in the first response
+
+          for streaming APIs.'
+    description: "Message that represents an arbitrary HTTP body. It should only be used for\npayload formats that can't be\
+      \ represented as JSON, such as raw binary or\nan HTML page.\n\n\nThis message can be used both in streaming and non-streaming\
+      \ API methods in\nthe request as well as the response.\n\nIt can be used as a top-level request field, which is convenient\
+      \ if one\nwants to extract parameters from either the URL or HTTP template into the\nrequest fields and also want access\
+      \ to the raw HTTP body.\n\nExample:\n\n    message GetResourceRequest {\n      // A unique request id.\n      string\
+      \ request_id = 1;\n\n      // The raw HTTP body is bound to this field.\n      google.api.HttpBody http_body = 2;\n\n\
+      \    }\n\n    service ResourceService {\n      rpc GetResource(GetResourceRequest)\n        returns (google.api.HttpBody);\n\
+      \      rpc UpdateResource(google.api.HttpBody)\n        returns (google.protobuf.Empty);\n\n    }\n\nExample with streaming\
+      \ methods:\n\n    service CaldavService {\n      rpc GetCalendar(stream google.api.HttpBody)\n        returns (stream\
+      \ google.api.HttpBody);\n      rpc UpdateCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n\
+      \n    }\n\nUse of this type only changes how the request and response bodies are\nhandled, all other features will continue\
+      \ to work unchanged."
+  v1ActionAvailability:
+    type: string
+    enum:
+    - ACTION_AVAILABILITY_UNKNOWN
+    - ACTION_AVAILABILITY_UNAVAILABLE
+    - ACTION_AVAILABILITY_AVAILABLE
+    - ACTION_AVAILABILITY_AVAILABLE_VIA_VENDOR
+    - ACTION_AVAILABILITY_AVAILABLE_VIA_SUPPORT
+    default: ACTION_AVAILABILITY_UNKNOWN
+    description: "Describes the means by which an action may be taken on a [BookingDetails].\n\n - ACTION_AVAILABILITY_UNKNOWN:\
+      \ It is unknown if the action is available. It might be available directly through the vendor.\n - ACTION_AVAILABILITY_UNAVAILABLE:\
+      \ The action is not available through the API. It is unknown whether it can be performed in another context, such as\
+      \ through the vendor or support.\n - ACTION_AVAILABILITY_AVAILABLE: The action is available through the API.\n - ACTION_AVAILABILITY_AVAILABLE_VIA_VENDOR:\
+      \ The action is available, but only through the service provider.\n - ACTION_AVAILABILITY_AVAILABLE_VIA_SUPPORT: The\
+      \ action is available, but only through customer support."
+    title: Common_ActionAvailability_v1
+  v1ActionNotAvailableError:
+    type: object
+    properties:
+      actionAvailability:
+        $ref: '#/definitions/v1ActionAvailability'
+        description: The availability of the attempted action.
+    description: An error indicating that an action attempted by the client is unavailable for the given [BookingDetails].
+    title: Book_Common_Service_ActionNotAvailableError_v1
+  v1AppliedCardPayment:
+    type: object
+    properties:
+      lastFour:
+        type: string
+        description: The last four digits of the payment card number used for the transaction.
+      cardBrand:
+        type: string
+        description: The brand or network of the payment card (e.g. "Visa", "Mastercard", "American Express").
+    description: Indicates a card payment was used.
+    title: Book_Common_AppliedCardPayment_v1
+  v1AppliedEngineDirectBill:
+    type: object
+    description: Indicates that Engine Direct Bill was used.
+    title: Book_Common_AppliedEngineDirectBill_v1
+  v1AppliedPaymentInfo:
+    type: object
+    properties:
+      engineDirectBill:
+        $ref: '#/definitions/v1AppliedEngineDirectBill'
+      card:
+        $ref: '#/definitions/v1AppliedCardPayment'
+    description: Information about the form of payment used in a request.
+    title: Book_Common_AppliedPaymentInfo_v1
+  v1AvailableActions:
+    type: object
+    properties:
+      cancel:
+        $ref: '#/definitions/v1ActionAvailability'
+        description: Describes the availability of the cancel action.
+      modify:
+        $ref: '#/definitions/v1ActionAvailability'
+        description: Describes the availability of the modify action.
+    description: Describes the availability of actions on a [BookingDetails].
+    title: Common_AvailableActions_v1
+  v1BookError:
+    type: object
+    properties:
+      offerNoLongerAvailable:
+        $ref: '#/definitions/v1OfferNoLongerAvailableError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the requested offer
+
+          is no longer available for sale.'
+      invalidState:
+        $ref: '#/definitions/v1InvalidStateError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the booking associated
+
+          with the given continuation token is not in a valid state, e.g. It has already been booked or needs CS review.'
+      needsReview:
+        $ref: '#/definitions/v1BookingNeedsReviewError'
+        description: 'Defined when the operation returns with a status of INTERNAL and the booking is in a non-retriable state
+
+          that requires manual review to determine if it was completed successfully.'
+      invalidPayment:
+        $ref: '#/definitions/v1InvalidPaymentError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the provided payment information
+
+          is invalid or insufficient to complete the booking.'
+      paymentProcessing:
+        $ref: '#/definitions/v1PaymentProcessingError'
+        description: Defined when the operation returns with a status of INTERNAL and the payment failed to process.
+    description: Error details of a failed [LodgingBookingService.Book] call.
+    title: Book_Lodging_Service_BookError_v1
+  v1BookRequest:
+    type: object
+    properties:
+      continuationToken:
+        type: string
+        description: An `continuation_token` from [LodgingBookingService.ConfirmOffer].
+      guests:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1RoomGuests'
+        description: 'The details of the guests staying on the [ReservationDetails].
+
+          The number of provided RoomGuests entries must match the number of rooms requested during shopping.
+
+          Some Properties may not retain all of the provided guest names and may not honor more than one guest''s loyalty
+          per [BookingDetails].'
+      metadata:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1BookingMetadata'
+        description: Metadata to be stored and retrieved along with this [BookingDetails].
+      paymentInfo:
+        $ref: '#/definitions/v1PaymentInfo'
+        description: Optionally, the [PaymentInfo] to be used for this booking.
+    description: A request to purchase and reserve an [OfferSummary].
+    title: Book_Lodging_Service_BookRequest_v1
+  v1BookResponse:
+    type: object
+    properties:
+      details:
+        $ref: '#/definitions/v1BookingDetails'
+        description: The recorded details of the [BookingDetails] and [ReservationDetails].
+    description: The result of an attempt to purchase and reserve an [OfferSummary].
+    title: Book_Lodging_Service_BookResponse_v1
+  v1BookingDetails:
+    type: object
+    properties:
+      bookingId:
+        type: string
+        description: A unique identifier for the [BookingDetails].
+      status:
+        $ref: '#/definitions/v1BookingStatus'
+        description: Details of the state of the [BookingDetails].
+      reservationDetails:
+        $ref: '#/definitions/v1ReservationDetails'
+        title: Details of the Property [ReservationDetails]
+      cancellationDetails:
+        $ref: '#/definitions/v1CancellationDetails'
+        description: Optionally, the details of the cancellation action taken for the [BookingDetails].
+      metadata:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1BookingMetadata'
+        title: 'Any metadata provided while booking.
+
+          Maximum length: 10'
+        maxItems: 10.0
+      guests:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1RoomGuests'
+        description: 'The details of the guests as provided in the [BookRequest] that created the [BookingDetails].
+
+          The number of RoomGuests will match the number of rooms on the [ReservationDetails].
+
+          Some Properties may not retain all of the provided guest names or honor all of the provided loyalty information.'
+    description: An Engine Lodging [BookingDetails] and the Property [ReservationDetails] it describes.
+    title: Book_Lodging_BookingDetails_v1
+  v1BookingMetadata:
+    type: object
+    properties:
+      key:
+        type: string
+        title: 'A textual key to represent the purpose of the metadata, for example, "Contract ID".
+
+          Keys must be unique within a [BookingDetails].
+
+          Maximum length: 40 characters'
+        maxLength: 40.0
+      value:
+        type: string
+        title: 'A textual value.
+
+          Maximum length: 100 characters'
+        maxLength: 100.0
+      external:
+        type: boolean
+        description: 'If true, this Metadata entry will be included on invoices and reports.
+
+          If false, this entry will only be available via direct API access.'
+    description: 'Custom Metadata attached to a [BookingDetails].
+
+      Metadata values allow an Omni customer to carry a small amount of context on a [BookingDetails] for their own use.'
+    title: Book_Lodging_BookingMetadata_v1
+  v1BookingNeedsReviewError:
+    type: object
+    description: An error that indicates a [BookingDetails] failed in an unknown state and needs to be manually reviewed to
+      determine if it was completed successfully.
+    title: Book_Common_Service_BookingNeedsReviewError_v1
+  v1BookingStatus:
+    type: object
+    properties:
+      code:
+        $ref: '#/definitions/v1LodgingBookingStatusCode'
+    description: Details describing the observed state of the [BookingDetails].
+    title: Book_Lodging_BookingStatus_v1
+  v1CancellationDetails:
+    type: object
+    properties:
+      canceledAt:
+        type: string
+        title: 'An ISO-8601-compliant date and time at which the [BookingDetails] was canceled.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations'
+      refund:
+        $ref: '#/definitions/v1Refund'
+        description: The details of the Refund granted when canceled.
+    description: Details of the cancellation of a [BookingDetails].
+    title: Book_Lodging_CancellationDetails_v1
+  v1CannotCancelError:
+    type: object
+    description: An error indicating that a [BookingDetails] cannot be canceled.
+    title: Book_Common_Service_CannotCancelError_v1
+  v1ConfirmOfferError:
+    type: object
+    properties:
+      offerNoLongerAvailable:
+        $ref: '#/definitions/v1OfferNoLongerAvailableError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the requested offer
+
+          is no longer available for sale.'
+      invalidState:
+        $ref: '#/definitions/v1InvalidStateError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the booking associated
+
+          with the given continuation token is not in a valid state, e.g. It has already been booked or needs CS review.'
+      bookingId:
+        type: string
+        description: Optionally, the unique identifier for this booking if it is known when the error occurs.
+    description: Error details of a failed [LodgingBookingService.ConfirmOffer] call.
+    title: Book_Lodging_Service_ConfirmOfferError_v1
+  v1ConfirmOfferRequest:
+    type: object
+    properties:
+      continuationToken:
+        type: string
+        description: A `continuation_token` from [LodgingShoppingService.FindBestOffers], [LodgingShoppingService.FindBestOffersStreaming],
+          or [LodgingShoppingService.FindAvailability].
+      currencyCode:
+        type: string
+        title: 'The currency code for this request.
+
+          This field specifies the currency in which the requester expects to see prices.
+
+          It must adhere to the ISO 4217 three-character alphabetic currency code ("USD", "EUR", etc.).
+
+          https://www.iso.org/iso-4217-currency-codes.html'
+    description: A request to confirm final pricing and availability of an [OfferSummary].
+    title: Book_Lodging_Service_ConfirmOfferRequest_v1
+  v1ConfirmOfferResponse:
+    type: object
+    properties:
+      continuationToken:
+        type: string
+        title: 'An opaque token that may be used to book the stay via [LodgingBookingService.Book].
+
+          See [LodgingBookingService.ConfirmOffer]'
+      quote:
+        $ref: '#/definitions/v1Quote'
+        description: The full details of the [OfferSummary], [RoomDescription], Dates of Travel, and any notices required
+          for display during the confirmation process.
+    description: The result of a price and availability check.
+    title: Book_Lodging_Service_ConfirmOfferRequest_v1
+  v1EngineDirectBill:
+    type: object
+    description: 'Indicates payment via Engine Direct Bill.
+
+      If an Engine Direct Bill account has not been established, an [InvalidPaymentError] error will be returned.'
+    title: Common_EngineDirectBill_v1
+  v1GenerateFolioError:
+    type: object
+    properties:
+      invalidState:
+        $ref: '#/definitions/v1InvalidStateError'
+        title: 'Defined when the operation returns with a status of FAILED_PRECONDITION and the booking associated
+
+          with the given booking ID is not in a valid state, e.g. it has not been booked'
+    description: Error information returned in the error details of failed GenerateFolio calls.
+    title: Book_Lodging_Service_GenerateFolioError_v1
+  v1GenerateFolioRequest:
+    type: object
+    properties:
+      bookingId:
+        type: string
+        description: The booking ID for which to generate the folio.
+    description: Generates a folio HTTP response for a Booking.
+    title: Book_Lodging_Service_GenerateFolioRequest_v1
+  v1GetBookingError:
+    type: object
+    properties:
+      bookingId:
+        type: string
+        description: The id of the [BookingDetails] that could not be retrieved.
+      error:
+        $ref: '#/definitions/rpcStatus'
+        description: If available, the reason the [BookingDetails] could not be retrieved.
+    description: Describes a failure to retrieve a single [BookingDetails].
+    title: Book_Lodging_Service_GetBookingError_v1
+  v1GetBookingsError:
+    type: object
+    properties:
+      errors:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1GetBookingError'
+        description: If available, the individual [BookingDetails] that could not be retrieved, in no particular order.
+    description: Error details of a failed [LodgingBookingService.GetBookings] call.
+    title: Book_Lodging_Service_GetBookingsError_v1
+  v1GetBookingsRequest:
+    type: object
+    properties:
+      bookingIds:
+        type: array
+        items:
+          type: string
+        description: 'The identifiers of the [BookingDetails] to retrieve.
+
+          No more than 50 [BookingDetails] may be requested at a time.'
+        maxItems: 50.0
+        minItems: 1.0
+    description: A request to retrieve one or more [BookingDetails].
+    title: Book_Lodging_Service_GetBookingsRequest_v1
+  v1GetBookingsResponse:
+    type: object
+    properties:
+      bookings:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1BookingDetails'
+        description: The requested [BookingDetails] in no particular order.
+    description: The details of a single [BookingDetails].
+    title: Book_Lodging_Service_GetBookingsResponse_v1
+  v1GetBookingsStreamingResponse:
+    type: object
+    properties:
+      bookingDetails:
+        $ref: '#/definitions/v1BookingDetails'
+        description: A single [BookingDetails].
+      error:
+        $ref: '#/definitions/v1GetBookingError'
+        description: Error details describing a failure to retrieve a single [BookingDetails].
+    description: A single [BookingDetails] or an error describing why that [BookingDetails] could not be retrieved.
+    title: Book_Lodging_Service_GetBookingsStreamingResponse_v1
+  v1Guest:
+    type: object
+    properties:
+      familyName:
+        type: string
+        description: The guest's family name or last name.
+      givenName:
+        type: string
+        description: The guest's given name or first name.
+      isAdult:
+        type: boolean
+        description: True if the guest is an adult.
+    description: A traveler for the stay.
+    title: Book_Lodging_Guest_v1
+  v1GuestWithLoyalty:
+    type: object
+    properties:
+      guest:
+        $ref: '#/definitions/v1Guest'
+        description: The traveler details.
+      loyaltyProgramIdentifier:
+        $ref: '#/definitions/v1LodgingLoyaltyProgramIdentifier'
+        description: 'The identifier to provide to the Property during Booking.
+
+          Invalid identifiers may result in Booking failures with some Properties.
+
+          Not all Offers include loyalty rewards.'
+    description: A traveler who may be awarded Loyalty Rewards for the stay.
+    title: Book_Lodging_GuestWithLoyalty_v1
+  v1InvalidPaymentError:
+    type: object
+    description: An error indicating that a Booking payment failed due to invalid [PaymentInfo].
+    title: Book_Common_Service_InvalidPaymentError_v1
+  v1InvalidStateError:
+    type: object
+    description: An error indicating that the requested [BookingDetails] is not in a valid state to perform the operation.
+    title: Book_Common_Service_InvalidStateError_v1
+  v1LodgingBookingStatusCode:
+    type: string
+    enum:
+    - LODGING_BOOKING_STATUS_UNSPECIFIED
+    - LODGING_BOOKING_STATUS_PENDING
+    - LODGING_BOOKING_STATUS_CONFIRMED
+    - LODGING_BOOKING_STATUS_CANCELED
+    default: LODGING_BOOKING_STATUS_UNSPECIFIED
+    description: "A value representing the state of a [BookingDetails].\n\n - LODGING_BOOKING_STATUS_PENDING: The Booking\
+      \ has been submitted, but has not yet been confirmed.\n - LODGING_BOOKING_STATUS_CONFIRMED: The Booking has been confirmed.\n\
+      \ - LODGING_BOOKING_STATUS_CANCELED: The Booking has been canceled and is no longer active."
+    title: Book_Lodging_LodgingBookingStatusCode_v1
+  v1LodgingLoyaltyProgramIdentifier:
+    type: object
+    properties:
+      memberId:
+        type: string
+        description: The identifier provided to the travel by the program administrator.
+    description: 'An identifier signifying a traveler''s membership in a Loyalty Program.
+
+      Loyalty Program Identifiers are provided by the administrator of that program.
+
+      Not all [OfferSummary] will grant loyalty rewards.'
+    title: Common_LodgingLoyaltyProgramIdentifier_v1
+  v1OfferNoLongerAvailableError:
+    type: object
+    description: An error indicating that the [OfferSummary] is no longer available. This is likely due to the [OfferSummary]
+      being sold out.
+    title: Book_Common_Service_OfferNoLongerAvailableError_v1
+  v1PaymentCard:
+    type: object
+    properties:
+      number:
+        type: string
+        description: The payment card number as a string of digits without any separators or whitespace.
+      securityCode:
+        type: string
+        description: The card security code, such as CVV or CVC.
+      expirationMonth:
+        type: string
+        description: The number representing the card’s expiration month (01 through 12). Leading zeroes should be included.
+      expirationYear:
+        type: string
+        description: Four-digit number representing the card’s expiration year.
+      billingAddress:
+        $ref: '#/definitions/v1PostalAddress'
+        description: The billing address associated with the payment card being charged.
+    description: The payment card that will be charged.
+    title: Common_PaymentCard_v1
+  v1PaymentInfo:
+    type: object
+    properties:
+      engineDirectBill:
+        $ref: '#/definitions/v1EngineDirectBill'
+      paymentCard:
+        $ref: '#/definitions/v1PaymentCard'
+    description: 'The payment method used in a request.
+
+      If omitted, the default payment method configured for the caller will be used.
+
+      If no default payment method is configured, an [InvalidPaymentError] error will be returned.'
+    title: Common_PaymentInfo_v1
+  v1PaymentProcessingError:
+    type: object
+    description: 'An error indicating that a Booking payment failed during processing.
+
+      These errors are not safe to retry. Contact Member Support for assistance.'
+    title: Book_Common_Service_PaymentProcessingError_v1
+  v1PreviewCancellationError:
+    type: object
+    properties:
+      invalidState:
+        $ref: '#/definitions/v1InvalidStateError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the booking associated
+
+          with the given booking ID is not in a valid state, e.g. It has not been booked, or is
+
+          already cancelled.'
+    description: Error details of a failed [LodgingBookingService.PreviewCancellation] call.
+    title: Book_Lodging_Service_PreviewCancellationError_v1
+  v1PreviewCancellationRequest:
+    type: object
+    properties:
+      bookingId:
+        type: string
+    description: Requests the expected result of a cancellation.
+    title: Book_Lodging_Service_PreviewCancellationRequest_v1
+  v1PreviewCancellationResponse:
+    type: object
+    properties:
+      availableActions:
+        $ref: '#/definitions/v1AvailableActions'
+        description: Details the means in which a cancellation could occur.
+      refund:
+        $ref: '#/definitions/v1Refund'
+        description: 'Optionally, the refund details if they can be determined.
+
+          If cancellation is not possible or cannot be done through the API, this field will not be set.
+
+          See [ActionAvailability] for more information.'
+    description: Returns the expected result and availability of a cancellation.
+    title: Book_Lodging_Service_PreviewCancellationResponse_v1
+  v1Quote:
+    type: object
+    properties:
+      checkInDate:
+        type: string
+        title: 'An ISO-8601-compliant date on which the stay begins.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates'
+      checkOutDate:
+        type: string
+        title: 'An ISO-8601-compliant date on which the stay ends.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates'
+      offerSummary:
+        $ref: '#/definitions/v1OfferSummary'
+        description: The details of the [OfferSummary] to be Booked.
+      roomCount:
+        type: integer
+        format: int32
+        description: The number of rooms to be Booked.
+      roomDescription:
+        $ref: '#/definitions/v1RoomDescription'
+        description: The details of the [RoomDescription] to be booked.
+      availableActions:
+        $ref: '#/definitions/v1AvailableActions'
+        description: 'Optionally, the actions (such as cancellation) that are available for the [BookingDetails] if they are
+          known.
+
+          Not every action will be available through the API for every reservation.
+
+          Some may be available but the availability is not known at the point of the [LodgingBookingService.ConfirmOffer]
+          or the [LodgingBookingService.Book] request.'
+    description: The full details of the item to be Booked.
+    title: Book_Lodging_Quote_v1
+  v1Refund:
+    type: object
+    properties:
+      amount:
+        $ref: '#/definitions/v1CurrencyValue'
+        description: The full amount of the refund.
+    description: Details that describe any refund due or granted related to a modification or cancellation of a [BookingDetails].
+    title: Common_Refund_v1
+  v1ReservationDetails:
+    type: object
+    properties:
+      confirmationNumbers:
+        type: array
+        items:
+          type: string
+        description: 'The confirmation numbers provided by the [Property] after a successful reservation.
+
+          Confirmation numbers may not be available immediately after booking.
+
+          The quantity of confirmation numbers may vary by the [Property] booked.'
+      createdAt:
+        type: string
+        title: 'An ISO-8601-compliant date and time at which the [ReservationDetails] was booked.
+
+          See https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations'
+      quote:
+        $ref: '#/definitions/v1Quote'
+        description: The details of the [Quote] that was purchased.
+      property:
+        $ref: '#/definitions/lodgingProperty'
+        description: The details of the [Property] at the time of the reservation.
+      appliedPaymentInfo:
+        $ref: '#/definitions/v1AppliedPaymentInfo'
+        description: The details of the [AppliedPaymentInfo] for the reservation.
+    description: Details of the Reservation made with the [Property].
+    title: Book_Lodging_ReservationDetails_v1
+  v1RoomGuests:
+    type: object
+    properties:
+      primaryGuest:
+        $ref: '#/definitions/v1GuestWithLoyalty'
+        title: The primary guest of a room
+      additionalGuests:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Guest'
+        description: 'Any additional names you wish to be able to check-in to the room without the [RoomGuests.primary_guest]
+          present.
+
+          Not all Properties allow additional guests to check-in.
+
+          The primary guest should not be included in the `additional_guests` field.'
+    description: Details of the guests staying within a single room during the stay.
+    title: Book_Lodging_RoomGuests_v1
+  v1SubmitCancellationError:
+    type: object
+    properties:
+      actionNotAvailable:
+        $ref: '#/definitions/v1ActionNotAvailableError'
+        description: The cancellation action is not available for the booking.
+      cannotCancel:
+        $ref: '#/definitions/v1CannotCancelError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the
+
+          requested booking is not cancellable.'
+      invalidState:
+        $ref: '#/definitions/v1InvalidStateError'
+        description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and the booking associated
+
+          with the given booking ID is not in a valid state, e.g. It has not been booked, or is
+
+          already cancelled.'
+    description: Error information returned in the error details of failed SubmitCancellation calls.
+    title: Book_Lodging_Service_SubmitCancellationError_v1
+  v1SubmitCancellationRequest:
+    type: object
+    properties:
+      bookingId:
+        type: string
+    description: Requests cancellation of a Booking.
+    title: Book_Lodging_Service_SubmitCancellationRequest_v1
+  v1SubmitCancellationResponse:
+    type: object
+    properties:
+      details:
+        $ref: '#/definitions/v1CancellationDetails'
+        description: The timestamp and refund details.
+    description: Returns the result of a requested cancellation.
+    title: Book_Lodging_Service_SubmitCancellationResponse_v1

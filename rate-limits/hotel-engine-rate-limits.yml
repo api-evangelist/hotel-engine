@@ -1,0 +1,113 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Engine
+providerId: hotel-engine
+generated: '2026-08-04'
+method: searched
+created: '2026-08-04'
+modified: '2026-08-04'
+tags:
+  - Rate Limiting
+  - Travel
+  - Lodging
+description: >-
+  Omni Partner API rate limits, published per-endpoint by Engine. Each endpoint carries a burst
+  (per-minute) allowance and a sustained (per-hour) allowance; burst consumption counts against
+  the hourly total. These are the documented defaults — partner-specific limits may be
+  negotiated during onboarding.
+sources:
+  - https://engine-public.github.io/engine-partner-api/rate-limits.html
+headers:
+  limit: ratelimit-limit
+  remaining: ratelimit-remaining
+  reset: ratelimit-reset
+  requestId: com-engine-request-id
+responseCodes:
+  throttled: 429
+notes: >-
+  Both burst and sustained limits are communicated through the same three headers.
+  ratelimit-remaining always reflects the true remaining call count, but there is currently no
+  way to observe the remaining sustained count or its reset time once the sustained count
+  exceeds the current burst count.
+limits:
+  - name: ContentService.ListProperties (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 400
+    timeFrame: minute
+  - name: ContentService.ListProperties (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 18000
+    timeFrame: hour
+  - name: LodgingShoppingService.FindBestOffers / FindBestOffersStreaming (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 50
+    timeFrame: minute
+  - name: LodgingShoppingService.FindBestOffers / FindBestOffersStreaming (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 2250
+    timeFrame: hour
+  - name: LodgingShoppingService.FindAvailability (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 100
+    timeFrame: minute
+  - name: LodgingShoppingService.FindAvailability (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 4500
+    timeFrame: hour
+  - name: LodgingBookingService.ConfirmOffer (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 100
+    timeFrame: minute
+  - name: LodgingBookingService.ConfirmOffer (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 4500
+    timeFrame: hour
+  - name: LodgingBookingService.Book (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 20
+    timeFrame: minute
+  - name: LodgingBookingService.Book (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 900
+    timeFrame: hour
+  - name: LodgingBookingService.GetBookings / GetBookingsStreaming (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 20
+    timeFrame: minute
+  - name: LodgingBookingService.GetBookings / GetBookingsStreaming (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 900
+    timeFrame: hour
+  - name: LodgingBookingService.PreviewCancellation (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 20
+    timeFrame: minute
+  - name: LodgingBookingService.PreviewCancellation (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 900
+    timeFrame: hour
+  - name: LodgingBookingService.SubmitCancellation (burst)
+    scope: endpoint
+    metric: requests_per_minute
+    limit: 10
+    timeFrame: minute
+  - name: LodgingBookingService.SubmitCancellation (sustained)
+    scope: endpoint
+    metric: requests_per_hour
+    limit: 450
+    timeFrame: hour

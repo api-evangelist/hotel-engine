@@ -1,0 +1,70 @@
+generated: '2026-08-04'
+method: probed
+source: live HTTPS probes of /.well-known/ and discovery paths on every Engine host
+summary: >-
+  Engine publishes no /.well-known/ discovery documents on any host. engine.com and
+  hotelengine.com return a bespoke 404 body ("Invalid .well-known request") for every
+  /.well-known/* path, confirming the path is handled and deliberately empty rather than
+  merely unrouted. The one discovery document Engine does publish is a real llms.txt at
+  https://engine.com/llms.txt (harvested to llms/hotel-engine-llms.txt). The API host
+  partner-api.engine.com requires a client certificate (mTLS) and completes no anonymous
+  HTTP request, so no /.well-known/ surface is reachable there.
+hosts:
+  - host: https://engine.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /llms.txt, status: 200, file: ../llms/hotel-engine-llms.txt}
+      - {path: /openapi.json, status: 404}
+      - {path: /swagger.json, status: 404}
+  - host: https://hotelengine.com
+    note: legacy brand domain; redirects/serves the same Webflow site as engine.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /llms.txt, status: 200}
+  - host: https://omni.engine.com
+    note: Omni partner marketing/intake site (Astro)
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /llms.txt, status: 404}
+      - {path: /openapi.json, status: 404}
+  - host: https://engine-public.github.io
+    note: Omni API documentation site (GitHub Pages, Jekyll + Swagger UI)
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /llms.txt, status: 404}
+      - {path: /engine-partner-api/downloads/engine-partner-api-2.4.0.swagger.json, status: 200, file: ../openapi/_original/hotel-engine-omni-partner-api-2.4.0-swagger-original.json}
+  - host: https://partner-api.engine.com
+    note: >-
+      Production API host. TLS 1.3 handshake completes and the server sends a
+      "Request CERT" message — mTLS client-certificate authentication is mandatory,
+      so anonymous probes never receive an HTTP response body.
+    documents:
+      - {path: /.well-known/security.txt, status: null, result: no-response-mtls-required}
+      - {path: /.well-known/agent-card.json, status: null, result: no-response-mtls-required}
+      - {path: /openapi.json, status: null, result: no-response-mtls-required}
+security_txt:
+  published: false
+  note: >-
+    No RFC 9116 security.txt is published, but Engine does operate a documented
+    responsible-disclosure policy at https://www.engine.com/responsible-disclosure —
+    captured in security/hotel-engine-vulnerability-disclosure.yml.

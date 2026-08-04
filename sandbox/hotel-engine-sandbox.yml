@@ -1,0 +1,46 @@
+generated: '2026-08-04'
+method: searched
+source: https://engine-public.github.io/engine-partner-api/halo-integration.html
+summary: >-
+  Engine operates a sandbox environment for the Omni Partner API, but it is fully gated behind
+  the partnership process — there is no self-serve sandbox, no public test host, and no
+  published test values. Access is granted by issuing sandbox mTLS client certificates during
+  onboarding. Nothing test-related (magic property IDs, test payment cards, simulated decline
+  values, test clocks) is published, so nothing is recorded here beyond what Engine states.
+available: true
+self_serve: false
+public_test_values: false
+separation:
+  model: separate-credentials
+  mechanism: sandbox mTLS client certificates, issued separately from production certificates
+  note: >-
+    There is no test/live key-prefix convention because the API uses no keys — the certificate
+    itself selects the environment. The public documentation does not name a sandbox hostname.
+provisioning:
+  requires: signed partnership agreement
+  contact: omni-partnerships@engine.com
+  intake_form: https://omni.engine.com/#contact
+  evidence: >-
+    "Discuss your planned architecture, payment processing approach, and obtain sandbox mTLS
+    certificates. Done when: Partnership agreement signed, sandbox mTLS certificates issued,
+    architecture reviewed by Engine team." — Omni Halo integration guide, phase 01.
+integration_phases:
+  - {phase: 1, name: Partnership & access, duration: null}
+  - {phase: 2, name: Sandbox development, duration: 4-10 weeks}
+test_data:
+  test_cards: []
+  magic_identifiers: []
+  test_clocks: false
+  fixture_tooling: false
+  note: >-
+    None published. Do not assume the production example IDs that appear in the docs
+    (e.g. property P0000000000000102095, P0000000000000108984) are sandbox-safe — they are
+    live-catalog illustrations from response samples, not designated test fixtures.
+console:
+  swagger_ui: https://engine-public.github.io/engine-partner-api/swagger-ui/index.html
+  note: >-
+    The docs site ships Swagger UI over the published Swagger 2.0 document. It is a reference
+    renderer only — "Try it out" cannot execute against partner-api.engine.com because the
+    browser cannot present a client certificate for the mTLS handshake.
+related:
+  authentication: authentication/hotel-engine-authentication.yml

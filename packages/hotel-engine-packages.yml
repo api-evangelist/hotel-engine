@@ -1,0 +1,73 @@
+generated: '2026-08-04'
+method: searched
+source: https://repo1.maven.org/maven2/com/engine/
+notes: >-
+  Engine publishes pre-compiled gRPC client bindings for the JVM (Java/Kotlin) only, under the
+  com.engine group on Maven Central. The integration guide states other language bindings must be
+  generated from the published protos or requested from the Omni team. No npm, PyPI, RubyGems,
+  Packagist, crates.io, NuGet or pkg.go.dev first-party client was found (npm/PyPI probed:
+  no first-party package). The protoc-* artifacts under com.engine are build tooling used to
+  generate the API docs and OpenAPI, not client SDKs.
+packages:
+  - language: jvm
+    registry: maven-central
+    name: com.engine:engine-partner-api-service
+    url: https://central.sonatype.com/artifact/com.engine/engine-partner-api-service
+    metadata: https://repo1.maven.org/maven2/com/engine/engine-partner-api-service/maven-metadata.xml
+    latest: 2.4.0
+    install: implementation("com.engine:engine-partner-api-service:2.4.0")
+    official: true
+    role: gRPC service stubs (LodgingShoppingService, ContentService, CatalogService, LodgingBookingService)
+  - language: jvm
+    registry: maven-central
+    name: com.engine:engine-partner-api-common
+    url: https://central.sonatype.com/artifact/com.engine/engine-partner-api-common
+    official: true
+    role: Shared common models (geo, price, currency, payment, traveler, media)
+  - language: jvm
+    registry: maven-central
+    name: com.engine:engine-partner-api-content
+    url: https://central.sonatype.com/artifact/com.engine/engine-partner-api-content
+    official: true
+    role: Property and room content models
+  - language: jvm
+    registry: maven-central
+    name: com.engine:engine-partner-api-shop-lodging
+    url: https://central.sonatype.com/artifact/com.engine/engine-partner-api-shop-lodging
+    official: true
+    role: Lodging shopping models (offers, rooms)
+  - language: jvm
+    registry: maven-central
+    name: com.engine:engine-partner-api-book-lodging
+    url: https://central.sonatype.com/artifact/com.engine/engine-partner-api-book-lodging
+    official: true
+    role: Lodging booking models (booking, quote, reservation, guests, status)
+  - language: jvm
+    registry: maven-central
+    name: com.engine:engine-partner-api-book-common
+    url: https://central.sonatype.com/artifact/com.engine/engine-partner-api-book-common
+    official: true
+    role: Shared booking models (applied payment info)
+tooling:
+  - name: com.engine:protoc-gen-openapi
+    url: https://github.com/engine-public/protoc-gen-openapi
+    role: protoc plugin that turns gRPC services into OpenAPI 3.1 specs (Engine-authored, open source)
+    official: true
+  - name: com.engine:protoc-utils
+    url: https://github.com/engine-public/protoc-utils
+    role: Library/utilities for building Protobuf compiler plugins
+    official: true
+raw_artifacts:
+  - name: Protobuf descriptor set
+    url: https://engine-public.github.io/engine-partner-api/downloads/engine-partner-api-descriptor_set-2.4.0.desc
+  - name: Proto source archive
+    url: https://engine-public.github.io/engine-partner-api/downloads/engine-partner-api-protos-2.4.0.zip
+  - name: Swagger / OpenAPI document
+    url: https://engine-public.github.io/engine-partner-api/downloads/engine-partner-api-2.4.0.swagger.json
+registries_probed:
+  - {registry: maven-central, result: found}
+  - {registry: npm, result: none}
+  - {registry: pypi, result: none}
+  - {registry: rubygems, result: none}
+  - {registry: nuget, result: none}
+  - {registry: pkg.go.dev, result: none}

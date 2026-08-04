@@ -1,0 +1,79 @@
+//
+// Copyright 2025 HotelEngine, Inc., d/b/a Engine
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at:
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax = "proto3";
+
+package engine.book.lodging.v1;
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "engine/book/lodging/v1/guests.proto";
+import "engine/book/lodging/v1/metadata.proto";
+import "engine/book/lodging/v1/reservation.proto";
+import "engine/book/lodging/v1/status.proto";
+import "engine/common/v1/refund.proto";
+
+option go_package = "engine.com/engine-partner-api/v1/book/lodging";
+option java_package = "com.engine.book.v1.lodging";
+option java_multiple_files = true;
+
+// An Engine Lodging [BookingDetails] and the Property [ReservationDetails] it describes.
+message BookingDetails {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Book_Lodging_BookingDetails_v1"
+    }
+  };
+
+  // A unique identifier for the [BookingDetails].
+  string booking_id = 1;
+
+  // Details of the state of the [BookingDetails].
+  .engine.book.lodging.v1.BookingStatus status = 2;
+
+  // Details of the Property [ReservationDetails]
+  .engine.book.lodging.v1.ReservationDetails reservation_details = 3;
+
+  // Optionally, the details of the cancellation action taken for the [BookingDetails].
+  .engine.book.lodging.v1.CancellationDetails cancellation_details = 4;
+
+  // Any metadata provided while booking.
+  // Maximum length: 10
+  repeated .engine.book.lodging.v1.BookingMetadata metadata = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    max_items: 10;
+  }];
+
+  // The details of the guests as provided in the [BookRequest] that created the [BookingDetails].
+  // The number of RoomGuests will match the number of rooms on the [ReservationDetails].
+  // Some Properties may not retain all of the provided guest names or honor all of the provided loyalty information.
+  repeated .engine.book.lodging.v1.RoomGuests guests = 6;
+}
+
+// Details of the cancellation of a [BookingDetails].
+message CancellationDetails {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Book_Lodging_CancellationDetails_v1"
+    }
+  };
+
+  // An ISO-8601-compliant date and time at which the [BookingDetails] was canceled.
+  // See https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations
+  string canceled_at = 1;
+
+  // The details of the Refund granted when canceled.
+  .engine.common.v1.Refund refund = 2;
+}

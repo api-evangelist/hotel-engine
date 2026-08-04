@@ -1,0 +1,76 @@
+generated: '2026-08-04'
+method: searched
+source: https://github.com/engine-public/engine-partner-api
+license: Apache-2.0
+summary: >-
+  Verbatim proto3 contracts for the Omni Partner API, harvested from Engine's public
+  engine-public/engine-partner-api repository (release 2.4.0). The Omni API is protobuf-first:
+  the gRPC service definitions are the source of truth and the HTTP/JSON Swagger document is
+  generated from them via the grpc-gateway protoc-gen-openapiv2 annotations. Streaming RPCs
+  (FindBestOffersStreaming, GetBookingsStreaming) exist only on the gRPC surface and are not
+  exposed over HTTP/JSON.
+release:
+  version: 2.4.0
+  published: '2026-07-20'
+  tag_url: https://github.com/engine-public/engine-partner-api/releases/tag/2.4.0
+  descriptor_set: https://engine-public.github.io/engine-partner-api/downloads/engine-partner-api-descriptor_set-2.4.0.desc
+  protos_zip: https://engine-public.github.io/engine-partner-api/downloads/engine-partner-api-protos-2.4.0.zip
+endpoint: partner-api.engine.com:443
+authentication: mutual-TLS (client certificate)
+services:
+  - service: LodgingShoppingService
+    package: engine.shop.lodging.service.v1
+    file: hotel-engine-shop-lodging-service-v1-service.proto
+    rpcs:
+      - name: FindBestOffers
+        http: POST /shop/v1/lodging/best-offers
+      - name: FindBestOffersStreaming
+        http: null
+        note: gRPC only; not offered via the HTTP/JSON API.
+      - name: FindAvailability
+        http: POST /shop/v1/lodging/availability
+  - service: ContentService
+    package: engine.content.service.v1
+    file: hotel-engine-content-service-v1-service.proto
+    rpcs:
+      - name: ListProperties
+        http: GET /content/v1/property
+      - name: GetProperties
+        http: POST /content/v1/properties
+  - service: CatalogService
+    package: engine.content.service.v1
+    file: hotel-engine-content-service-v1-service.proto
+    rpcs:
+      - name: ListPropertyCatalog
+        http: POST /content/v1/catalog/property
+  - service: LodgingBookingService
+    package: engine.book.lodging.service.v1
+    file: hotel-engine-book-lodging-service-v1-service.proto
+    rpcs:
+      - name: ConfirmOffer
+        http: POST /book/v1/lodging/confirm-offer
+      - name: Book
+        http: PUT /book/v1/lodging/booking
+      - name: GetBookings
+        http: POST /book/v1/lodging/booking
+      - name: GetBookingsStreaming
+        http: null
+        note: gRPC only; not offered via the HTTP/JSON API.
+      - name: GenerateFolio
+        http: POST /book/v1/lodging/booking/generate-folio
+      - name: PreviewCancellation
+        http: POST /book/v1/lodging/booking/preview-cancellation
+      - name: SubmitCancellation
+        http: POST /book/v1/lodging/booking/submit-cancellation
+modules:
+  - module: service
+    description: gRPC service definitions with request, response, and error types.
+  - module: book
+    description: Models comprising the Transact and Manage functionality.
+  - module: shop
+    description: Models comprising the Shop functionality.
+  - module: content
+    description: Models that define Content served by the Partner API.
+  - module: common
+    description: Common models shared across verticals.
+file_count: 48

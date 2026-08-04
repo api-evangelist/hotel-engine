@@ -1,0 +1,148 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/_original/hotel-engine-omni-partner-api-2.4.0-swagger-original.json
+enriched_from: https://engine-public.github.io/engine-partner-api/ (Overview & core concepts — data model entity flow)
+summary: >-
+  The Omni domain model is a linear pipeline rather than a CRUD graph: Property (static content)
+  feeds a shop, the shop yields RoomGroups of Offers, an Offer is locked into a Quote, and a
+  Quote becomes a BookingDetails. Only two entities carry stable public identifiers — Property
+  (property_id, "P" + 19 digits) and BookingDetails (booking_id). Everything between them is
+  carried by an opaque continuation_token rather than an addressable id, which is why there are
+  no GET-by-id endpoints for offers or quotes.
+identifiers:
+  - entity: Property
+    field: property_id
+    format: 'P + 19 digits (observed: P0000000000000108984)'
+    stable: true
+  - entity: BookingDetails
+    field: booking_id
+    format: opaque string
+    stable: true
+  - entity: Offer / Quote
+    field: continuation_token
+    format: opaque, versioned string (observed prefix "v0_")
+    stable: false
+    note: >-
+      Single-use and time-boxed. Carries shop criteria and the locked price forward from
+      FindBestOffers to FindAvailability to ConfirmOffer to Book. Not an addressable id.
+entities:
+  - name: Property
+    schema: lodgingProperty
+    lifecycle: stable
+    description: Static lodging content — name, physical address, coordinates, images, description, amenities, star rating, check-in/out times, loyalty program.
+  - name: ResponsiveProperty
+    schema: shoplodgingservicev1ResponsiveProperty / enginecontentservicev1ResponsiveProperty
+    description: A Property plus its Distance from the search point.
+  - name: PropertyCatalogEntry
+    schema: v1PropertyCatalogEntry
+    description: A Property plus its catalog state, used for full-catalog synchronization.
+  - name: BestOffer
+    schema: v1BestOffer
+    lifecycle: volatile
+    description: The lowest-priced OfferSummary for one property plus availability flags (refundable, loyalty, free breakfast) and a continuation_token.
+  - name: RoomGroup
+    schema: v1RoomGroup
+    description: One room type — a RoomDescription plus the Offers available for it with differing amenities and conditions.
+  - name: Offer
+    schema: v1Offer
+    lifecycle: volatile
+    description: A purchasable rate for a room type, wrapping an OfferSummary.
+  - name: OfferSummary
+    schema: v1OfferSummary
+    description: The priced core of an offer — property_id, price, offer amenities, cancellation conditions, rate data, sell type.
+  - name: Quote
+    schema: v1Quote
+    lifecycle: confirmed
+    description: A price locked for a limited window by ConfirmOffer, carrying the offer summary, room description, and available actions.
+  - name: BookingDetails
+    schema: v1BookingDetails
+    lifecycle: confirmed
+    description: A confirmed reservation — booking_id, status, reservation details, cancellation details, metadata, and per-room guests.
+  - name: ReservationDetails
+    schema: v1ReservationDetails
+    description: The realized quote, the property it was booked at, and the payment actually applied.
+  - name: RoomGuests
+    schema: v1RoomGuests
+    description: The primary guest (with loyalty identifier) and additional guests for one room.
+  - name: Price
+    schema: v1Price
+    description: Base, subtotal, taxes_and_fees, total, strike, due-now/due-later, and line items in a CurrencyValue.
+  - name: PaymentInfo
+    schema: v1PaymentInfo
+    description: Either Engine DirectBill or a PaymentCard (with billing address).
+relationships:
+  - {from: ResponsiveProperty, to: Property, kind: has_one, via: property}
+  - {from: ResponsiveProperty, to: Distance, kind: has_one, via: distance}
+  - {from: Property, to: PostalAddress, kind: has_one, via: physicalAddress}
+  - {from: Property, to: GeoPoint, kind: has_one, via: coordinates}
+  - {from: Property, to: PropertyAmenity, kind: has_many, via: amenities}
+  - {from: Property, to: MediaItem, kind: has_many, via: mediaItems}
+  - {from: Property, to: ContactEmail, kind: has_many, via: emails}
+  - {from: Property, to: ExternalCatalogIdentifiers, kind: has_one, via: catalog}
+  - {from: Property, to: LoyaltyRewardsProgram, kind: has_one, via: loyaltyRewardsProgram}
+  - {from: PropertyCatalogEntry, to: Property, kind: has_one, via: property}
+  - {from: PropertyCatalogEntry, to: PropertyCatalogState, kind: has_one, via: state}
+  - {from: PropertyBestOffer, to: ResponsiveProperty, kind: has_one, via: property}
+  - {from: PropertyBestOffer, to: BestOffer, kind: has_one, via: bestOffer}
+  - {from: BestOffer, to: OfferSummary, kind: has_one, via: bestOffer}
+  - {from: OfferSummary, to: Property, kind: belongs_to, via: propertyId}
+  - {from: OfferSummary, to: PriceWithPerUnit, kind: has_one, via: price}
+  - {from: OfferSummary, to: OfferAmenities, kind: has_one, via: offerAmenities}
+  - {from: OfferSummary, to: Conditions, kind: has_one, via: conditions}
+  - {from: OfferSummary, to: RateData, kind: has_one, via: rateData}
+  - {from: OfferSummary, to: SellType, kind: has_one, via: sellType}
+  - {from: RoomGroup, to: RoomDescription, kind: has_one, via: roomDescription}
+  - {from: RoomGroup, to: Offer, kind: has_many, via: offers}
+  - {from: Offer, to: OfferSummary, kind: has_one, via: summary}
+  - {from: RoomDescription, to: Bedding, kind: has_many, via: beds}
+  - {from: RoomDescription, to: RoomAmenity, kind: has_many, via: amenities}
+  - {from: Quote, to: OfferSummary, kind: has_one, via: offerSummary}
+  - {from: Quote, to: RoomDescription, kind: has_one, via: roomDescription}
+  - {from: Quote, to: AvailableActions, kind: has_one, via: availableActions}
+  - {from: BookingDetails, to: BookingStatus, kind: has_one, via: status}
+  - {from: BookingDetails, to: ReservationDetails, kind: has_one, via: reservationDetails}
+  - {from: BookingDetails, to: CancellationDetails, kind: has_one, via: cancellationDetails}
+  - {from: BookingDetails, to: BookingMetadata, kind: has_many, via: metadata}
+  - {from: BookingDetails, to: RoomGuests, kind: has_many, via: guests}
+  - {from: ReservationDetails, to: Quote, kind: has_one, via: quote}
+  - {from: ReservationDetails, to: Property, kind: has_one, via: property}
+  - {from: ReservationDetails, to: AppliedPaymentInfo, kind: has_one, via: appliedPaymentInfo}
+  - {from: RoomGuests, to: GuestWithLoyalty, kind: has_one, via: primaryGuest}
+  - {from: RoomGuests, to: Guest, kind: has_many, via: additionalGuests}
+  - {from: GuestWithLoyalty, to: Guest, kind: has_one, via: guest}
+  - {from: GuestWithLoyalty, to: LodgingLoyaltyProgramIdentifier, kind: has_one, via: loyaltyProgramIdentifier}
+  - {from: PriceWithPerUnit, to: Price, kind: has_one, via: price}
+  - {from: PriceWithPerUnit, to: PerUnitPrice, kind: has_many, via: perUnitPrice}
+  - {from: Price, to: Surcharge, kind: has_many, via: taxesAndFees}
+  - {from: Price, to: PriceLineItem, kind: has_many, via: lineItems}
+  - {from: PaymentInfo, to: PaymentCard, kind: has_one, via: paymentCard}
+  - {from: PaymentInfo, to: EngineDirectBill, kind: has_one, via: engineDirectBill}
+  - {from: PaymentCard, to: PostalAddress, kind: has_one, via: billingAddress}
+  - {from: AppliedPaymentInfo, to: AppliedCardPayment, kind: has_one, via: card}
+  - {from: AppliedPaymentInfo, to: AppliedEngineDirectBill, kind: has_one, via: engineDirectBill}
+flow:
+  - stage: Find Properties
+    operation: ContentService_ListProperties
+    produces: Property
+  - stage: Shop Rates
+    operation: LodgingShoppingService_FindBestOffers
+    produces: BestOffer (+ continuation_token)
+  - stage: Shop Rates
+    operation: LodgingShoppingService_FindAvailability
+    consumes: property_id or continuation_token
+    produces: RoomGroup -> Offer
+  - stage: Transact
+    operation: LodgingBookingService_ConfirmOffer
+    consumes: continuation_token
+    produces: Quote (price locked, limited window)
+  - stage: Transact
+    operation: LodgingBookingService_Book
+    consumes: continuation_token + PaymentInfo + guests
+    produces: BookingDetails
+  - stage: Manage
+    operations: [LodgingBookingService_GetBookings, LodgingBookingService_GenerateFolio, LodgingBookingService_PreviewCancellation, LodgingBookingService_SubmitCancellation]
+    consumes: booking_id
+counts:
+  definitions: 118
+  entities_catalogued: 13
+  relationships: 50
