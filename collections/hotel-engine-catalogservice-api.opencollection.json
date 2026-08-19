@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Omni, Powered by Engine Catalog Service API",
+    "version": "2.4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CatalogService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List the full property catalog.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/content/v1/catalog/property",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves one page of the lodging properties catalog."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

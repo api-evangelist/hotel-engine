@@ -1,0 +1,26 @@
+{
+  "provider": "hotel-engine",
+  "sources": [
+    "hotel-engine-catalogservice-api-openapi.yml",
+    "hotel-engine-contentservice-api-openapi.yml",
+    "hotel-engine-lodgingbookingservice-api-openapi.yml",
+    "hotel-engine-lodgingshoppingservice-api-openapi.yml"
+  ],
+  "outputs": [
+    "hotel-engine-catalogservice-api-openapi.yml",
+    "hotel-engine-contentservice-api-openapi.yml",
+    "hotel-engine-lodgingbookingservice-api-openapi.yml",
+    "hotel-engine-lodgingshoppingservice-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "hotel-engine-catalogservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "hotel-engine-contentservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "hotel-engine-lodgingbookingservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "hotel-engine-lodgingshoppingservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

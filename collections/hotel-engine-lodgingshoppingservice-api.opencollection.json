@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Omni, Powered by Engine Lodging Shopping Service API",
+    "version": "2.4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LodgingShoppingService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for Availability at a given Property.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/shop/v1/lodging/availability",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finds availability for a given property, broken down by individual room type.  RoomGroups describe the various rooms available to book.  Offers describe the cheapest [OfferSummary] along various dimensions like refundability and loyalty eligible within the [RoomGroup]."
+        },
+        {
+          "info": {
+            "name": "Search for the Best Offer available for a set of Properties.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/shop/v1/lodging/best-offers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Identifies a set of candidate properties that match the provided criteria.  Once the appropriate properties have been identified, the Best Offer available for each property is selected and augmented with the details of other available Offers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

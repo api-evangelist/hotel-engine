@@ -1,0 +1,1178 @@
+{
+  "item": [
+    {
+      "id": "3918e739-4c06-4cb9-8d69-e080547169f4",
+      "name": "LodgingBookingService",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "09b6d685-62be-4212-aec0-7cff6d121ac5",
+          "name": "Retrieve bookings given the provided Booking IDs.",
+          "request": {
+            "name": "Retrieve bookings given the provided Booking IDs.",
+            "description": {
+              "content": "In case of error, the status will contain a [GetBookingsError] within the [Status.details] field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "book",
+                "v1",
+                "lodging",
+                "booking"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookingIds\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "085af2ba-fbff-4953-9cfa-b6c9b41c9e35",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bookings\": [\n    {\n      \"bookingId\": \"string\",\n      \"status\": {\n        \"code\": \"LODGING_BOOKING_STATUS_UNSPECIFIED\"\n      },\n      \"reservationDetails\": {\n        \"confirmationNumbers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"createdAt\": \"string\",\n        \"quote\": {\n          \"checkInDate\": \"string\",\n          \"checkOutDate\": \"string\",\n          \"offerSummary\": {\n            \"propertyId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"offerAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"conditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyEligible\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyMembershipIdRequired\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rateData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sellType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"roomCount\": 6252,\n          \"roomDescription\": {\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"beds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"photos\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"availableActions\": {\n            \"cancel\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"property\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"physicalAddress\": {\n            \"recipients\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"administrativeArea\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"locality\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coordinates\": {\n            \"latitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"longitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"heroImageUri\": \"string\",\n          \"description\": \"string\",\n          \"phoneNumber\": \"string\",\n          \"emails\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"starRating\": \"string\",\n          \"amenities\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mediaItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"catalog\": {\n            \"giataIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalogIdentifiers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"checkInTime\": \"string\",\n          \"checkOutTime\": \"string\",\n          \"loyaltyRewardsProgram\": {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"timeZone\": \"string\"\n        },\n        \"appliedPaymentInfo\": {\n          \"engineDirectBill\": {},\n          \"card\": {\n            \"lastFour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cardBrand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"cancellationDetails\": {\n        \"canceledAt\": \"string\",\n        \"refund\": {\n          \"amount\": {\n            \"currencyCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"metadata\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"external\": true\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"external\": false\n        }\n      ],\n      \"guests\": [\n        {\n          \"primaryGuest\": {\n            \"guest\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"loyaltyProgramIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalGuests\": [\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"primaryGuest\": {\n            \"guest\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"loyaltyProgramIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalGuests\": [\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"bookingId\": \"string\",\n      \"status\": {\n        \"code\": \"LODGING_BOOKING_STATUS_UNSPECIFIED\"\n      },\n      \"reservationDetails\": {\n        \"confirmationNumbers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"createdAt\": \"string\",\n        \"quote\": {\n          \"checkInDate\": \"string\",\n          \"checkOutDate\": \"string\",\n          \"offerSummary\": {\n            \"propertyId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"offerAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"conditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyEligible\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyMembershipIdRequired\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rateData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sellType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"roomCount\": 3583,\n          \"roomDescription\": {\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"beds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"photos\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"availableActions\": {\n            \"cancel\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"property\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"physicalAddress\": {\n            \"recipients\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"administrativeArea\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"locality\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coordinates\": {\n            \"latitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"longitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"heroImageUri\": \"string\",\n          \"description\": \"string\",\n          \"phoneNumber\": \"string\",\n          \"emails\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"starRating\": \"string\",\n          \"amenities\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mediaItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"catalog\": {\n            \"giataIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalogIdentifiers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"checkInTime\": \"string\",\n          \"checkOutTime\": \"string\",\n          \"loyaltyRewardsProgram\": {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"timeZone\": \"string\"\n        },\n        \"appliedPaymentInfo\": {\n          \"engineDirectBill\": {},\n          \"card\": {\n            \"lastFour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cardBrand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"cancellationDetails\": {\n        \"canceledAt\": \"string\",\n        \"refund\": {\n          \"amount\": {\n            \"currencyCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"metadata\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"external\": false\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\",\n          \"external\": false\n        }\n      ],\n      \"guests\": [\n        {\n          \"primaryGuest\": {\n            \"guest\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"loyaltyProgramIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalGuests\": [\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"primaryGuest\": {\n            \"guest\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"loyaltyProgramIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalGuests\": [\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"familyName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"givenName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isAdult\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d1cd8f5-d363-4213-8374-fcc3dfc43a39",
+              "name": "Error details for gRPC Status of INVALID_ARGUMENT(3).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"bookingId\": \"string\",\n      \"error\": {\n        \"code\": 5201,\n        \"message\": \"string\",\n        \"details\": [\n          {\n            \"@type\": \"string\",\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          {\n            \"@type\": \"string\",\n            \"key_0\": {}\n          }\n        ]\n      }\n    },\n    {\n      \"bookingId\": \"string\",\n      \"error\": {\n        \"code\": 6198,\n        \"message\": \"string\",\n        \"details\": [\n          {\n            \"@type\": \"string\",\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {},\n            \"key_3\": {}\n          },\n          {\n            \"@type\": \"string\",\n            \"key_0\": {}\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28394b8c-d77c-4c7d-a8ee-3214154c8766",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7827,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ec1eced-701d-4421-8898-a5053e22bd4b",
+          "name": "Purchase and reserve an Offer.",
+          "request": {
+            "name": "Purchase and reserve an Offer.",
+            "description": {
+              "content": "In case of error, the status will contain a [BookError] within the [Status.details] field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "book",
+                "v1",
+                "lodging",
+                "booking"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"guests\": [\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    },\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    }\n  ],\n  \"paymentInfo\": {\n    \"engineDirectBill\": \"<object>\",\n    \"paymentCard\": {\n      \"number\": \"<string>\",\n      \"securityCode\": \"<string>\",\n      \"expirationMonth\": \"<string>\",\n      \"expirationYear\": \"<string>\",\n      \"billingAddress\": {\n        \"recipients\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"organization\": \"<string>\",\n        \"addressLine\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"administrativeArea\": \"<string>\",\n        \"locality\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"countryCode\": \"<string>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22180f38-f454-45c9-839d-a3862bf74c9d",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"guests\": [\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    },\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    }\n  ],\n  \"paymentInfo\": {\n    \"engineDirectBill\": \"<object>\",\n    \"paymentCard\": {\n      \"number\": \"<string>\",\n      \"securityCode\": \"<string>\",\n      \"expirationMonth\": \"<string>\",\n      \"expirationYear\": \"<string>\",\n      \"billingAddress\": {\n        \"recipients\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"organization\": \"<string>\",\n        \"addressLine\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"administrativeArea\": \"<string>\",\n        \"locality\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"countryCode\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": {\n    \"bookingId\": \"string\",\n    \"status\": {\n      \"code\": \"LODGING_BOOKING_STATUS_UNSPECIFIED\"\n    },\n    \"reservationDetails\": {\n      \"confirmationNumbers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"createdAt\": \"string\",\n      \"quote\": {\n        \"checkInDate\": \"string\",\n        \"checkOutDate\": \"string\",\n        \"offerSummary\": {\n          \"propertyId\": \"string\",\n          \"description\": \"string\",\n          \"price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"offerAmenities\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"conditions\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isLoyaltyEligible\": true,\n          \"isLoyaltyMembershipIdRequired\": true,\n          \"rateData\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sellType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"roomCount\": 4160,\n        \"roomDescription\": {\n          \"title\": \"string\",\n          \"description\": \"string\",\n          \"beds\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"photos\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"amenities\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"availableActions\": {\n          \"cancel\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"modify\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"property\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"physicalAddress\": {\n          \"recipients\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"organization\": \"<string>\",\n          \"addressLine\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"administrativeArea\": \"<string>\",\n          \"locality\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"countryCode\": \"<string>\"\n        },\n        \"coordinates\": {\n          \"latitude\": 4427.2869662077,\n          \"longitude\": 5986.810110192382\n        },\n        \"heroImageUri\": \"string\",\n        \"description\": \"string\",\n        \"phoneNumber\": \"string\",\n        \"emails\": [\n          {\n            \"emailAddress\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emailType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"emailAddress\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emailType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"starRating\": \"string\",\n        \"amenities\": [\n          {\n            \"amenityName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amenityCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"amenityName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amenityCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"mediaItems\": [\n          {\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"catalog\": {\n          \"giataIdentifier\": \"string\",\n          \"catalogIdentifiers\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"checkInTime\": \"string\",\n        \"checkOutTime\": \"string\",\n        \"loyaltyRewardsProgram\": {\n          \"name\": \"string\"\n        },\n        \"timeZone\": \"string\"\n      },\n      \"appliedPaymentInfo\": {\n        \"engineDirectBill\": {},\n        \"card\": {\n          \"lastFour\": \"string\",\n          \"cardBrand\": \"string\"\n        }\n      }\n    },\n    \"cancellationDetails\": {\n      \"canceledAt\": \"string\",\n      \"refund\": {\n        \"amount\": {\n          \"currencyCode\": \"string\",\n          \"value\": \"string\"\n        }\n      }\n    },\n    \"metadata\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\",\n        \"external\": \"<boolean>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\",\n        \"external\": \"<boolean>\"\n      }\n    ],\n    \"guests\": [\n      {\n        \"primaryGuest\": {\n          \"guest\": {\n            \"familyName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"givenName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isAdult\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"loyaltyProgramIdentifier\": {\n            \"memberId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"additionalGuests\": [\n          {\n            \"familyName\": \"<string>\",\n            \"givenName\": \"<string>\",\n            \"isAdult\": \"<boolean>\"\n          },\n          {\n            \"familyName\": \"<string>\",\n            \"givenName\": \"<string>\",\n            \"isAdult\": \"<boolean>\"\n          }\n        ]\n      },\n      {\n        \"primaryGuest\": {\n          \"guest\": {\n            \"familyName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"givenName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isAdult\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"loyaltyProgramIdentifier\": {\n            \"memberId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"additionalGuests\": [\n          {\n            \"familyName\": \"<string>\",\n            \"givenName\": \"<string>\",\n            \"isAdult\": \"<boolean>\"\n          },\n          {\n            \"familyName\": \"<string>\",\n            \"givenName\": \"<string>\",\n            \"isAdult\": \"<boolean>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a09d024-1b3f-4723-b7a6-9821555e34af",
+              "name": "Error details for gRPC Status of INVALID_ARGUMENT(3).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"guests\": [\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    },\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    }\n  ],\n  \"paymentInfo\": {\n    \"engineDirectBill\": \"<object>\",\n    \"paymentCard\": {\n      \"number\": \"<string>\",\n      \"securityCode\": \"<string>\",\n      \"expirationMonth\": \"<string>\",\n      \"expirationYear\": \"<string>\",\n      \"billingAddress\": {\n        \"recipients\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"organization\": \"<string>\",\n        \"addressLine\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"administrativeArea\": \"<string>\",\n        \"locality\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"countryCode\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offerNoLongerAvailable\": {},\n  \"invalidState\": {},\n  \"needsReview\": {},\n  \"invalidPayment\": {},\n  \"paymentProcessing\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e52bfb2e-8da0-4b29-9f95-bed94f2c1da7",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"guests\": [\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    },\n    {\n      \"primaryGuest\": {\n        \"guest\": {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        \"loyaltyProgramIdentifier\": {\n          \"memberId\": \"<string>\"\n        }\n      },\n      \"additionalGuests\": [\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        },\n        {\n          \"familyName\": \"<string>\",\n          \"givenName\": \"<string>\",\n          \"isAdult\": \"<boolean>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\",\n      \"external\": \"<boolean>\"\n    }\n  ],\n  \"paymentInfo\": {\n    \"engineDirectBill\": \"<object>\",\n    \"paymentCard\": {\n      \"number\": \"<string>\",\n      \"securityCode\": \"<string>\",\n      \"expirationMonth\": \"<string>\",\n      \"expirationYear\": \"<string>\",\n      \"billingAddress\": {\n        \"recipients\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"organization\": \"<string>\",\n        \"addressLine\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"administrativeArea\": \"<string>\",\n        \"locality\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"countryCode\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7827,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "544854f0-391f-45fd-80ab-9b2d8ce90023",
+          "name": "Generate a folio.",
+          "request": {
+            "name": "Generate a folio.",
+            "description": {
+              "content": "In case of error, the status will contain a [GenerateFolioError] within the [Status.details] field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "book",
+                "v1",
+                "lodging",
+                "booking",
+                "generate-folio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "16d9dbc4-0ef6-4459-9710-b12a806b5032",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "generate-folio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"contentType\": \"string\",\n  \"data\": \"string\",\n  \"extensions\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9d04f1a-a389-432b-b8e1-395518e00640",
+              "name": "Error details for gRPC Status of FAILED_PRECONDITION(9).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "generate-folio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invalidState\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c139c64-c8f1-47b0-82d8-0db2e39c252c",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "generate-folio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7827,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "287135fa-bd8a-47b3-a0d5-2f75338a04a3",
+          "name": "Get the availability, means, and expected refund for a booking cancellation.",
+          "request": {
+            "name": "Get the availability, means, and expected refund for a booking cancellation.",
+            "description": {
+              "content": "In case of error, the status will contain a [PreviewCancellationError] within the [Status.details] field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "book",
+                "v1",
+                "lodging",
+                "booking",
+                "preview-cancellation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a267937c-af0c-4656-8392-5554a481e986",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "preview-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availableActions\": {\n    \"cancel\": \"ACTION_AVAILABILITY_UNKNOWN\",\n    \"modify\": \"ACTION_AVAILABILITY_UNKNOWN\"\n  },\n  \"refund\": {\n    \"amount\": {\n      \"currencyCode\": \"string\",\n      \"value\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b205795-7ca1-4010-accf-59bb58c734ba",
+              "name": "Error details for gRPC Status of INVALID_ARGUMENT(3).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "preview-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invalidState\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6947b4f7-2026-4d60-91db-0e79d0742738",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "preview-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7827,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4bf9ca68-c7d7-43d0-a3e5-f56125629cc6",
+          "name": "Attempt to cancel a booking.",
+          "request": {
+            "name": "Attempt to cancel a booking.",
+            "description": {
+              "content": "In case of error, the status will contain a [SubmitCancellationError] within the [Status.details] field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "book",
+                "v1",
+                "lodging",
+                "booking",
+                "submit-cancellation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed50d0a8-4c49-424c-8750-fd40c2f722b0",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "submit-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": {\n    \"canceledAt\": \"string\",\n    \"refund\": {\n      \"amount\": {\n        \"currencyCode\": \"string\",\n        \"value\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c88dc19-a3db-4a33-879c-c8559dd3ade9",
+              "name": "Error details for gRPC Status of INVALID_ARGUMENT(3).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "submit-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"actionNotAvailable\": {\n    \"actionAvailability\": \"ACTION_AVAILABILITY_UNKNOWN\"\n  },\n  \"cannotCancel\": {},\n  \"invalidState\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c6167e2-0070-4f5e-ab17-367124bcd342",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "booking",
+                    "submit-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookingId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7827,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56e6b69b-e7eb-4691-975a-c760822e29fa",
+          "name": "Confirm the availability, pricing, and details of an Offer prior to booking.",
+          "request": {
+            "name": "Confirm the availability, pricing, and details of an Offer prior to booking.",
+            "description": {
+              "content": "In case of error, the status will contain a [ConfirmOfferError] within the [Status.details] field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "book",
+                "v1",
+                "lodging",
+                "confirm-offer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"currencyCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36c4f327-2181-4e96-a3ad-58bbaa887d37",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "confirm-offer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"currencyCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"continuationToken\": \"string\",\n  \"quote\": {\n    \"checkInDate\": \"string\",\n    \"checkOutDate\": \"string\",\n    \"offerSummary\": {\n      \"propertyId\": \"string\",\n      \"description\": \"string\",\n      \"price\": {\n        \"price\": {\n          \"subTotal\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"total\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"fees\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"base\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"lineItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxesAndFeesTotal\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"strike\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"totalDueNow\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"totalDueLater\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxesAndFees\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"perUnitPrice\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"offerAmenities\": {\n        \"freeBreakfast\": \"AMENITY_AVAILABILITY_UNKNOWN\",\n        \"freeParking\": \"AMENITY_AVAILABILITY_UNKNOWN\",\n        \"otherAmenities\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"conditions\": {\n        \"modifyConditions\": [\n          {\n            \"beforeTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"afterTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"beforeEvent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"penalty\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isAllowed\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"beforeTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"afterTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"beforeEvent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"penalty\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isAllowed\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"cancelConditions\": [\n          {\n            \"beforeTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"afterTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"beforeEvent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"penalty\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isAllowed\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"beforeTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"afterTimestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"beforeEvent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"penalty\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isAllowed\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"isLoyaltyEligible\": false,\n      \"isLoyaltyMembershipIdRequired\": true,\n      \"rateData\": {\n        \"rateCode\": \"string\"\n      },\n      \"sellType\": {\n        \"commissionable\": {\n          \"commissionValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"net\": {},\n        \"fixed\": {}\n      }\n    },\n    \"roomCount\": 1282,\n    \"roomDescription\": {\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"beds\": [\n        {\n          \"count\": 9782,\n          \"description\": \"string\"\n        },\n        {\n          \"count\": 5635,\n          \"description\": \"string\"\n        }\n      ],\n      \"photos\": [\n        \"string\",\n        \"string\"\n      ],\n      \"amenities\": [\n        {\n          \"amenityName\": \"string\"\n        },\n        {\n          \"amenityName\": \"string\"\n        }\n      ]\n    },\n    \"availableActions\": {\n      \"cancel\": \"ACTION_AVAILABILITY_UNKNOWN\",\n      \"modify\": \"ACTION_AVAILABILITY_UNKNOWN\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f390ffd0-9dae-4c07-a2ee-5cb0fbd9b648",
+              "name": "Error details for gRPC Status of INVALID_ARGUMENT(3).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "confirm-offer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"currencyCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offerNoLongerAvailable\": {},\n  \"invalidState\": {},\n  \"bookingId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59fb8946-9901-4671-9e84-887c3869ed2e",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "book",
+                    "v1",
+                    "lodging",
+                    "confirm-offer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"currencyCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7827,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-api.engine.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e28fa079-3642-4b56-b77a-d52e0e6c6e50",
+    "name": "Omni, Powered by Engine Lodging Booking Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Definitions for the Omni travel API.\n\nContact Support:\n Name: Omni API Support",
+      "type": "text/plain"
+    }
+  }
+}

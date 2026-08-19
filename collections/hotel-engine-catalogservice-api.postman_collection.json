@@ -1,0 +1,175 @@
+{
+  "item": [
+    {
+      "id": "b23bcfb1-f211-482e-ae6b-416360e2b88c",
+      "name": "CatalogService",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c0007e23-881c-4ec0-80fa-aca49dc4f036",
+          "name": "List the full property catalog.",
+          "request": {
+            "name": "List the full property catalog.",
+            "description": {
+              "content": "Retrieves one page of the lodging properties catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content",
+                "v1",
+                "catalog",
+                "property"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request\": {\n    \"pageSize\": \"100\",\n    \"updatedAfter\": \"<string>\"\n  },\n  \"pageToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2f87eeb-0bcf-4eba-b650-907f3e9fff8b",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "v1",
+                    "catalog",
+                    "property"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"pageSize\": \"100\",\n    \"updatedAfter\": \"<string>\"\n  },\n  \"pageToken\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entries\": [\n    {\n      \"state\": \"PROPERTY_CATALOG_STATE_UNSPECIFIED\",\n      \"property\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"physicalAddress\": {\n          \"recipients\": [\n            \"string\",\n            \"string\"\n          ],\n          \"organization\": \"string\",\n          \"addressLine\": [\n            \"string\",\n            \"string\"\n          ],\n          \"administrativeArea\": \"string\",\n          \"locality\": \"string\",\n          \"postalCode\": \"string\",\n          \"countryCode\": \"string\"\n        },\n        \"coordinates\": {\n          \"latitude\": 4352.267299439218,\n          \"longitude\": 9363.16218463886\n        },\n        \"heroImageUri\": \"string\",\n        \"description\": \"string\",\n        \"phoneNumber\": \"string\",\n        \"emails\": [\n          {\n            \"emailAddress\": \"string\",\n            \"emailType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"emailAddress\": \"string\",\n            \"emailType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"starRating\": \"string\",\n        \"amenities\": [\n          {\n            \"amenityName\": \"string\",\n            \"amenityCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"amenityName\": \"string\",\n            \"amenityCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"mediaItems\": [\n          {\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"catalog\": {\n          \"giataIdentifier\": \"string\",\n          \"catalogIdentifiers\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"checkInTime\": \"string\",\n        \"checkOutTime\": \"string\",\n        \"loyaltyRewardsProgram\": {\n          \"name\": \"string\"\n        },\n        \"timeZone\": \"string\"\n      }\n    },\n    {\n      \"state\": \"PROPERTY_CATALOG_STATE_UNSPECIFIED\",\n      \"property\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"physicalAddress\": {\n          \"recipients\": [\n            \"string\",\n            \"string\"\n          ],\n          \"organization\": \"string\",\n          \"addressLine\": [\n            \"string\",\n            \"string\"\n          ],\n          \"administrativeArea\": \"string\",\n          \"locality\": \"string\",\n          \"postalCode\": \"string\",\n          \"countryCode\": \"string\"\n        },\n        \"coordinates\": {\n          \"latitude\": 6378.771049026,\n          \"longitude\": 2403.1866397977133\n        },\n        \"heroImageUri\": \"string\",\n        \"description\": \"string\",\n        \"phoneNumber\": \"string\",\n        \"emails\": [\n          {\n            \"emailAddress\": \"string\",\n            \"emailType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"emailAddress\": \"string\",\n            \"emailType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"starRating\": \"string\",\n        \"amenities\": [\n          {\n            \"amenityName\": \"string\",\n            \"amenityCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"amenityName\": \"string\",\n            \"amenityCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"mediaItems\": [\n          {\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"catalog\": {\n          \"giataIdentifier\": \"string\",\n          \"catalogIdentifiers\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"checkInTime\": \"string\",\n        \"checkOutTime\": \"string\",\n        \"loyaltyRewardsProgram\": {\n          \"name\": \"string\"\n        },\n        \"timeZone\": \"string\"\n      }\n    }\n  ],\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a12a6e99-b3fc-4016-93af-a75afa0033b5",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "v1",
+                    "catalog",
+                    "property"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"pageSize\": \"100\",\n    \"updatedAfter\": \"<string>\"\n  },\n  \"pageToken\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6957,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-api.engine.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6388a426-0679-480c-bb06-4abe93692760",
+    "name": "Omni, Powered by Engine Catalog Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Definitions for the Omni travel API.\n\nContact Support:\n Name: Omni API Support",
+      "type": "text/plain"
+    }
+  }
+}

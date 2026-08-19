@@ -1,0 +1,663 @@
+openapi: 3.2.0
+info:
+  title: Omni, Powered by Engine Content Service API
+  description: Definitions for the Omni travel API.
+  version: 2.4.0
+  contact:
+    name: Omni API Support
+    url: https://omni.engine.com/
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/engine-public/engine-partner-api/blob/main/LICENSE
+servers:
+- url: https://partner-api.engine.com
+tags:
+- name: ContentService
+paths:
+  /content/v1/properties:
+    post:
+      summary: Retrieves details for specific properties.
+      description: Retrieves details for the set of properties specified in the request
+      operationId: ContentService_GetProperties
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1GetPropertiesResponse'
+        '400':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema: {}
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpcStatus'
+      tags:
+      - ContentService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1GetPropertiesRequest'
+        description: A request to retrieve specific Properties by their IDs.
+        required: true
+  /content/v1/property:
+    get:
+      summary: List properties near a point of interest.
+      operationId: ContentService_ListProperties
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1ListPropertiesResponse'
+              example:
+                properties:
+                - property:
+                    id: L00000000000000140124
+                    name: Holiday Inn Express & Suites Austin Downtown - University
+                    physicalAddress:
+                      addressLine:
+                      - 805 Neches St
+                      administrativeArea: TX
+                      locality: Austin
+                      postalCode: '78701'
+                      countryCode: US
+                    coordinates:
+                      latitude: 30.2693
+                      longitude: -97.737122
+                    heroImageUri: https://i.travelapi.com/lodging/13000000/12310000/12303000/12302973/8299c3c9_z.jpg
+                    description: Attractively located in the center of Austin, Holiday Inn Express Hotel & Suites Austin Downtown - University, an IHG Hotel has air-conditioned rooms, an outdoor swimming pool, free WiFi and a fitness center. This 3-star hotel offers a 24-hour front desk and an ATM. Private parking is available on site. The rooms at the hotel come with a seating area and a flat-screen TV with satellite channels. At Holiday Inn Express Hotel & Suites Austin Downtown - University, an IHG Hotel rooms contain a private bathroom with free toiletries and a hairdryer. Breakfast is available each morning, and includes buffet, continental and American options. The accommodation has a sun terrace. Guests can use the business center or relax in the snack bar. Popular points of interest near Holiday Inn Express Hotel & Suites Austin Downtown - University, an IHG Hotel include Shoal Beach, Capitol Building and Austin Convention Center. Austin-Bergstrom International Airport is 5.6 miles from the property.
+                  distance:
+                    value: 5.2
+                    unit: DISTANCE_UNIT_MILE
+                - property:
+                    id: L00000000000000092817
+                    name: Sonesta Select Austin North
+                    physicalAddress:
+                      addressLine:
+                      - 7522 N Interstate Hwy 35
+                      administrativeArea: TX
+                      locality: Austin
+                      postalCode: '78752'
+                      countryCode: US
+                    coordinates:
+                      latitude: 30.33843
+                      longitude: -97.703827
+                    heroImageUri: https://i.travelapi.com/lodging/1000000/50000/41300/41290/232ce1b7_z.jpg
+                    description: Featuring an outdoor pool, Sonesta Select Austin North Central is 5 mi from Austin city center. This hotel offers free WiFi access. Rooms at Sonesta Select Austin North Central will provide you with a flat-screen TV with cable and an air-conditioned seating area. Complete with a refrigerator, the dining area also has a coffee machine. At Sonesta Select Austin North Central you will find a fitness center. Other facilities offered include meeting facilities, a shared lounge and dry cleaning. The hotel is 4.2 mi from University of Texas and 5.6 mi from Austin Convention Center. Bergstrom Airport is 8.7 mi away. The property offers free parking. When traveling with pets, please note that an extra charge of $75 per pet, per stay applies. A maximum of 2 pets per room is allowed
+                  distance:
+                    value: 6.7
+                    unit: DISTANCE_UNIT_MILE
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpcStatus'
+      parameters:
+      - name: request.criteria.radius.coordinates.latitude
+        description: The center-point latitude.
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: request.criteria.radius.coordinates.longitude
+        description: The center-point longitude.
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: request.criteria.radius.physicalAddress.recipients
+        description: 'Optionally, any individual recipients.
+
+          For example, "Alexander Hamilton", "Aaron Burr"
+
+          May be empty.'
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: request.criteria.radius.physicalAddress.organization
+        description: 'Optionally, any organization or company as a recipient.
+
+          For example, "Engine".'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: request.criteria.radius.physicalAddress.addressLine
+        description: 'Optionally, any address lines, in order as they''d appear on an envelope.
+
+          For example, "233 S Wacker Dr", "108th Floor".
+
+          May be empty.'
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: request.criteria.radius.physicalAddress.administrativeArea
+        description: 'Optionally, the State, province, prefecture, oblast, or area.
+
+          For example, "Texas"'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: request.criteria.radius.physicalAddress.locality
+        description: 'Optionally, the City, or Post Town
+
+          For example, "Austin"'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: request.criteria.radius.physicalAddress.postalCode
+        description: 'Optionally, the postal code, if one exists, for the address.
+
+          For example, "78757".'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: request.criteria.radius.physicalAddress.countryCode
+        description: 'Optionally, the ISO 3166-1 alpha-2 country code.
+
+          For example, "US".
+
+          See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
+          See https://www.iso.org/iso-3166-country-codes.html'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: request.criteria.radius.freeformSearchText
+        description: 'A description of a point of interest, an unstructured address, etc.
+
+          Freeform input will make a "best effort" match to a point of interest and its corresponding geo coordinates.
+
+          If available, using `coordinates` or `physical_address` will yield better results.'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: request.criteria.radius.radius.value
+        description: The distance quantity.
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: request.criteria.radius.radius.unit
+        description: "The unit of distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - DISTANCE_UNIT_MILE
+          - DISTANCE_UNIT_KILOMETER
+          default: DISTANCE_UNIT_MILE
+      - name: request.criteria.excludePropertiesWithoutHeroImage
+        description: 'Optionally, if true, properties that do not have a `Property#hero_image_uri` will not be returned.
+
+          Excluded properties will not count against the page size or limit.'
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: 'false'
+      - name: request.criteria.excludePropertiesWithoutDescription
+        description: 'Optionally, if true, properties that do not have a `Property#description` will not be returned.
+
+          Excluded properties will not count against the page size or limit.'
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: 'false'
+      - name: request.criteria.sortMode
+        description: "The order in which the properties will be returned.\n\n - PROPERTY_SORT_MODE_DISTANCE: Results are returned in ascending order from the center point of the `ListProperties.inclusion_type`."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - PROPERTY_SORT_MODE_DISTANCE
+          default: PROPERTY_SORT_MODE_DISTANCE
+      - name: request.pageSize
+        description: 'The maximum number of search results to be returned in a page.
+
+          Default: 100
+
+          Minimum: 1
+
+          Maximum: 500'
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: '100'
+      - name: nextPageToken
+        description: Optionally, a `next_page_token` retrieved from a `ListPropertiesResponse`.
+        in: query
+        required: false
+        schema:
+          type: string
+      tags:
+      - ContentService
+components:
+  schemas:
+    v1GetPropertiesRequest:
+      type: object
+      properties:
+        propertyIds:
+          type: array
+          items:
+            type: string
+          description: 'The list of Engine [Property] IDs.
+
+            Maximum of 50 property IDs per request.'
+          maxItems: 50.0
+          minItems: 1.0
+      description: A request to retrieve specific Properties by their IDs.
+      title: GetPropertiesRequest_v1
+    lodgingExternalCatalogIdentifierList:
+      type: object
+      properties:
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: 'Supplier property identifiers for the associated catalog key.
+
+            May contain multiple identifiers when more than one external record is mapped to the Engine record.'
+      description: A list of external catalog identifiers for a single catalog key.
+      title: Content_ExternalCatalogIdentifierList_v1
+    enginecontentservicev1ResponsiveProperty:
+      type: object
+      properties:
+        property:
+          $ref: '#/components/schemas/lodgingProperty'
+          description: The property details.
+        distance:
+          $ref: '#/components/schemas/v1Distance'
+          description: The distance between the center point of the `ListProperties.inclusion_type` and the property.
+      description: A `Property` that meets the criteria of a `ContentServiceV1.ListProperties` request.
+      title: ResponsiveProperty_v1
+    lodgingLodgingAmenityCode:
+      type: string
+      enum:
+      - LODGING_AMENITY_CODE_UNKNOWN
+      - LODGING_AMENITY_CODE_AIR_CONDITIONING
+      - LODGING_AMENITY_CODE_DINING
+      - LODGING_AMENITY_CODE_DRY_CLEANING
+      - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
+      - LODGING_AMENITY_CODE_FITNESS_CENTER
+      - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
+      - LODGING_AMENITY_CODE_FREE_BREAKFAST
+      - LODGING_AMENITY_CODE_FREE_PARKING
+      - LODGING_AMENITY_CODE_FULL_KITCHEN
+      - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
+      - LODGING_AMENITY_CODE_KITCHENETTE
+      - LODGING_AMENITY_CODE_MEETING_SPACE
+      - LODGING_AMENITY_CODE_PET_FRIENDLY
+      - LODGING_AMENITY_CODE_SPA
+      - LODGING_AMENITY_CODE_SWIMMING_POOL
+      - LODGING_AMENITY_CODE_TRUCK_PARKING
+      default: LODGING_AMENITY_CODE_UNKNOWN
+      title: Content_LodgingAmenityCode_v1
+    v1ListPropertiesResponse:
+      type: object
+      properties:
+        properties:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/enginecontentservicev1ResponsiveProperty'
+          title: Up to `ListPropertiesRequest.page_size` responsive to
+        nextPageToken:
+          type: string
+          description: Optionally, an opaque token to be passed into the next `ListPropertiesRequest` in order to retrieve the next page of results.
+      description: A response to a `ContentServiceV1.ListProperties` request.
+      title: ListPropertiesResponse_v1
+    v1Image:
+      type: object
+      properties:
+        uri:
+          type: string
+          title: 'The URI of the [Image].
+
+            For example, "https://example.com/image.jpg"'
+      description: Represents an [Image] with optional metadata.
+      title: Common_Image_v1
+    v1EmailType:
+      type: string
+      enum:
+      - EMAIL_TYPE_UNSPECIFIED
+      - EMAIL_TYPE_GENERAL
+      - EMAIL_TYPE_BILLING
+      - EMAIL_TYPE_RESERVATIONS
+      - EMAIL_TYPE_SUPPORT
+      default: EMAIL_TYPE_UNSPECIFIED
+      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
+      title: Common_EmailType_v1
+    v1ContactEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          description: The email address.
+        emailType:
+          $ref: '#/components/schemas/v1EmailType'
+          description: Optional type of email contact.
+      description: Contact email information.
+      title: Common_ContactEmail_v1
+    lodgingPropertyAmenity:
+      type: object
+      properties:
+        amenityName:
+          type: string
+          title: 'Amenity name describing a [Property] feature or service.
+
+            Examples: "Free WiFi", "Free Breakfast"'
+        amenityCode:
+          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
+          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
+
+            service, if mapped.'
+      description: '[Property] amenity containing name for property features and services.'
+      title: Content_PropertyAmenity_v1
+    v1MediaItem:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/v1Image'
+          title: An [Image] this media item represents
+        description:
+          type: string
+          title: 'A description of this media item
+
+            Example: "A large restaurant"'
+        tags:
+          type: array
+          items:
+            type: string
+          title: 'Tags categorizing the content of this media item
+
+            Example: ["outdoor", "pool"]'
+      description: A media item for visual or marketing context.
+      title: Common_MediaItem_v1
+    lodgingExternalCatalogIdentifiers:
+      type: object
+      properties:
+        giataIdentifier:
+          type: string
+          description: GIATA identifier for this property.
+        catalogIdentifiers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/lodgingExternalCatalogIdentifierList'
+          description: Catalog identifiers keyed by source keys.
+      description: External catalog identifiers for property mapping.
+      title: Content_ExternalCatalogIdentifiers_v1
+    lodgingProperty:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The [Engine] identifier for this [Property].
+        name:
+          type: string
+          description: The full name of this [Property].
+        physicalAddress:
+          $ref: '#/components/schemas/v1PostalAddress'
+          description: 'The physical address of this [Property].
+
+            This may differ from the mailing, billing, or other administrative addresses.'
+        coordinates:
+          $ref: '#/components/schemas/v1GeoPoint'
+          description: The geographic location of this [Property].
+        heroImageUri:
+          type: string
+          description: If available, A URI to the image to use as the primary image to identify this [Property].
+        description:
+          type: string
+          description: If available, a brief textual description of this [Property].
+        phoneNumber:
+          type: string
+          title: 'If available, an E.164-compliant primary phone number for this [Property].
+
+            See https://en.wikipedia.org/wiki/E.164'
+        emails:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1ContactEmail'
+          description: 'Contact email addresses for this property.
+
+            May include general contact, billing, or reservation emails.'
+        starRating:
+          type: string
+          title: 'Star rating for this property.
+
+            Represents the official star rating classification system.
+
+            See https://en.wikipedia.org/wiki/Hotel_rating
+
+            Examples: "4", "5", "3.5"'
+        amenities:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/lodgingPropertyAmenity'
+          title: 'Property amenities for this [Property].
+
+            List of amenity names describing features and services available to guests.
+
+            Examples: "Free WiFi", "Pool", "Fitness Center", "Free Breakfast"'
+        mediaItems:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1MediaItem'
+          description: 'Media items for property gallery.
+
+            Collection of media URIs for detailed property viewing and marketing.'
+        catalog:
+          $ref: '#/components/schemas/lodgingExternalCatalogIdentifiers'
+          description: 'External catalog identifiers for this property.
+
+            Used for integration with external booking systems.'
+        checkInTime:
+          type: string
+          description: Check-in time in local time HH:MM 24-hour format (e.g., "15:00") for the [Property].
+        checkOutTime:
+          type: string
+          description: Check-out time in local time HH:MM 24-hour format (e.g., "11:00") for the [Property].
+        loyaltyRewardsProgram:
+          $ref: '#/components/schemas/v1LoyaltyRewardsProgram'
+          description: The loyalty rewards program associated with the [Property].
+        timeZone:
+          type: string
+          title: 'The time zone for the [Property] in the IANA format.
+
+            See https://www.iana.org/time-zones
+
+            Examples: "America/Denver", "Atlantic/Madeira"'
+      description: An individual Lodging location identified by [Engine].
+      title: Content_Property_v1
+    v1LoyaltyRewardsProgram:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the loyalty reward program.
+      description: Represents a single loyalty rewards program.
+      title: Common_LoyaltyRewardsProgram_v1
+    rpcStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: 'The status code, which should be an enum value of
+
+            [google.rpc.Code][google.rpc.Code].'
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+            by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/protobufAny'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    v1Distance:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+          description: The distance quantity.
+        unit:
+          $ref: '#/components/schemas/v1DistanceUnit'
+          description: The unit of distance measurement.
+      description: The distance between two geographic points.
+      title: Common_Distance_v1
+    v1GetPropertiesResponse:
+      type: object
+      properties:
+        properties:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/lodgingProperty'
+          description: The list of available [Property] objects including phone numbers.
+        inaccessiblePropertyIds:
+          type: array
+          items:
+            type: string
+          description: The list of [Property] IDs that were requested but not found.
+      description: A response containing [Property] information.
+      title: GetPropertiesResponse_v1
+    v1GeoPoint:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          description: The center-point latitude.
+        longitude:
+          type: number
+          format: double
+          description: The center-point longitude.
+      description: A single geographic point, defined by latitude and longitude.
+      title: Common_GeoPoint_v1
+    v1DistanceUnit:
+      type: string
+      enum:
+      - DISTANCE_UNIT_MILE
+      - DISTANCE_UNIT_KILOMETER
+      default: DISTANCE_UNIT_MILE
+      description: "The unit type for a distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
+      title: Common_DistanceUnit_v1
+    v1PostalAddress:
+      type: object
+      properties:
+        recipients:
+          type: array
+          items:
+            type: string
+          description: 'Optionally, any individual recipients.
+
+            For example, "Alexander Hamilton", "Aaron Burr"
+
+            May be empty.'
+        organization:
+          type: string
+          description: 'Optionally, any organization or company as a recipient.
+
+            For example, "Engine".'
+        addressLine:
+          type: array
+          items:
+            type: string
+          description: 'Optionally, any address lines, in order as they''d appear on an envelope.
+
+            For example, "233 S Wacker Dr", "108th Floor".
+
+            May be empty.'
+        administrativeArea:
+          type: string
+          title: 'Optionally, the State, province, prefecture, oblast, or area.
+
+            For example, "Texas"'
+        locality:
+          type: string
+          title: 'Optionally, the City, or Post Town
+
+            For example, "Austin"'
+        postalCode:
+          type: string
+          description: 'Optionally, the postal code, if one exists, for the address.
+
+            For example, "78757".'
+        countryCode:
+          type: string
+          title: 'Optionally, the ISO 3166-1 alpha-2 country code.
+
+            For example, "US".
+
+            See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
+            See https://www.iso.org/iso-3166-country-codes.html'
+      description: Represents a Postal Address.
+      title: Common_PostalAddress_v1
+    protobufAny:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+externalDocs: https://engine-public.github.io/engine-partner-api

@@ -1,0 +1,364 @@
+{
+  "item": [
+    {
+      "id": "bb4cb174-e6ac-4caa-a587-acee0c4db965",
+      "name": "LodgingShoppingService",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d4450b2-ecad-4d29-8f0f-f61e57e6f735",
+          "name": "Search for Availability at a given Property.",
+          "request": {
+            "name": "Search for Availability at a given Property.",
+            "description": {
+              "content": "Finds availability for a given property, broken down by individual room type.  RoomGroups describe the various rooms available to book.  Offers describe the cheapest [OfferSummary] along various dimensions like refundability and loyalty eligible within the [RoomGroup].",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shop",
+                "v1",
+                "lodging",
+                "availability"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"singleProperty\": {\n    \"propertyId\": \"<string>\",\n    \"checkInDate\": \"<string>\",\n    \"checkOutDate\": \"<string>\",\n    \"numRooms\": \"1\",\n    \"currencyCode\": \"<string>\",\n    \"travelers\": [\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      },\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      }\n    ],\n    \"salesChannel\": \"SALES_CHANNEL_UNKNOWN\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee066ee6-2249-452b-9d88-6fb507d88a66",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shop",
+                    "v1",
+                    "lodging",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"singleProperty\": {\n    \"propertyId\": \"<string>\",\n    \"checkInDate\": \"<string>\",\n    \"checkOutDate\": \"<string>\",\n    \"numRooms\": \"1\",\n    \"currencyCode\": \"<string>\",\n    \"travelers\": [\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      },\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      }\n    ],\n    \"salesChannel\": \"SALES_CHANNEL_UNKNOWN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"roomGroups\": [\n    {\n      \"roomDescription\": {\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"beds\": [\n          {\n            \"count\": 4092,\n            \"description\": \"string\"\n          },\n          {\n            \"count\": 8556,\n            \"description\": \"string\"\n          }\n        ],\n        \"photos\": [\n          \"string\",\n          \"string\"\n        ],\n        \"amenities\": [\n          {\n            \"amenityName\": \"string\"\n          },\n          {\n            \"amenityName\": \"string\"\n          }\n        ]\n      },\n      \"offers\": [\n        {\n          \"continuationToken\": \"string\",\n          \"summary\": {\n            \"propertyId\": \"string\",\n            \"description\": \"string\",\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"offerAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"conditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyEligible\": false,\n            \"isLoyaltyMembershipIdRequired\": false,\n            \"rateData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sellType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"continuationToken\": \"string\",\n          \"summary\": {\n            \"propertyId\": \"string\",\n            \"description\": \"string\",\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"offerAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"conditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyEligible\": true,\n            \"isLoyaltyMembershipIdRequired\": true,\n            \"rateData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sellType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"roomDescription\": {\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"beds\": [\n          {\n            \"count\": 8602,\n            \"description\": \"string\"\n          },\n          {\n            \"count\": 2265,\n            \"description\": \"string\"\n          }\n        ],\n        \"photos\": [\n          \"string\",\n          \"string\"\n        ],\n        \"amenities\": [\n          {\n            \"amenityName\": \"string\"\n          },\n          {\n            \"amenityName\": \"string\"\n          }\n        ]\n      },\n      \"offers\": [\n        {\n          \"continuationToken\": \"string\",\n          \"summary\": {\n            \"propertyId\": \"string\",\n            \"description\": \"string\",\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"offerAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"conditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyEligible\": true,\n            \"isLoyaltyMembershipIdRequired\": false,\n            \"rateData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sellType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"continuationToken\": \"string\",\n          \"summary\": {\n            \"propertyId\": \"string\",\n            \"description\": \"string\",\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"offerAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"conditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isLoyaltyEligible\": false,\n            \"isLoyaltyMembershipIdRequired\": false,\n            \"rateData\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sellType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bacf8c6d-94ea-484c-bd7e-79b09e2da1e1",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shop",
+                    "v1",
+                    "lodging",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuationToken\": \"<string>\",\n  \"singleProperty\": {\n    \"propertyId\": \"<string>\",\n    \"checkInDate\": \"<string>\",\n    \"checkOutDate\": \"<string>\",\n    \"numRooms\": \"1\",\n    \"currencyCode\": \"<string>\",\n    \"travelers\": [\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      },\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      }\n    ],\n    \"salesChannel\": \"SALES_CHANNEL_UNKNOWN\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6464,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fb54bbe-7fa0-4a58-a3f5-b7e592c8c027",
+          "name": "Search for the Best Offer available for a set of Properties.",
+          "request": {
+            "name": "Search for the Best Offer available for a set of Properties.",
+            "description": {
+              "content": "Identifies a set of candidate properties that match the provided criteria.  Once the appropriate properties have been identified, the Best Offer available for each property is selected and augmented with the details of other available Offers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shop",
+                "v1",
+                "lodging",
+                "best-offers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"criteria\": {\n    \"pointAndRadius\": {\n      \"coordinates\": {\n        \"latitude\": \"<double>\",\n        \"longitude\": \"<double>\"\n      },\n      \"radius\": {\n        \"value\": \"<double>\",\n        \"unit\": \"DISTANCE_UNIT_MILE\"\n      }\n    },\n    \"propertyId\": {\n      \"propertyIds\": [\n        \"<string>\"\n      ]\n    },\n    \"checkInDate\": \"<string>\",\n    \"checkOutDate\": \"<string>\",\n    \"numRooms\": \"1\",\n    \"currencyCode\": \"<string>\",\n    \"travelers\": [\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      },\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      }\n    ],\n    \"salesChannel\": \"SALES_CHANNEL_UNKNOWN\",\n    \"maxPropertyCandidates\": \"100\"\n  },\n  \"includePropertiesWithNoAvailability\": \"false\",\n  \"sortMode\": \"FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c433cd5-0cd3-4055-9644-fec9dd8bfc46",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shop",
+                    "v1",
+                    "lodging",
+                    "best-offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"criteria\": {\n    \"pointAndRadius\": {\n      \"coordinates\": {\n        \"latitude\": \"<double>\",\n        \"longitude\": \"<double>\"\n      },\n      \"radius\": {\n        \"value\": \"<double>\",\n        \"unit\": \"DISTANCE_UNIT_MILE\"\n      }\n    },\n    \"propertyId\": {\n      \"propertyIds\": [\n        \"<string>\"\n      ]\n    },\n    \"checkInDate\": \"<string>\",\n    \"checkOutDate\": \"<string>\",\n    \"numRooms\": \"1\",\n    \"currencyCode\": \"<string>\",\n    \"travelers\": [\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      },\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      }\n    ],\n    \"salesChannel\": \"SALES_CHANNEL_UNKNOWN\",\n    \"maxPropertyCandidates\": \"100\"\n  },\n  \"includePropertiesWithNoAvailability\": \"false\",\n  \"sortMode\": \"FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"offers\": [\n    {\n      \"property\": {\n        \"property\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"physicalAddress\": {\n            \"recipients\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"administrativeArea\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"locality\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coordinates\": {\n            \"latitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"longitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"heroImageUri\": \"string\",\n          \"description\": \"string\",\n          \"phoneNumber\": \"string\",\n          \"emails\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"starRating\": \"string\",\n          \"amenities\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mediaItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"catalog\": {\n            \"giataIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalogIdentifiers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"checkInTime\": \"string\",\n          \"checkOutTime\": \"string\",\n          \"loyaltyRewardsProgram\": {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"timeZone\": \"string\"\n        },\n        \"distance\": {\n          \"value\": \"<double>\",\n          \"unit\": \"DISTANCE_UNIT_MILE\"\n        }\n      },\n      \"bestOffer\": {\n        \"continuationToken\": \"string\",\n        \"bestOffer\": {\n          \"propertyId\": \"string\",\n          \"description\": \"string\",\n          \"price\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"perUnitPrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"offerAmenities\": {\n            \"freeBreakfast\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"freeParking\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"otherAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"conditions\": {\n            \"modifyConditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cancelConditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"isLoyaltyEligible\": true,\n          \"isLoyaltyMembershipIdRequired\": false,\n          \"rateData\": {\n            \"rateCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sellType\": {\n            \"commissionable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"net\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fixed\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"isRefundableAvailable\": true,\n        \"isLoyaltyAvailable\": true,\n        \"isFreeParkingAvailable\": false,\n        \"isFreeBreakfastAvailable\": true,\n        \"isLoyaltyMembershipRateAvailable\": false\n      }\n    },\n    {\n      \"property\": {\n        \"property\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"physicalAddress\": {\n            \"recipients\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"administrativeArea\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"locality\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coordinates\": {\n            \"latitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"longitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"heroImageUri\": \"string\",\n          \"description\": \"string\",\n          \"phoneNumber\": \"string\",\n          \"emails\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"starRating\": \"string\",\n          \"amenities\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"mediaItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"catalog\": {\n            \"giataIdentifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalogIdentifiers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"checkInTime\": \"string\",\n          \"checkOutTime\": \"string\",\n          \"loyaltyRewardsProgram\": {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"timeZone\": \"string\"\n        },\n        \"distance\": {\n          \"value\": \"<double>\",\n          \"unit\": \"DISTANCE_UNIT_MILE\"\n        }\n      },\n      \"bestOffer\": {\n        \"continuationToken\": \"string\",\n        \"bestOffer\": {\n          \"propertyId\": \"string\",\n          \"description\": \"string\",\n          \"price\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"perUnitPrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"offerAmenities\": {\n            \"freeBreakfast\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"freeParking\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"otherAmenities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"conditions\": {\n            \"modifyConditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cancelConditions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"isLoyaltyEligible\": false,\n          \"isLoyaltyMembershipIdRequired\": false,\n          \"rateData\": {\n            \"rateCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sellType\": {\n            \"commissionable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"net\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fixed\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"isRefundableAvailable\": true,\n        \"isLoyaltyAvailable\": true,\n        \"isFreeParkingAvailable\": false,\n        \"isFreeBreakfastAvailable\": false,\n        \"isLoyaltyMembershipRateAvailable\": false\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aaad377e-1445-462a-ad35-0eb13540641e",
+              "name": "Error details for gRPC Status of INVALID_ARGUMENT(3).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shop",
+                    "v1",
+                    "lodging",
+                    "best-offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"criteria\": {\n    \"pointAndRadius\": {\n      \"coordinates\": {\n        \"latitude\": \"<double>\",\n        \"longitude\": \"<double>\"\n      },\n      \"radius\": {\n        \"value\": \"<double>\",\n        \"unit\": \"DISTANCE_UNIT_MILE\"\n      }\n    },\n    \"propertyId\": {\n      \"propertyIds\": [\n        \"<string>\"\n      ]\n    },\n    \"checkInDate\": \"<string>\",\n    \"checkOutDate\": \"<string>\",\n    \"numRooms\": \"1\",\n    \"currencyCode\": \"<string>\",\n    \"travelers\": [\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      },\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      }\n    ],\n    \"salesChannel\": \"SALES_CHANNEL_UNKNOWN\",\n    \"maxPropertyCandidates\": \"100\"\n  },\n  \"includePropertiesWithNoAvailability\": \"false\",\n  \"sortMode\": \"FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invalidSort\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c198ba3-32f5-4d0c-9bea-346bd38e7fcb",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shop",
+                    "v1",
+                    "lodging",
+                    "best-offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"criteria\": {\n    \"pointAndRadius\": {\n      \"coordinates\": {\n        \"latitude\": \"<double>\",\n        \"longitude\": \"<double>\"\n      },\n      \"radius\": {\n        \"value\": \"<double>\",\n        \"unit\": \"DISTANCE_UNIT_MILE\"\n      }\n    },\n    \"propertyId\": {\n      \"propertyIds\": [\n        \"<string>\"\n      ]\n    },\n    \"checkInDate\": \"<string>\",\n    \"checkOutDate\": \"<string>\",\n    \"numRooms\": \"1\",\n    \"currencyCode\": \"<string>\",\n    \"travelers\": [\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      },\n      {\n        \"adult\": \"<object>\",\n        \"child\": {\n          \"age\": \"<integer>\",\n          \"birthdate\": \"<string>\"\n        }\n      }\n    ],\n    \"salesChannel\": \"SALES_CHANNEL_UNKNOWN\",\n    \"maxPropertyCandidates\": \"100\"\n  },\n  \"includePropertiesWithNoAvailability\": \"false\",\n  \"sortMode\": \"FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6119,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-api.engine.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d53ff67e-9e31-4217-a84e-8b279e8948f7",
+    "name": "Omni, Powered by Engine Lodging Shopping Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Definitions for the Omni travel API.\n\nContact Support:\n Name: Omni API Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,594 @@
+{
+  "item": [
+    {
+      "id": "77b72cdb-0e37-4e3c-8fe9-ff8faa9a75b3",
+      "name": "ContentService",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d2a259d-e520-4ad1-9e35-8f8b773ce74a",
+          "name": "Retrieves details for specific properties.",
+          "request": {
+            "name": "Retrieves details for specific properties.",
+            "description": {
+              "content": "Retrieves details for the set of properties specified in the request",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content",
+                "v1",
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyIds\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "630ae822-cdd2-4af7-9fd3-ee11dbc3edc4",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "v1",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"physicalAddress\": {\n        \"recipients\": [\n          \"string\",\n          \"string\"\n        ],\n        \"organization\": \"string\",\n        \"addressLine\": [\n          \"string\",\n          \"string\"\n        ],\n        \"administrativeArea\": \"string\",\n        \"locality\": \"string\",\n        \"postalCode\": \"string\",\n        \"countryCode\": \"string\"\n      },\n      \"coordinates\": {\n        \"latitude\": 2332.5694002355144,\n        \"longitude\": 4130.611614297916\n      },\n      \"heroImageUri\": \"string\",\n      \"description\": \"string\",\n      \"phoneNumber\": \"string\",\n      \"emails\": [\n        {\n          \"emailAddress\": \"string\",\n          \"emailType\": \"EMAIL_TYPE_UNSPECIFIED\"\n        },\n        {\n          \"emailAddress\": \"string\",\n          \"emailType\": \"EMAIL_TYPE_UNSPECIFIED\"\n        }\n      ],\n      \"starRating\": \"string\",\n      \"amenities\": [\n        {\n          \"amenityName\": \"string\",\n          \"amenityCode\": \"LODGING_AMENITY_CODE_UNKNOWN\"\n        },\n        {\n          \"amenityName\": \"string\",\n          \"amenityCode\": \"LODGING_AMENITY_CODE_UNKNOWN\"\n        }\n      ],\n      \"mediaItems\": [\n        {\n          \"image\": {\n            \"uri\": \"string\"\n          },\n          \"description\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"image\": {\n            \"uri\": \"string\"\n          },\n          \"description\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"catalog\": {\n        \"giataIdentifier\": \"string\",\n        \"catalogIdentifiers\": {\n          \"key_0\": {\n            \"identifiers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      },\n      \"checkInTime\": \"string\",\n      \"checkOutTime\": \"string\",\n      \"loyaltyRewardsProgram\": {\n        \"name\": \"string\"\n      },\n      \"timeZone\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"physicalAddress\": {\n        \"recipients\": [\n          \"string\",\n          \"string\"\n        ],\n        \"organization\": \"string\",\n        \"addressLine\": [\n          \"string\",\n          \"string\"\n        ],\n        \"administrativeArea\": \"string\",\n        \"locality\": \"string\",\n        \"postalCode\": \"string\",\n        \"countryCode\": \"string\"\n      },\n      \"coordinates\": {\n        \"latitude\": 9317.632109623037,\n        \"longitude\": 4579.821316619798\n      },\n      \"heroImageUri\": \"string\",\n      \"description\": \"string\",\n      \"phoneNumber\": \"string\",\n      \"emails\": [\n        {\n          \"emailAddress\": \"string\",\n          \"emailType\": \"EMAIL_TYPE_UNSPECIFIED\"\n        },\n        {\n          \"emailAddress\": \"string\",\n          \"emailType\": \"EMAIL_TYPE_UNSPECIFIED\"\n        }\n      ],\n      \"starRating\": \"string\",\n      \"amenities\": [\n        {\n          \"amenityName\": \"string\",\n          \"amenityCode\": \"LODGING_AMENITY_CODE_UNKNOWN\"\n        },\n        {\n          \"amenityName\": \"string\",\n          \"amenityCode\": \"LODGING_AMENITY_CODE_UNKNOWN\"\n        }\n      ],\n      \"mediaItems\": [\n        {\n          \"image\": {\n            \"uri\": \"string\"\n          },\n          \"description\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"image\": {\n            \"uri\": \"string\"\n          },\n          \"description\": \"string\",\n          \"tags\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"catalog\": {\n        \"giataIdentifier\": \"string\",\n        \"catalogIdentifiers\": {\n          \"key_0\": {\n            \"identifiers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      },\n      \"checkInTime\": \"string\",\n      \"checkOutTime\": \"string\",\n      \"loyaltyRewardsProgram\": {\n        \"name\": \"string\"\n      },\n      \"timeZone\": \"string\"\n    }\n  ],\n  \"inaccessiblePropertyIds\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57899f10-c5be-4f75-acc5-ed5af9fc3cc8",
+              "name": "Invalid request parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "v1",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "170566bc-ae45-48ea-b6ce-83741a1dc041",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "v1",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"propertyIds\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9433,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c2bcb96-f23e-401d-b4c7-0f9ccc379250",
+          "name": "List properties near a point of interest.",
+          "request": {
+            "name": "List properties near a point of interest.",
+            "description": {},
+            "url": {
+              "path": [
+                "content",
+                "v1",
+                "property"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.coordinates.latitude",
+                  "value": "<double>",
+                  "description": "The center-point latitude."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.coordinates.longitude",
+                  "value": "<double>",
+                  "description": "The center-point longitude."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.recipients",
+                  "value": "<string>",
+                  "description": "Optionally, any individual recipients.\nFor example, \"Alexander Hamilton\", \"Aaron Burr\"\nMay be empty."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.recipients",
+                  "value": "<string>",
+                  "description": "Optionally, any individual recipients.\nFor example, \"Alexander Hamilton\", \"Aaron Burr\"\nMay be empty."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.organization",
+                  "value": "<string>",
+                  "description": "Optionally, any organization or company as a recipient.\nFor example, \"Engine\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.addressLine",
+                  "value": "<string>",
+                  "description": "Optionally, any address lines, in order as they'd appear on an envelope.\nFor example, \"233 S Wacker Dr\", \"108th Floor\".\nMay be empty."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.addressLine",
+                  "value": "<string>",
+                  "description": "Optionally, any address lines, in order as they'd appear on an envelope.\nFor example, \"233 S Wacker Dr\", \"108th Floor\".\nMay be empty."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.administrativeArea",
+                  "value": "<string>",
+                  "description": "Optionally, the State, province, prefecture, oblast, or area.\nFor example, \"Texas\""
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.locality",
+                  "value": "<string>",
+                  "description": "Optionally, the City, or Post Town\nFor example, \"Austin\""
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.postalCode",
+                  "value": "<string>",
+                  "description": "Optionally, the postal code, if one exists, for the address.\nFor example, \"78757\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.physicalAddress.countryCode",
+                  "value": "<string>",
+                  "description": "Optionally, the ISO 3166-1 alpha-2 country code.\nFor example, \"US\".\nSee https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\nSee https://www.iso.org/iso-3166-country-codes.html"
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.freeformSearchText",
+                  "value": "<string>",
+                  "description": "A description of a point of interest, an unstructured address, etc.\nFreeform input will make a \"best effort\" match to a point of interest and its corresponding geo coordinates.\nIf available, using `coordinates` or `physical_address` will yield better results."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.radius.value",
+                  "value": "<double>",
+                  "description": "The distance quantity."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.radius.radius.unit",
+                  "value": "DISTANCE_UNIT_MILE",
+                  "description": "The unit of distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.excludePropertiesWithoutHeroImage",
+                  "value": "false",
+                  "description": "Optionally, if true, properties that do not have a `Property#hero_image_uri` will not be returned.\nExcluded properties will not count against the page size or limit."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.excludePropertiesWithoutDescription",
+                  "value": "false",
+                  "description": "Optionally, if true, properties that do not have a `Property#description` will not be returned.\nExcluded properties will not count against the page size or limit."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.criteria.sortMode",
+                  "value": "PROPERTY_SORT_MODE_DISTANCE",
+                  "description": "The order in which the properties will be returned.\n\n - PROPERTY_SORT_MODE_DISTANCE: Results are returned in ascending order from the center point of the `ListProperties.inclusion_type`."
+                },
+                {
+                  "disabled": false,
+                  "key": "request.pageSize",
+                  "value": "100",
+                  "description": "The maximum number of search results to be returned in a page.\nDefault: 100\nMinimum: 1\nMaximum: 500"
+                },
+                {
+                  "disabled": false,
+                  "key": "nextPageToken",
+                  "value": "<string>",
+                  "description": "Optionally, a `next_page_token` retrieved from a `ListPropertiesResponse`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bee5675-dd1c-496d-87b3-26047f0225af",
+              "name": "A successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "v1",
+                    "property"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "request.criteria.radius.coordinates.latitude",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "request.criteria.radius.coordinates.longitude",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.recipients",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.recipients",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.addressLine",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.addressLine",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.administrativeArea",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.locality",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.postalCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.countryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.freeformSearchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.radius.value",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "request.criteria.radius.radius.unit",
+                      "value": "DISTANCE_UNIT_MILE"
+                    },
+                    {
+                      "key": "request.criteria.excludePropertiesWithoutHeroImage",
+                      "value": "false"
+                    },
+                    {
+                      "key": "request.criteria.excludePropertiesWithoutDescription",
+                      "value": "false"
+                    },
+                    {
+                      "key": "request.criteria.sortMode",
+                      "value": "PROPERTY_SORT_MODE_DISTANCE"
+                    },
+                    {
+                      "key": "request.pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "nextPageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"properties\": [\n    {\n      \"property\": {\n        \"id\": \"L00000000000000140124\",\n        \"name\": \"Holiday Inn Express & Suites Austin Downtown - University\",\n        \"physicalAddress\": {\n          \"addressLine\": [\n            \"805 Neches St\"\n          ],\n          \"administrativeArea\": \"TX\",\n          \"locality\": \"Austin\",\n          \"postalCode\": \"78701\",\n          \"countryCode\": \"US\"\n        },\n        \"coordinates\": {\n          \"latitude\": 30.2693,\n          \"longitude\": -97.737122\n        },\n        \"heroImageUri\": \"https://i.travelapi.com/lodging/13000000/12310000/12303000/12302973/8299c3c9_z.jpg\",\n        \"description\": \"Attractively located in the center of Austin, Holiday Inn Express Hotel & Suites Austin Downtown - University, an IHG Hotel has air-conditioned rooms, an outdoor swimming pool, free WiFi and a fitness center. This 3-star hotel offers a 24-hour front desk and an ATM. Private parking is available on site. The rooms at the hotel come with a seating area and a flat-screen TV with satellite channels. At Holiday Inn Express Hotel & Suites Austin Downtown - University, an IHG Hotel rooms contain a private bathroom with free toiletries and a hairdryer. Breakfast is available each morning, and includes buffet, continental and American options. The accommodation has a sun terrace. Guests can use the business center or relax in the snack bar. Popular points of interest near Holiday Inn Express Hotel & Suites Austin Downtown - University, an IHG Hotel include Shoal Beach, Capitol Building and Austin Convention Center. Austin-Bergstrom International Airport is 5.6 miles from the property.\"\n      },\n      \"distance\": {\n        \"value\": 5.2,\n        \"unit\": \"DISTANCE_UNIT_MILE\"\n      }\n    },\n    {\n      \"property\": {\n        \"id\": \"L00000000000000092817\",\n        \"name\": \"Sonesta Select Austin North\",\n        \"physicalAddress\": {\n          \"addressLine\": [\n            \"7522 N Interstate Hwy 35\"\n          ],\n          \"administrativeArea\": \"TX\",\n          \"locality\": \"Austin\",\n          \"postalCode\": \"78752\",\n          \"countryCode\": \"US\"\n        },\n        \"coordinates\": {\n          \"latitude\": 30.33843,\n          \"longitude\": -97.703827\n        },\n        \"heroImageUri\": \"https://i.travelapi.com/lodging/1000000/50000/41300/41290/232ce1b7_z.jpg\",\n        \"description\": \"Featuring an outdoor pool, Sonesta Select Austin North Central is 5 mi from Austin city center. This hotel offers free WiFi access. Rooms at Sonesta Select Austin North Central will provide you with a flat-screen TV with cable and an air-conditioned seating area. Complete with a refrigerator, the dining area also has a coffee machine. At Sonesta Select Austin North Central you will find a fitness center. Other facilities offered include meeting facilities, a shared lounge and dry cleaning. The hotel is 4.2 mi from University of Texas and 5.6 mi from Austin Convention Center. Bergstrom Airport is 8.7 mi away. The property offers free parking. When traveling with pets, please note that an extra charge of $75 per pet, per stay applies. A maximum of 2 pets per room is allowed\"\n      },\n      \"distance\": {\n        \"value\": 6.7,\n        \"unit\": \"DISTANCE_UNIT_MILE\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a0d0e86-e850-4bed-8731-ade5bc96e1c0",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "v1",
+                    "property"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "request.criteria.radius.coordinates.latitude",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "request.criteria.radius.coordinates.longitude",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.recipients",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.recipients",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.addressLine",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.addressLine",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.administrativeArea",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.locality",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.postalCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.physicalAddress.countryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.freeformSearchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request.criteria.radius.radius.value",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "request.criteria.radius.radius.unit",
+                      "value": "DISTANCE_UNIT_MILE"
+                    },
+                    {
+                      "key": "request.criteria.excludePropertiesWithoutHeroImage",
+                      "value": "false"
+                    },
+                    {
+                      "key": "request.criteria.excludePropertiesWithoutDescription",
+                      "value": "false"
+                    },
+                    {
+                      "key": "request.criteria.sortMode",
+                      "value": "PROPERTY_SORT_MODE_DISTANCE"
+                    },
+                    {
+                      "key": "request.pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "nextPageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7832,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-api.engine.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "281fb6ee-b934-4c43-ae01-3328ca61be85",
+    "name": "Omni, Powered by Engine Content Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Definitions for the Omni travel API.\n\nContact Support:\n Name: Omni API Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Omni, Powered by Engine Lodging Booking Service API",
+    "version": "2.4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LodgingBookingService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve bookings given the provided Booking IDs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/book/v1/lodging/booking",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In case of error, the status will contain a [GetBookingsError] within the [Status.details] field."
+        },
+        {
+          "info": {
+            "name": "Purchase and reserve an Offer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://partner-api.engine.com/book/v1/lodging/booking",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In case of error, the status will contain a [BookError] within the [Status.details] field."
+        },
+        {
+          "info": {
+            "name": "Generate a folio.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/book/v1/lodging/booking/generate-folio",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In case of error, the status will contain a [GenerateFolioError] within the [Status.details] field."
+        },
+        {
+          "info": {
+            "name": "Get the availability, means, and expected refund for a booking cancellation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/book/v1/lodging/booking/preview-cancellation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In case of error, the status will contain a [PreviewCancellationError] within the [Status.details] field."
+        },
+        {
+          "info": {
+            "name": "Attempt to cancel a booking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/book/v1/lodging/booking/submit-cancellation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In case of error, the status will contain a [SubmitCancellationError] within the [Status.details] field."
+        },
+        {
+          "info": {
+            "name": "Confirm the availability, pricing, and details of an Offer prior to booking.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/book/v1/lodging/confirm-offer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In case of error, the status will contain a [ConfirmOfferError] within the [Status.details] field."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

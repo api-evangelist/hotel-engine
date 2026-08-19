@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Omni, Powered by Engine Content Service API",
+    "version": "2.4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ContentService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves details for specific properties.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-api.engine.com/content/v1/properties",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves details for the set of properties specified in the request"
+        },
+        {
+          "info": {
+            "name": "List properties near a point of interest.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-api.engine.com/content/v1/property",
+            "params": [
+              {
+                "name": "request.criteria.radius.coordinates.latitude",
+                "value": "",
+                "type": "query",
+                "description": "The center-point latitude."
+              },
+              {
+                "name": "request.criteria.radius.coordinates.longitude",
+                "value": "",
+                "type": "query",
+                "description": "The center-point longitude."
+              },
+              {
+                "name": "request.criteria.radius.physicalAddress.recipients",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, any individual recipients.\nFor example, \"Alexander Hamilton\", \"Aaron Burr\"\nMay be empty."
+              },
+              {
+                "name": "request.criteria.radius.physicalAddress.organization",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, any organization or company as a recipient.\nFor example, \"Engine\"."
+              },
+              {
+                "name": "request.criteria.radius.physicalAddress.addressLine",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, any address lines, in order as they'd appear on an envelope.\nFor example, \"233 S Wacker Dr\", \"108th Floor\".\nMay be empty."
+              },
+              {
+                "name": "request.criteria.radius.physicalAddress.administrativeArea",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, the State, province, prefecture, oblast, or area.\nFor example, \"Texas\""
+              },
+              {
+                "name": "request.criteria.radius.physicalAddress.locality",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, the City, or Post Town\nFor example, \"Austin\""
+              },
+              {
+                "name": "request.criteria.radius.physicalAddress.postalCode",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, the postal code, if one exists, for the address.\nFor example, \"78757\"."
+              },
+              {
+                "name": "request.criteria.radius.physicalAddress.countryCode",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, the ISO 3166-1 alpha-2 country code.\nFor example, \"US\".\nSee https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\nSee https://www.iso.org/iso-3166-country-codes.html"
+              },
+              {
+                "name": "request.criteria.radius.freeformSearchText",
+                "value": "",
+                "type": "query",
+                "description": "A description of a point of interest, an unstructured address, etc.\nFreeform input will make a \"best effort\" match to a point of interest and its corresponding geo coordinates.\nIf available, using `coordinates` or `physical_address` will yield better results."
+              },
+              {
+                "name": "request.criteria.radius.radius.value",
+                "value": "",
+                "type": "query",
+                "description": "The distance quantity."
+              },
+              {
+                "name": "request.criteria.radius.radius.unit",
+                "value": "",
+                "type": "query",
+                "description": "The unit of distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
+              },
+              {
+                "name": "request.criteria.excludePropertiesWithoutHeroImage",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, if true, properties that do not have a `Property#hero_image_uri` will not be returned.\nExcluded properties will not count against the page size or limit."
+              },
+              {
+                "name": "request.criteria.excludePropertiesWithoutDescription",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, if true, properties that do not have a `Property#description` will not be returned.\nExcluded properties will not count against the page size or limit."
+              },
+              {
+                "name": "request.criteria.sortMode",
+                "value": "",
+                "type": "query",
+                "description": "The order in which the properties will be returned.\n\n - PROPERTY_SORT_MODE_DISTANCE: Results are returned in ascending order from the center point of the `ListProperties.inclusion_type`."
+              },
+              {
+                "name": "request.pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of search results to be returned in a page.\nDefault: 100\nMinimum: 1\nMaximum: 500"
+              },
+              {
+                "name": "nextPageToken",
+                "value": "",
+                "type": "query",
+                "description": "Optionally, a `next_page_token` retrieved from a `ListPropertiesResponse`."
+              }
+            ]
+          },
+          "docs": "List properties near a point of interest."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
