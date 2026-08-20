@@ -71,6 +71,8 @@ apis:
   humanURL: https://engine-public.github.io/engine-partner-api/
   baseURL: https://partner-api.engine.com
   tags:
+  - Content Service
+  tags_raw:
   - ContentService
   properties:
   - type: OpenAPI
