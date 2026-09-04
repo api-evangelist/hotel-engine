@@ -25,6 +25,21 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: approval
+  trial: false
+  try_now: false
+  public: false
+  label: Requires approval
+  confidence: medium
+  source:
+  - authentication
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-09-02'
+  method: derived
 image: https://engine.com/_astro/engine-og-default.BAjJjAAC.png
 url: https://raw.githubusercontent.com/api-evangelist/hotel-engine/refs/heads/main/apis.yml
 x-type: company
@@ -71,8 +86,9 @@ apis:
     url: data-model/hotel-engine-data-model.yml
   - type: RateLimits
     url: rate-limits/hotel-engine-rate-limits.yml
-  - type: MCPServer
+  - type: X-MCPServerCandidate
     url: mcp/hotel-engine-mcp.yml
+    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
   - type: Documentation
     url: https://engine-public.github.io/engine-partner-api/
   - type: APIReference
