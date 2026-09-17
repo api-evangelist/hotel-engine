@@ -88,37 +88,11 @@ apis:
     url: rate-limits/hotel-engine-rate-limits.yml
   - type: X-MCPServerCandidate
     url: mcp/hotel-engine-mcp.yml
-    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
-  - type: Documentation
-    url: https://engine-public.github.io/engine-partner-api/
-  - type: APIReference
-    url: https://engine-public.github.io/engine-partner-api/swagger-ui/index.html
-  - type: GettingStarted
-    url: https://engine-public.github.io/engine-partner-api/getting-started.html
-- aid: hotel-engine:hotel-engine-contentservice-api
-  name: Engine Content Service API
-  description: The ContentService API from Engine — 2 operation(s) for contentservice.
-  humanURL: https://engine-public.github.io/engine-partner-api/
-  baseURL: https://partner-api.engine.com
-  tags:
-  - Content Service
-  tags_raw:
-  - ContentService
-  properties:
-  - type: OpenAPI
-    url: openapi/hotel-engine-contentservice-api-openapi.yml
-  - type: Protobuf
-    url: grpc/_index.yml
-  - type: Authentication
-    url: authentication/hotel-engine-authentication.yml
-  - type: Conventions
-    url: conventions/hotel-engine-conventions.yml
-  - type: ErrorCatalog
-    url: errors/hotel-engine-problem-types.yml
-  - type: DataModel
-    url: data-model/hotel-engine-data-model.yml
-  - type: RateLimits
-    url: rate-limits/hotel-engine-rate-limits.yml
+    note: >-
+      Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+      — a tool list derived from the published API contracts, not an existing server. The scorer already
+      read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+      surfaces with a server that does not exist.
   - type: Documentation
     url: https://engine-public.github.io/engine-partner-api/
   - type: APIReference
@@ -163,6 +137,34 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/hotel-engine-lodgingshoppingservice-api-openapi.yml
+  - type: Protobuf
+    url: grpc/_index.yml
+  - type: Authentication
+    url: authentication/hotel-engine-authentication.yml
+  - type: Conventions
+    url: conventions/hotel-engine-conventions.yml
+  - type: ErrorCatalog
+    url: errors/hotel-engine-problem-types.yml
+  - type: DataModel
+    url: data-model/hotel-engine-data-model.yml
+  - type: RateLimits
+    url: rate-limits/hotel-engine-rate-limits.yml
+  - type: Documentation
+    url: https://engine-public.github.io/engine-partner-api/
+  - type: APIReference
+    url: https://engine-public.github.io/engine-partner-api/swagger-ui/index.html
+  - type: GettingStarted
+    url: https://engine-public.github.io/engine-partner-api/getting-started.html
+- aid: hotel-engine:hotel-engine-content-service-api
+  name: Engine Content Service API
+  description: The Content Service API from Engine — 2 operation(s) for content service.
+  humanURL: https://engine-public.github.io/engine-partner-api/
+  baseURL: https://partner-api.engine.com
+  tags:
+  - Content Service
+  properties:
+  - type: OpenAPI
+    url: openapi/hotel-engine-content-service-api-openapi.yml
   - type: Protobuf
     url: grpc/_index.yml
   - type: Authentication
