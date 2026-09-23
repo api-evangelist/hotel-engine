@@ -12,11 +12,11 @@ info:
 servers:
 - url: https://partner-api.engine.com
 tags:
-- name: ContentService
+- name: Content Service
 paths:
   /content/v1/properties:
     post:
-      summary: Retrieves details for specific properties.
+      summary: Retrieves details for specific properties
       description: Retrieves details for the set of properties specified in the request
       operationId: ContentService_GetProperties
       responses:
@@ -38,7 +38,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/rpcStatus'
       tags:
-      - ContentService
+      - Content Service
       requestBody:
         content:
           application/json:
@@ -48,7 +48,7 @@ paths:
         required: true
   /content/v1/property:
     get:
-      summary: List properties near a point of interest.
+      summary: List properties near a point of interest
       operationId: ContentService_ListProperties
       responses:
         '200':
@@ -263,23 +263,131 @@ paths:
         schema:
           type: string
       tags:
-      - ContentService
+      - Content Service
 components:
   schemas:
-    v1GetPropertiesRequest:
+    v1Image:
       type: object
       properties:
-        propertyIds:
+        uri:
+          type: string
+          title: 'The URI of the [Image].
+
+            For example, "https://example.com/image.jpg"'
+      description: Represents an [Image] with optional metadata.
+      title: Common_Image_v1
+    lodgingExternalCatalogIdentifiers:
+      type: object
+      properties:
+        giataIdentifier:
+          type: string
+          description: GIATA identifier for this property.
+        catalogIdentifiers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/lodgingExternalCatalogIdentifierList'
+          description: Catalog identifiers keyed by source keys.
+      description: External catalog identifiers for property mapping.
+      title: Content_ExternalCatalogIdentifiers_v1
+    v1PostalAddress:
+      type: object
+      properties:
+        recipients:
           type: array
           items:
             type: string
-          description: 'The list of Engine [Property] IDs.
+          description: 'Optionally, any individual recipients.
 
-            Maximum of 50 property IDs per request.'
-          maxItems: 50.0
-          minItems: 1.0
-      description: A request to retrieve specific Properties by their IDs.
-      title: GetPropertiesRequest_v1
+            For example, "Alexander Hamilton", "Aaron Burr"
+
+            May be empty.'
+        organization:
+          type: string
+          description: 'Optionally, any organization or company as a recipient.
+
+            For example, "Engine".'
+        addressLine:
+          type: array
+          items:
+            type: string
+          description: 'Optionally, any address lines, in order as they''d appear on an envelope.
+
+            For example, "233 S Wacker Dr", "108th Floor".
+
+            May be empty.'
+        administrativeArea:
+          type: string
+          title: 'Optionally, the State, province, prefecture, oblast, or area.
+
+            For example, "Texas"'
+        locality:
+          type: string
+          title: 'Optionally, the City, or Post Town
+
+            For example, "Austin"'
+        postalCode:
+          type: string
+          description: 'Optionally, the postal code, if one exists, for the address.
+
+            For example, "78757".'
+        countryCode:
+          type: string
+          title: 'Optionally, the ISO 3166-1 alpha-2 country code.
+
+            For example, "US".
+
+            See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
+            See https://www.iso.org/iso-3166-country-codes.html'
+      description: Represents a Postal Address.
+      title: Common_PostalAddress_v1
+    v1MediaItem:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/v1Image'
+          title: An [Image] this media item represents
+        description:
+          type: string
+          title: 'A description of this media item
+
+            Example: "A large restaurant"'
+        tags:
+          type: array
+          items:
+            type: string
+          title: 'Tags categorizing the content of this media item
+
+            Example: ["outdoor", "pool"]'
+      description: A media item for visual or marketing context.
+      title: Common_MediaItem_v1
+    enginecontentservicev1ResponsiveProperty:
+      type: object
+      properties:
+        property:
+          $ref: '#/components/schemas/lodgingProperty'
+          description: The property details.
+        distance:
+          $ref: '#/components/schemas/v1Distance'
+          description: The distance between the center point of the `ListProperties.inclusion_type` and the property.
+      description: A `Property` that meets the criteria of a `ContentServiceV1.ListProperties` request.
+      title: ResponsiveProperty_v1
+    v1GetPropertiesResponse:
+      type: object
+      properties:
+        properties:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/lodgingProperty'
+          description: The list of available [Property] objects including phone numbers.
+        inaccessiblePropertyIds:
+          type: array
+          items:
+            type: string
+          description: The list of [Property] IDs that were requested but not found.
+      description: A response containing [Property] information.
+      title: GetPropertiesResponse_v1
     lodgingExternalCatalogIdentifierList:
       type: object
       properties:
@@ -292,17 +400,76 @@ components:
             May contain multiple identifiers when more than one external record is mapped to the Engine record.'
       description: A list of external catalog identifiers for a single catalog key.
       title: Content_ExternalCatalogIdentifierList_v1
-    enginecontentservicev1ResponsiveProperty:
+    v1EmailType:
+      type: string
+      enum:
+      - EMAIL_TYPE_UNSPECIFIED
+      - EMAIL_TYPE_GENERAL
+      - EMAIL_TYPE_BILLING
+      - EMAIL_TYPE_RESERVATIONS
+      - EMAIL_TYPE_SUPPORT
+      default: EMAIL_TYPE_UNSPECIFIED
+      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
+      title: Common_EmailType_v1
+    v1GeoPoint:
       type: object
       properties:
-        property:
-          $ref: '#/components/schemas/lodgingProperty'
-          description: The property details.
-        distance:
-          $ref: '#/components/schemas/v1Distance'
-          description: The distance between the center point of the `ListProperties.inclusion_type` and the property.
-      description: A `Property` that meets the criteria of a `ContentServiceV1.ListProperties` request.
-      title: ResponsiveProperty_v1
+        latitude:
+          type: number
+          format: double
+          description: The center-point latitude.
+        longitude:
+          type: number
+          format: double
+          description: The center-point longitude.
+      description: A single geographic point, defined by latitude and longitude.
+      title: Common_GeoPoint_v1
+    v1Distance:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+          description: The distance quantity.
+        unit:
+          $ref: '#/components/schemas/v1DistanceUnit'
+          description: The unit of distance measurement.
+      description: The distance between two geographic points.
+      title: Common_Distance_v1
+    lodgingPropertyAmenity:
+      type: object
+      properties:
+        amenityName:
+          type: string
+          title: 'Amenity name describing a [Property] feature or service.
+
+            Examples: "Free WiFi", "Free Breakfast"'
+        amenityCode:
+          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
+          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
+
+            service, if mapped.'
+      description: '[Property] amenity containing name for property features and services.'
+      title: Content_PropertyAmenity_v1
+    v1ContactEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          description: The email address.
+        emailType:
+          $ref: '#/components/schemas/v1EmailType'
+          description: Optional type of email contact.
+      description: Contact email information.
+      title: Common_ContactEmail_v1
+    v1LoyaltyRewardsProgram:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the loyalty reward program.
+      description: Represents a single loyalty rewards program.
+      title: Common_LoyaltyRewardsProgram_v1
     lodgingLodgingAmenityCode:
       type: string
       enum:
@@ -325,100 +492,6 @@ components:
       - LODGING_AMENITY_CODE_TRUCK_PARKING
       default: LODGING_AMENITY_CODE_UNKNOWN
       title: Content_LodgingAmenityCode_v1
-    v1ListPropertiesResponse:
-      type: object
-      properties:
-        properties:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/enginecontentservicev1ResponsiveProperty'
-          title: Up to `ListPropertiesRequest.page_size` responsive to
-        nextPageToken:
-          type: string
-          description: Optionally, an opaque token to be passed into the next `ListPropertiesRequest` in order to retrieve the next page of results.
-      description: A response to a `ContentServiceV1.ListProperties` request.
-      title: ListPropertiesResponse_v1
-    v1Image:
-      type: object
-      properties:
-        uri:
-          type: string
-          title: 'The URI of the [Image].
-
-            For example, "https://example.com/image.jpg"'
-      description: Represents an [Image] with optional metadata.
-      title: Common_Image_v1
-    v1EmailType:
-      type: string
-      enum:
-      - EMAIL_TYPE_UNSPECIFIED
-      - EMAIL_TYPE_GENERAL
-      - EMAIL_TYPE_BILLING
-      - EMAIL_TYPE_RESERVATIONS
-      - EMAIL_TYPE_SUPPORT
-      default: EMAIL_TYPE_UNSPECIFIED
-      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
-      title: Common_EmailType_v1
-    v1ContactEmail:
-      type: object
-      properties:
-        emailAddress:
-          type: string
-          description: The email address.
-        emailType:
-          $ref: '#/components/schemas/v1EmailType'
-          description: Optional type of email contact.
-      description: Contact email information.
-      title: Common_ContactEmail_v1
-    lodgingPropertyAmenity:
-      type: object
-      properties:
-        amenityName:
-          type: string
-          title: 'Amenity name describing a [Property] feature or service.
-
-            Examples: "Free WiFi", "Free Breakfast"'
-        amenityCode:
-          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
-          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
-
-            service, if mapped.'
-      description: '[Property] amenity containing name for property features and services.'
-      title: Content_PropertyAmenity_v1
-    v1MediaItem:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/v1Image'
-          title: An [Image] this media item represents
-        description:
-          type: string
-          title: 'A description of this media item
-
-            Example: "A large restaurant"'
-        tags:
-          type: array
-          items:
-            type: string
-          title: 'Tags categorizing the content of this media item
-
-            Example: ["outdoor", "pool"]'
-      description: A media item for visual or marketing context.
-      title: Common_MediaItem_v1
-    lodgingExternalCatalogIdentifiers:
-      type: object
-      properties:
-        giataIdentifier:
-          type: string
-          description: GIATA identifier for this property.
-        catalogIdentifiers:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/lodgingExternalCatalogIdentifierList'
-          description: Catalog identifiers keyed by source keys.
-      description: External catalog identifiers for property mapping.
-      title: Content_ExternalCatalogIdentifiers_v1
     lodgingProperty:
       type: object
       properties:
@@ -505,14 +578,20 @@ components:
             Examples: "America/Denver", "Atlantic/Madeira"'
       description: An individual Lodging location identified by [Engine].
       title: Content_Property_v1
-    v1LoyaltyRewardsProgram:
+    v1GetPropertiesRequest:
       type: object
       properties:
-        name:
-          type: string
-          description: Name of the loyalty reward program.
-      description: Represents a single loyalty rewards program.
-      title: Common_LoyaltyRewardsProgram_v1
+        propertyIds:
+          type: array
+          items:
+            type: string
+          description: 'The list of Engine [Property] IDs.
+
+            Maximum of 50 property IDs per request.'
+          maxItems: 50.0
+          minItems: 1.0
+      description: A request to retrieve specific Properties by their IDs.
+      title: GetPropertiesRequest_v1
     rpcStatus:
       type: object
       properties:
@@ -551,47 +630,6 @@ components:
         You can find out more about this error model and how to work with it in the
 
         [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    v1Distance:
-      type: object
-      properties:
-        value:
-          type: number
-          format: double
-          description: The distance quantity.
-        unit:
-          $ref: '#/components/schemas/v1DistanceUnit'
-          description: The unit of distance measurement.
-      description: The distance between two geographic points.
-      title: Common_Distance_v1
-    v1GetPropertiesResponse:
-      type: object
-      properties:
-        properties:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/lodgingProperty'
-          description: The list of available [Property] objects including phone numbers.
-        inaccessiblePropertyIds:
-          type: array
-          items:
-            type: string
-          description: The list of [Property] IDs that were requested but not found.
-      description: A response containing [Property] information.
-      title: GetPropertiesResponse_v1
-    v1GeoPoint:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: double
-          description: The center-point latitude.
-        longitude:
-          type: number
-          format: double
-          description: The center-point longitude.
-      description: A single geographic point, defined by latitude and longitude.
-      title: Common_GeoPoint_v1
     v1DistanceUnit:
       type: string
       enum:
@@ -600,58 +638,6 @@ components:
       default: DISTANCE_UNIT_MILE
       description: "The unit type for a distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
       title: Common_DistanceUnit_v1
-    v1PostalAddress:
-      type: object
-      properties:
-        recipients:
-          type: array
-          items:
-            type: string
-          description: 'Optionally, any individual recipients.
-
-            For example, "Alexander Hamilton", "Aaron Burr"
-
-            May be empty.'
-        organization:
-          type: string
-          description: 'Optionally, any organization or company as a recipient.
-
-            For example, "Engine".'
-        addressLine:
-          type: array
-          items:
-            type: string
-          description: 'Optionally, any address lines, in order as they''d appear on an envelope.
-
-            For example, "233 S Wacker Dr", "108th Floor".
-
-            May be empty.'
-        administrativeArea:
-          type: string
-          title: 'Optionally, the State, province, prefecture, oblast, or area.
-
-            For example, "Texas"'
-        locality:
-          type: string
-          title: 'Optionally, the City, or Post Town
-
-            For example, "Austin"'
-        postalCode:
-          type: string
-          description: 'Optionally, the postal code, if one exists, for the address.
-
-            For example, "78757".'
-        countryCode:
-          type: string
-          title: 'Optionally, the ISO 3166-1 alpha-2 country code.
-
-            For example, "US".
-
-            See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-
-            See https://www.iso.org/iso-3166-country-codes.html'
-      description: Represents a Postal Address.
-      title: Common_PostalAddress_v1
     protobufAny:
       type: object
       properties:
@@ -660,4 +646,18 @@ components:
           description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
       additionalProperties: {}
       description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    v1ListPropertiesResponse:
+      type: object
+      properties:
+        properties:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/enginecontentservicev1ResponsiveProperty'
+          title: Up to `ListPropertiesRequest.page_size` responsive to
+        nextPageToken:
+          type: string
+          description: Optionally, an opaque token to be passed into the next `ListPropertiesRequest` in order to retrieve the next page of results.
+      description: A response to a `ContentServiceV1.ListProperties` request.
+      title: ListPropertiesResponse_v1
 externalDocs: https://engine-public.github.io/engine-partner-api

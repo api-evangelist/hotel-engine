@@ -16,7 +16,7 @@ tags:
 paths:
   /content/v1/catalog/property:
     post:
-      summary: List the full property catalog.
+      summary: List the full property catalog
       description: Retrieves one page of the lodging properties catalog.
       operationId: CatalogService_ListPropertyCatalog
       responses:
@@ -43,6 +43,29 @@ paths:
         required: true
 components:
   schemas:
+    v1Image:
+      type: object
+      properties:
+        uri:
+          type: string
+          title: 'The URI of the [Image].
+
+            For example, "https://example.com/image.jpg"'
+      description: Represents an [Image] with optional metadata.
+      title: Common_Image_v1
+    lodgingExternalCatalogIdentifiers:
+      type: object
+      properties:
+        giataIdentifier:
+          type: string
+          description: GIATA identifier for this property.
+        catalogIdentifiers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/lodgingExternalCatalogIdentifierList'
+          description: Catalog identifiers keyed by source keys.
+      description: External catalog identifiers for property mapping.
+      title: Content_ExternalCatalogIdentifiers_v1
     v1ListPropertyCatalogRequestDetails:
       type: object
       properties:
@@ -68,129 +91,6 @@ components:
             Conforms to ISO-8601, see https://en.wikipedia.org/wiki/ISO_8601'
       description: Parameters and filters to be applied to a property catalog request.
       title: ListPropertyCatalogRequestDetails_v1
-    lodgingExternalCatalogIdentifierList:
-      type: object
-      properties:
-        identifiers:
-          type: array
-          items:
-            type: string
-          description: 'Supplier property identifiers for the associated catalog key.
-
-            May contain multiple identifiers when more than one external record is mapped to the Engine record.'
-      description: A list of external catalog identifiers for a single catalog key.
-      title: Content_ExternalCatalogIdentifierList_v1
-    v1PropertyCatalogState:
-      type: string
-      enum:
-      - PROPERTY_CATALOG_STATE_UNSPECIFIED
-      - PROPERTY_CATALOG_STATE_ACTIVE
-      - PROPERTY_CATALOG_STATE_INACTIVE
-      default: PROPERTY_CATALOG_STATE_UNSPECIFIED
-      description: "The state of a property within the catalog.\n\n - PROPERTY_CATALOG_STATE_UNSPECIFIED: The state is unknown or unspecified.\n - PROPERTY_CATALOG_STATE_ACTIVE: The property is active within the catalog\n - PROPERTY_CATALOG_STATE_INACTIVE: The property is inactive within the catalog."
-      title: PropertyCatalogState_v1
-    lodgingLodgingAmenityCode:
-      type: string
-      enum:
-      - LODGING_AMENITY_CODE_UNKNOWN
-      - LODGING_AMENITY_CODE_AIR_CONDITIONING
-      - LODGING_AMENITY_CODE_DINING
-      - LODGING_AMENITY_CODE_DRY_CLEANING
-      - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
-      - LODGING_AMENITY_CODE_FITNESS_CENTER
-      - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
-      - LODGING_AMENITY_CODE_FREE_BREAKFAST
-      - LODGING_AMENITY_CODE_FREE_PARKING
-      - LODGING_AMENITY_CODE_FULL_KITCHEN
-      - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
-      - LODGING_AMENITY_CODE_KITCHENETTE
-      - LODGING_AMENITY_CODE_MEETING_SPACE
-      - LODGING_AMENITY_CODE_PET_FRIENDLY
-      - LODGING_AMENITY_CODE_SPA
-      - LODGING_AMENITY_CODE_SWIMMING_POOL
-      - LODGING_AMENITY_CODE_TRUCK_PARKING
-      default: LODGING_AMENITY_CODE_UNKNOWN
-      title: Content_LodgingAmenityCode_v1
-    v1Image:
-      type: object
-      properties:
-        uri:
-          type: string
-          title: 'The URI of the [Image].
-
-            For example, "https://example.com/image.jpg"'
-      description: Represents an [Image] with optional metadata.
-      title: Common_Image_v1
-    v1EmailType:
-      type: string
-      enum:
-      - EMAIL_TYPE_UNSPECIFIED
-      - EMAIL_TYPE_GENERAL
-      - EMAIL_TYPE_BILLING
-      - EMAIL_TYPE_RESERVATIONS
-      - EMAIL_TYPE_SUPPORT
-      default: EMAIL_TYPE_UNSPECIFIED
-      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
-      title: Common_EmailType_v1
-    v1ContactEmail:
-      type: object
-      properties:
-        emailAddress:
-          type: string
-          description: The email address.
-        emailType:
-          $ref: '#/components/schemas/v1EmailType'
-          description: Optional type of email contact.
-      description: Contact email information.
-      title: Common_ContactEmail_v1
-    lodgingPropertyAmenity:
-      type: object
-      properties:
-        amenityName:
-          type: string
-          title: 'Amenity name describing a [Property] feature or service.
-
-            Examples: "Free WiFi", "Free Breakfast"'
-        amenityCode:
-          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
-          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
-
-            service, if mapped.'
-      description: '[Property] amenity containing name for property features and services.'
-      title: Content_PropertyAmenity_v1
-    v1MediaItem:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/v1Image'
-          title: An [Image] this media item represents
-        description:
-          type: string
-          title: 'A description of this media item
-
-            Example: "A large restaurant"'
-        tags:
-          type: array
-          items:
-            type: string
-          title: 'Tags categorizing the content of this media item
-
-            Example: ["outdoor", "pool"]'
-      description: A media item for visual or marketing context.
-      title: Common_MediaItem_v1
-    lodgingExternalCatalogIdentifiers:
-      type: object
-      properties:
-        giataIdentifier:
-          type: string
-          description: GIATA identifier for this property.
-        catalogIdentifiers:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/lodgingExternalCatalogIdentifierList'
-          description: Catalog identifiers keyed by source keys.
-      description: External catalog identifiers for property mapping.
-      title: Content_ExternalCatalogIdentifiers_v1
     v1PostalAddress:
       type: object
       properties:
@@ -243,6 +143,138 @@ components:
             See https://www.iso.org/iso-3166-country-codes.html'
       description: Represents a Postal Address.
       title: Common_PostalAddress_v1
+    v1MediaItem:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/v1Image'
+          title: An [Image] this media item represents
+        description:
+          type: string
+          title: 'A description of this media item
+
+            Example: "A large restaurant"'
+        tags:
+          type: array
+          items:
+            type: string
+          title: 'Tags categorizing the content of this media item
+
+            Example: ["outdoor", "pool"]'
+      description: A media item for visual or marketing context.
+      title: Common_MediaItem_v1
+    v1PropertyCatalogState:
+      type: string
+      enum:
+      - PROPERTY_CATALOG_STATE_UNSPECIFIED
+      - PROPERTY_CATALOG_STATE_ACTIVE
+      - PROPERTY_CATALOG_STATE_INACTIVE
+      default: PROPERTY_CATALOG_STATE_UNSPECIFIED
+      description: "The state of a property within the catalog.\n\n - PROPERTY_CATALOG_STATE_UNSPECIFIED: The state is unknown or unspecified.\n - PROPERTY_CATALOG_STATE_ACTIVE: The property is active within the catalog\n - PROPERTY_CATALOG_STATE_INACTIVE: The property is inactive within the catalog."
+      title: PropertyCatalogState_v1
+    lodgingExternalCatalogIdentifierList:
+      type: object
+      properties:
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: 'Supplier property identifiers for the associated catalog key.
+
+            May contain multiple identifiers when more than one external record is mapped to the Engine record.'
+      description: A list of external catalog identifiers for a single catalog key.
+      title: Content_ExternalCatalogIdentifierList_v1
+    v1PropertyCatalogEntry:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/v1PropertyCatalogState'
+          description: The [PropertyCatalogState] of this entry within the catalog.
+        property:
+          $ref: '#/components/schemas/lodgingProperty'
+          description: The [Property] content for this entry.
+      description: A single entry in the property catalog, wrapping a [Property] together with its state.
+      title: PropertyCatalogEntry_v1
+    v1EmailType:
+      type: string
+      enum:
+      - EMAIL_TYPE_UNSPECIFIED
+      - EMAIL_TYPE_GENERAL
+      - EMAIL_TYPE_BILLING
+      - EMAIL_TYPE_RESERVATIONS
+      - EMAIL_TYPE_SUPPORT
+      default: EMAIL_TYPE_UNSPECIFIED
+      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
+      title: Common_EmailType_v1
+    v1GeoPoint:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          description: The center-point latitude.
+        longitude:
+          type: number
+          format: double
+          description: The center-point longitude.
+      description: A single geographic point, defined by latitude and longitude.
+      title: Common_GeoPoint_v1
+    lodgingPropertyAmenity:
+      type: object
+      properties:
+        amenityName:
+          type: string
+          title: 'Amenity name describing a [Property] feature or service.
+
+            Examples: "Free WiFi", "Free Breakfast"'
+        amenityCode:
+          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
+          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
+
+            service, if mapped.'
+      description: '[Property] amenity containing name for property features and services.'
+      title: Content_PropertyAmenity_v1
+    v1ContactEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          description: The email address.
+        emailType:
+          $ref: '#/components/schemas/v1EmailType'
+          description: Optional type of email contact.
+      description: Contact email information.
+      title: Common_ContactEmail_v1
+    v1LoyaltyRewardsProgram:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the loyalty reward program.
+      description: Represents a single loyalty rewards program.
+      title: Common_LoyaltyRewardsProgram_v1
+    lodgingLodgingAmenityCode:
+      type: string
+      enum:
+      - LODGING_AMENITY_CODE_UNKNOWN
+      - LODGING_AMENITY_CODE_AIR_CONDITIONING
+      - LODGING_AMENITY_CODE_DINING
+      - LODGING_AMENITY_CODE_DRY_CLEANING
+      - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
+      - LODGING_AMENITY_CODE_FITNESS_CENTER
+      - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
+      - LODGING_AMENITY_CODE_FREE_BREAKFAST
+      - LODGING_AMENITY_CODE_FREE_PARKING
+      - LODGING_AMENITY_CODE_FULL_KITCHEN
+      - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
+      - LODGING_AMENITY_CODE_KITCHENETTE
+      - LODGING_AMENITY_CODE_MEETING_SPACE
+      - LODGING_AMENITY_CODE_PET_FRIENDLY
+      - LODGING_AMENITY_CODE_SPA
+      - LODGING_AMENITY_CODE_SWIMMING_POOL
+      - LODGING_AMENITY_CODE_TRUCK_PARKING
+      default: LODGING_AMENITY_CODE_UNKNOWN
+      title: Content_LodgingAmenityCode_v1
     lodgingProperty:
       type: object
       properties:
@@ -329,14 +361,6 @@ components:
             Examples: "America/Denver", "Atlantic/Madeira"'
       description: An individual Lodging location identified by [Engine].
       title: Content_Property_v1
-    v1LoyaltyRewardsProgram:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the loyalty reward program.
-      description: Represents a single loyalty rewards program.
-      title: Common_LoyaltyRewardsProgram_v1
     v1ListPropertyCatalogResponse:
       type: object
       properties:
@@ -353,6 +377,17 @@ components:
           description: Optionally, an opaque token to be passed into the next [ListPropertyCatalogRequest] to retrieve the next page.
       description: A response to a [CatalogService.ListPropertyCatalog] request.
       title: ListPropertyCatalogResponse_v1
+    v1ListPropertyCatalogRequest:
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/v1ListPropertyCatalogRequestDetails'
+          description: The parameters and filters to retrieve the first page of the catalog.
+        pageToken:
+          type: string
+          description: Optionally, a `page_token` retrieved from a previous call.
+      description: A request to retrieve one page of the property catalog.
+      title: ListPropertyCatalogRequest_v1
     rpcStatus:
       type: object
       properties:
@@ -391,41 +426,6 @@ components:
         You can find out more about this error model and how to work with it in the
 
         [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    v1GeoPoint:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: double
-          description: The center-point latitude.
-        longitude:
-          type: number
-          format: double
-          description: The center-point longitude.
-      description: A single geographic point, defined by latitude and longitude.
-      title: Common_GeoPoint_v1
-    v1PropertyCatalogEntry:
-      type: object
-      properties:
-        state:
-          $ref: '#/components/schemas/v1PropertyCatalogState'
-          description: The [PropertyCatalogState] of this entry within the catalog.
-        property:
-          $ref: '#/components/schemas/lodgingProperty'
-          description: The [Property] content for this entry.
-      description: A single entry in the property catalog, wrapping a [Property] together with its state.
-      title: PropertyCatalogEntry_v1
-    v1ListPropertyCatalogRequest:
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/v1ListPropertyCatalogRequestDetails'
-          description: The parameters and filters to retrieve the first page of the catalog.
-        pageToken:
-          type: string
-          description: Optionally, a `page_token` retrieved from a previous call.
-      description: A request to retrieve one page of the property catalog.
-      title: ListPropertyCatalogRequest_v1
     protobufAny:
       type: object
       properties:

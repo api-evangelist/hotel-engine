@@ -1,10 +1,7 @@
 {
   "provider": "hotel-engine",
   "sources": [
-    "hotel-engine-catalogservice-api-openapi.yml",
-    "hotel-engine-contentservice-api-openapi.yml",
-    "hotel-engine-lodgingbookingservice-api-openapi.yml",
-    "hotel-engine-lodgingshoppingservice-api-openapi.yml"
+    "_original/hotel-engine-omni-partner-api-2.4.0-swagger-original.json"
   ],
   "outputs": [
     "hotel-engine-catalogservice-api-openapi.yml",
@@ -12,15 +9,23 @@
     "hotel-engine-lodgingbookingservice-api-openapi.yml",
     "hotel-engine-lodgingshoppingservice-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "hotel-engine-catalogservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "hotel-engine-contentservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "hotel-engine-lodgingbookingservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "hotel-engine-lodgingshoppingservice-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "hotel-engine-omni-partner-api-2.4.0-swagger-original.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: hotel-engine-content-service-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 4 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "_original/hotel-engine-omni-partner-api-openapi.yml: archived document superseded by a larger archived document",
+    "hotel-engine-catalogservice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hotel-engine-content-service-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hotel-engine-lodgingbookingservice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hotel-engine-lodgingshoppingservice-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
