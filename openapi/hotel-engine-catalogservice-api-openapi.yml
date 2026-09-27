@@ -43,16 +43,26 @@ paths:
         required: true
 components:
   schemas:
-    v1Image:
+    v1MediaItem:
       type: object
       properties:
-        uri:
+        image:
+          $ref: '#/components/schemas/v1Image'
+          title: An [Image] this media item represents
+        description:
           type: string
-          title: 'The URI of the [Image].
+          title: 'A description of this media item
 
-            For example, "https://example.com/image.jpg"'
-      description: Represents an [Image] with optional metadata.
-      title: Common_Image_v1
+            Example: "A large restaurant"'
+        tags:
+          type: array
+          items:
+            type: string
+          title: 'Tags categorizing the content of this media item
+
+            Example: ["outdoor", "pool"]'
+      description: A media item for visual or marketing context.
+      title: Common_MediaItem_v1
     lodgingExternalCatalogIdentifiers:
       type: object
       properties:
@@ -66,31 +76,93 @@ components:
           description: Catalog identifiers keyed by source keys.
       description: External catalog identifiers for property mapping.
       title: Content_ExternalCatalogIdentifiers_v1
-    v1ListPropertyCatalogRequestDetails:
+    rpcStatus:
       type: object
       properties:
-        pageSize:
+        code:
           type: integer
           format: int32
-          default: '100'
-          title: 'The maximum number of records to be returned in a page.
+          description: 'The status code, which should be an enum value of
 
-            Default: 100
-
-            Minimum: 1
-
-            Maximum: 250'
-          maximum: 250.0
-          minimum: 1.0
-        updatedAfter:
+            [google.rpc.Code][google.rpc.Code].'
+        message:
           type: string
-          title: 'Optionally, return only properties updated after this timestamp.
+          description: 'A developer-facing error message, which should be in English. Any
 
-            When omitted, the full catalog is returned.
+            user-facing error message should be localized and sent in the
 
-            Conforms to ISO-8601, see https://en.wikipedia.org/wiki/ISO_8601'
-      description: Parameters and filters to be applied to a property catalog request.
-      title: ListPropertyCatalogRequestDetails_v1
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+            by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/protobufAny'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    lodgingPropertyAmenity:
+      type: object
+      properties:
+        amenityName:
+          type: string
+          title: 'Amenity name describing a [Property] feature or service.
+
+            Examples: "Free WiFi", "Free Breakfast"'
+        amenityCode:
+          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
+          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
+
+            service, if mapped.'
+      description: '[Property] amenity containing name for property features and services.'
+      title: Content_PropertyAmenity_v1
+    v1PropertyCatalogEntry:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/v1PropertyCatalogState'
+          description: The [PropertyCatalogState] of this entry within the catalog.
+        property:
+          $ref: '#/components/schemas/lodgingProperty'
+          description: The [Property] content for this entry.
+      description: A single entry in the property catalog, wrapping a [Property] together with its state.
+      title: PropertyCatalogEntry_v1
+    v1GeoPoint:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          description: The center-point latitude.
+        longitude:
+          type: number
+          format: double
+          description: The center-point longitude.
+      description: A single geographic point, defined by latitude and longitude.
+      title: Common_GeoPoint_v1
+    v1Image:
+      type: object
+      properties:
+        uri:
+          type: string
+          title: 'The URI of the [Image].
+
+            For example, "https://example.com/image.jpg"'
+      description: Represents an [Image] with optional metadata.
+      title: Common_Image_v1
     v1PostalAddress:
       type: object
       properties:
@@ -143,35 +215,36 @@ components:
             See https://www.iso.org/iso-3166-country-codes.html'
       description: Represents a Postal Address.
       title: Common_PostalAddress_v1
-    v1MediaItem:
+    v1ListPropertyCatalogRequest:
       type: object
       properties:
-        image:
-          $ref: '#/components/schemas/v1Image'
-          title: An [Image] this media item represents
-        description:
+        request:
+          $ref: '#/components/schemas/v1ListPropertyCatalogRequestDetails'
+          description: The parameters and filters to retrieve the first page of the catalog.
+        pageToken:
           type: string
-          title: 'A description of this media item
-
-            Example: "A large restaurant"'
-        tags:
-          type: array
-          items:
-            type: string
-          title: 'Tags categorizing the content of this media item
-
-            Example: ["outdoor", "pool"]'
-      description: A media item for visual or marketing context.
-      title: Common_MediaItem_v1
-    v1PropertyCatalogState:
+          description: Optionally, a `page_token` retrieved from a previous call.
+      description: A request to retrieve one page of the property catalog.
+      title: ListPropertyCatalogRequest_v1
+    v1LoyaltyRewardsProgram:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the loyalty reward program.
+      description: Represents a single loyalty rewards program.
+      title: Common_LoyaltyRewardsProgram_v1
+    v1EmailType:
       type: string
       enum:
-      - PROPERTY_CATALOG_STATE_UNSPECIFIED
-      - PROPERTY_CATALOG_STATE_ACTIVE
-      - PROPERTY_CATALOG_STATE_INACTIVE
-      default: PROPERTY_CATALOG_STATE_UNSPECIFIED
-      description: "The state of a property within the catalog.\n\n - PROPERTY_CATALOG_STATE_UNSPECIFIED: The state is unknown or unspecified.\n - PROPERTY_CATALOG_STATE_ACTIVE: The property is active within the catalog\n - PROPERTY_CATALOG_STATE_INACTIVE: The property is inactive within the catalog."
-      title: PropertyCatalogState_v1
+      - EMAIL_TYPE_UNSPECIFIED
+      - EMAIL_TYPE_GENERAL
+      - EMAIL_TYPE_BILLING
+      - EMAIL_TYPE_RESERVATIONS
+      - EMAIL_TYPE_SUPPORT
+      default: EMAIL_TYPE_UNSPECIFIED
+      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
+      title: Common_EmailType_v1
     lodgingExternalCatalogIdentifierList:
       type: object
       properties:
@@ -184,97 +257,31 @@ components:
             May contain multiple identifiers when more than one external record is mapped to the Engine record.'
       description: A list of external catalog identifiers for a single catalog key.
       title: Content_ExternalCatalogIdentifierList_v1
-    v1PropertyCatalogEntry:
+    v1ListPropertyCatalogRequestDetails:
       type: object
       properties:
-        state:
-          $ref: '#/components/schemas/v1PropertyCatalogState'
-          description: The [PropertyCatalogState] of this entry within the catalog.
-        property:
-          $ref: '#/components/schemas/lodgingProperty'
-          description: The [Property] content for this entry.
-      description: A single entry in the property catalog, wrapping a [Property] together with its state.
-      title: PropertyCatalogEntry_v1
-    v1EmailType:
-      type: string
-      enum:
-      - EMAIL_TYPE_UNSPECIFIED
-      - EMAIL_TYPE_GENERAL
-      - EMAIL_TYPE_BILLING
-      - EMAIL_TYPE_RESERVATIONS
-      - EMAIL_TYPE_SUPPORT
-      default: EMAIL_TYPE_UNSPECIFIED
-      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
-      title: Common_EmailType_v1
-    v1GeoPoint:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: double
-          description: The center-point latitude.
-        longitude:
-          type: number
-          format: double
-          description: The center-point longitude.
-      description: A single geographic point, defined by latitude and longitude.
-      title: Common_GeoPoint_v1
-    lodgingPropertyAmenity:
-      type: object
-      properties:
-        amenityName:
-          type: string
-          title: 'Amenity name describing a [Property] feature or service.
+        pageSize:
+          type: integer
+          format: int32
+          default: '100'
+          title: 'The maximum number of records to be returned in a page.
 
-            Examples: "Free WiFi", "Free Breakfast"'
-        amenityCode:
-          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
-          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
+            Default: 100
 
-            service, if mapped.'
-      description: '[Property] amenity containing name for property features and services.'
-      title: Content_PropertyAmenity_v1
-    v1ContactEmail:
-      type: object
-      properties:
-        emailAddress:
+            Minimum: 1
+
+            Maximum: 250'
+          maximum: 250.0
+          minimum: 1.0
+        updatedAfter:
           type: string
-          description: The email address.
-        emailType:
-          $ref: '#/components/schemas/v1EmailType'
-          description: Optional type of email contact.
-      description: Contact email information.
-      title: Common_ContactEmail_v1
-    v1LoyaltyRewardsProgram:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the loyalty reward program.
-      description: Represents a single loyalty rewards program.
-      title: Common_LoyaltyRewardsProgram_v1
-    lodgingLodgingAmenityCode:
-      type: string
-      enum:
-      - LODGING_AMENITY_CODE_UNKNOWN
-      - LODGING_AMENITY_CODE_AIR_CONDITIONING
-      - LODGING_AMENITY_CODE_DINING
-      - LODGING_AMENITY_CODE_DRY_CLEANING
-      - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
-      - LODGING_AMENITY_CODE_FITNESS_CENTER
-      - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
-      - LODGING_AMENITY_CODE_FREE_BREAKFAST
-      - LODGING_AMENITY_CODE_FREE_PARKING
-      - LODGING_AMENITY_CODE_FULL_KITCHEN
-      - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
-      - LODGING_AMENITY_CODE_KITCHENETTE
-      - LODGING_AMENITY_CODE_MEETING_SPACE
-      - LODGING_AMENITY_CODE_PET_FRIENDLY
-      - LODGING_AMENITY_CODE_SPA
-      - LODGING_AMENITY_CODE_SWIMMING_POOL
-      - LODGING_AMENITY_CODE_TRUCK_PARKING
-      default: LODGING_AMENITY_CODE_UNKNOWN
-      title: Content_LodgingAmenityCode_v1
+          title: 'Optionally, return only properties updated after this timestamp.
+
+            When omitted, the full catalog is returned.
+
+            Conforms to ISO-8601, see https://en.wikipedia.org/wiki/ISO_8601'
+      description: Parameters and filters to be applied to a property catalog request.
+      title: ListPropertyCatalogRequestDetails_v1
     lodgingProperty:
       type: object
       properties:
@@ -361,6 +368,25 @@ components:
             Examples: "America/Denver", "Atlantic/Madeira"'
       description: An individual Lodging location identified by [Engine].
       title: Content_Property_v1
+    v1ContactEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          description: The email address.
+        emailType:
+          $ref: '#/components/schemas/v1EmailType'
+          description: Optional type of email contact.
+      description: Contact email information.
+      title: Common_ContactEmail_v1
+    protobufAny:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+      additionalProperties: {}
+      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
     v1ListPropertyCatalogResponse:
       type: object
       properties:
@@ -377,61 +403,35 @@ components:
           description: Optionally, an opaque token to be passed into the next [ListPropertyCatalogRequest] to retrieve the next page.
       description: A response to a [CatalogService.ListPropertyCatalog] request.
       title: ListPropertyCatalogResponse_v1
-    v1ListPropertyCatalogRequest:
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/v1ListPropertyCatalogRequestDetails'
-          description: The parameters and filters to retrieve the first page of the catalog.
-        pageToken:
-          type: string
-          description: Optionally, a `page_token` retrieved from a previous call.
-      description: A request to retrieve one page of the property catalog.
-      title: ListPropertyCatalogRequest_v1
-    rpcStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: 'The status code, which should be an enum value of
-
-            [google.rpc.Code][google.rpc.Code].'
-        message:
-          type: string
-          description: 'A developer-facing error message, which should be in English. Any
-
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
-
-            by the client.'
-        details:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/protobufAny'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-      description: 'The `Status` type defines a logical error model that is suitable for
-
-        different programming environments, including REST APIs and RPC APIs. It is
-
-        used by [gRPC](https://github.com/grpc). Each `Status` message contains
-
-        three pieces of data: error code, error message, and error details.
-
-
-        You can find out more about this error model and how to work with it in the
-
-        [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    protobufAny:
-      type: object
-      properties:
-        '@type':
-          type: string
-          description: "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
-      additionalProperties: {}
-      description: "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    lodgingLodgingAmenityCode:
+      type: string
+      enum:
+      - LODGING_AMENITY_CODE_UNKNOWN
+      - LODGING_AMENITY_CODE_AIR_CONDITIONING
+      - LODGING_AMENITY_CODE_DINING
+      - LODGING_AMENITY_CODE_DRY_CLEANING
+      - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
+      - LODGING_AMENITY_CODE_FITNESS_CENTER
+      - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
+      - LODGING_AMENITY_CODE_FREE_BREAKFAST
+      - LODGING_AMENITY_CODE_FREE_PARKING
+      - LODGING_AMENITY_CODE_FULL_KITCHEN
+      - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
+      - LODGING_AMENITY_CODE_KITCHENETTE
+      - LODGING_AMENITY_CODE_MEETING_SPACE
+      - LODGING_AMENITY_CODE_PET_FRIENDLY
+      - LODGING_AMENITY_CODE_SPA
+      - LODGING_AMENITY_CODE_SWIMMING_POOL
+      - LODGING_AMENITY_CODE_TRUCK_PARKING
+      default: LODGING_AMENITY_CODE_UNKNOWN
+      title: Content_LodgingAmenityCode_v1
+    v1PropertyCatalogState:
+      type: string
+      enum:
+      - PROPERTY_CATALOG_STATE_UNSPECIFIED
+      - PROPERTY_CATALOG_STATE_ACTIVE
+      - PROPERTY_CATALOG_STATE_INACTIVE
+      default: PROPERTY_CATALOG_STATE_UNSPECIFIED
+      description: "The state of a property within the catalog.\n\n - PROPERTY_CATALOG_STATE_UNSPECIFIED: The state is unknown or unspecified.\n - PROPERTY_CATALOG_STATE_ACTIVE: The property is active within the catalog\n - PROPERTY_CATALOG_STATE_INACTIVE: The property is inactive within the catalog."
+      title: PropertyCatalogState_v1
 externalDocs: https://engine-public.github.io/engine-partner-api

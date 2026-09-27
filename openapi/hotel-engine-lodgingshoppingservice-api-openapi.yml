@@ -74,147 +74,76 @@ paths:
         required: true
 components:
   schemas:
-    v1Image:
+    v1Bedding:
       type: object
       properties:
-        uri:
-          type: string
-          title: 'The URI of the [Image].
-
-            For example, "https://example.com/image.jpg"'
-      description: Represents an [Image] with optional metadata.
-      title: Common_Image_v1
-    lodgingExternalCatalogIdentifiers:
-      type: object
-      properties:
-        giataIdentifier:
-          type: string
-          description: GIATA identifier for this property.
-        catalogIdentifiers:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/lodgingExternalCatalogIdentifierList'
-          description: Catalog identifiers keyed by source keys.
-      description: External catalog identifiers for property mapping.
-      title: Content_ExternalCatalogIdentifiers_v1
-    v1CommissionableModel:
-      type: object
-      properties:
-        commissionValue:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: The commission amount the seller will receive for selling this offer.
-      description: 'Details for a commissionable pricing model.
-
-        Under this model, offers must be sold at the exact price quoted by Engine without markup.
-
-        The seller receives a fixed commission amount for each sale.
-
-        This model does not override your agreement with Engine.
-
-        Refer to your agreement or contact your Engine sales support team for questions.'
-      title: Common_CommissionableModel_v1
-    shoplodgingservicev1RadiusSearch:
-      type: object
-      properties:
-        coordinates:
-          $ref: '#/components/schemas/v1GeoPoint'
-          description: Latitude and Longitude coordinates to use as the center point of the search.
-        radius:
-          $ref: '#/components/schemas/v1Distance'
-          title: 'The size of the search area.
-
-            Default: 10 miles
-
-            Minimum: 1 mile (~1.6 kilometers)
-
-            Maximum: 50 miles (~80 kilometers)'
-      description: A search area in a perfect circle around a central point.
-      title: Shop_Lodging_Service_RadiusSearch_v1
-    v1PostalAddress:
-      type: object
-      properties:
-        recipients:
-          type: array
-          items:
-            type: string
-          description: 'Optionally, any individual recipients.
-
-            For example, "Alexander Hamilton", "Aaron Burr"
-
-            May be empty.'
-        organization:
-          type: string
-          description: 'Optionally, any organization or company as a recipient.
-
-            For example, "Engine".'
-        addressLine:
-          type: array
-          items:
-            type: string
-          description: 'Optionally, any address lines, in order as they''d appear on an envelope.
-
-            For example, "233 S Wacker Dr", "108th Floor".
-
-            May be empty.'
-        administrativeArea:
-          type: string
-          title: 'Optionally, the State, province, prefecture, oblast, or area.
-
-            For example, "Texas"'
-        locality:
-          type: string
-          title: 'Optionally, the City, or Post Town
-
-            For example, "Austin"'
-        postalCode:
-          type: string
-          description: 'Optionally, the postal code, if one exists, for the address.
-
-            For example, "78757".'
-        countryCode:
-          type: string
-          title: 'Optionally, the ISO 3166-1 alpha-2 country code.
-
-            For example, "US".
-
-            See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-
-            See https://www.iso.org/iso-3166-country-codes.html'
-      description: Represents a Postal Address.
-      title: Common_PostalAddress_v1
-    v1PriceLineItem:
-      type: object
-      properties:
+        count:
+          type: integer
+          format: int32
+          description: The number of this bed type in the room.
         description:
           type: string
-          description: A textual description of the individual charge.
-        price:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: The price of this line item.
-        group:
-          type: string
-          description: 'Optionally, an identifier to group line items for visual display.
+          description: 'A textual description of the type of this bed in the room.
 
-            For example, "Extras" or "Loyalty Benefits".'
-      description: A individual service or upgrade added to an item during the shopping experience.
-      title: Common_PriceLineItem_v1
-    v1CurrencyValue:
+            For example, "KING", "QUEEN", or "SLEEPER".'
+      description: A description of the quantity and type of beds in the room.
+      title: Shop_Lodging_Bedding_v1
+    v1FindAvailabilityPropertyRequest:
       type: object
       properties:
+        propertyId:
+          type: string
+          title: The Engine [Property] ID
+        checkInDate:
+          type: string
+          title: 'An ISO-8601-compliant date on which you will check in to the property.
+
+            See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+          pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
+        checkOutDate:
+          type: string
+          title: 'An ISO-8601-compliant date on which you will check out of the property.
+
+            See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+          pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
+        numRooms:
+          type: integer
+          format: int32
+          default: '1'
+          title: 'The number of rooms to book.
+
+            May not exceed 8'
+          maximum: 8.0
+          minimum: 1.0
         currencyCode:
           type: string
-          title: 'The 3-character ISO-4217 alphabetic currency code.
+          title: 'The 3-character ISO-4217 alphabetic currency code to be used to convey pricing information.
 
-            For example: USD
+            https://www.iso.org/iso-4217-currency-codes.html'
+          pattern: ^[A-Z]{3}$
+        travelers:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1AnonymousTraveler'
+          description: 'Describes the travelers for whom you are searching.
 
-            See https://www.iso.org/iso-4217-currency-codes.html'
-        value:
-          type: string
-          description: 'The non-localized decimal representation of the amount of currency represented by this object.
+            Changes to the quantity or age of travelers has an impact on the Offer price.
 
-            For example, "123456.789".'
-      description: A safe encoding of a monetary value and its paired currency code.
-      title: Common_CurrencyValue_v1
+            Failure to properly identify your travelers may incur additional charges at checkin or cancellation of the booking.'
+        salesChannel:
+          $ref: '#/components/schemas/v1SalesChannel'
+          title: If available, the sales channel for the customer
+      description: A request to find availability for a single [Property].
+      title: Shop_Lodging_Service_FindAvailabilityPropertyRequest_v1
+    v1FindBestOffersSortMode:
+      type: string
+      enum:
+      - FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED
+      - FIND_BEST_OFFERS_SORT_MODE_DISTANCE
+      default: FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED
+      description: "Describes the various ways a [LodgingShoppingService.FindBestOffers] search maybe sorted.\n\n - FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED: No specific sort criteria will be used.\n - FIND_BEST_OFFERS_SORT_MODE_DISTANCE: Properties are returned in order of increasing distance.\nIn case of ties, Property names are sorted lexically.\nOnly valid when candidate properties are identified via [RadiusSearch] (`point_and_radius`)."
+      title: Shop_Lodging_Service_FindBestOffersSortMode_v1
     v1MediaItem:
       type: object
       properties:
@@ -275,102 +204,419 @@ components:
 
         To retrieve the full availability for a Property, see [LodgingShoppingService.FindAvailability].'
       title: Shop_Lodging_Service_BestOffer_v1
-    v1PropertyBestOffer:
+    lodgingExternalCatalogIdentifiers:
+      type: object
+      properties:
+        giataIdentifier:
+          type: string
+          description: GIATA identifier for this property.
+        catalogIdentifiers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/lodgingExternalCatalogIdentifierList'
+          description: Catalog identifiers keyed by source keys.
+      description: External catalog identifiers for property mapping.
+      title: Content_ExternalCatalogIdentifiers_v1
+    rpcStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: 'The status code, which should be an enum value of
+
+            [google.rpc.Code][google.rpc.Code].'
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+
+            by the client.'
+        details:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/protobufAny'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+      description: 'The `Status` type defines a logical error model that is suitable for
+
+        different programming environments, including REST APIs and RPC APIs. It is
+
+        used by [gRPC](https://github.com/grpc). Each `Status` message contains
+
+        three pieces of data: error code, error message, and error details.
+
+
+        You can find out more about this error model and how to work with it in the
+
+        [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    v1Offer:
+      type: object
+      properties:
+        continuationToken:
+          type: string
+          description: An opaque token that may be passed to [LodgingBookingService.ConfirmOffer] to begin the booking process.
+        summary:
+          $ref: '#/components/schemas/v1OfferSummary'
+          description: The details of the Offer to book.
+      description: A bookable Offer representing a set of amenities and a price for the booking.
+      title: Shop_Lodging_Service_Offer_v1
+    v1ConditionEventType:
+      type: string
+      enum:
+      - CONDITION_EVENT_TYPE_UNKNOWN
+      - CONDITION_EVENT_TYPE_DEPARTURE
+      - CONDITION_EVENT_TYPE_CHECKIN
+      default: CONDITION_EVENT_TYPE_UNKNOWN
+      description: Events that affect the availability of an action when a specific timestamp is not available.
+      title: Common_ConditionEventType_v1
+    v1PerUnitPrice:
+      type: object
+      properties:
+        key:
+          type: string
+          description: 'A key to distinguish which unit is represented by this price.
+
+            For example, which date, or which passenger.'
+        unit:
+          type: string
+          description: 'The type of unit.
+
+            For example, "night" or "person".'
+        price:
+          $ref: '#/components/schemas/v1Price'
+          description: The cost for this unit.
+      description: 'A price representing the cost of a single unit in a multi-unit breakdown.
+
+        For example, price per night.'
+      title: Common_PerUnitPrice_v1
+    lodgingPropertyAmenity:
+      type: object
+      properties:
+        amenityName:
+          type: string
+          title: 'Amenity name describing a [Property] feature or service.
+
+            Examples: "Free WiFi", "Free Breakfast"'
+        amenityCode:
+          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
+          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
+
+            service, if mapped.'
+      description: '[Property] amenity containing name for property features and services.'
+      title: Content_PropertyAmenity_v1
+    v1FixedModel:
+      type: object
+      description: 'Details for a fixed pricing model.
+
+        Under this model, offers must be sold at the exact price quoted by Engine without markup.
+
+        The seller does not receive commission for offers indicated with this pricing model.
+
+        Compensation terms are defined exclusively by the seller''s agreement with Engine.
+
+        Refer to your agreement or contact your Engine sales support team for questions.'
+      title: Common_FixedModel_v1
+    v1FindAvailabilityRequest:
+      type: object
+      properties:
+        continuationToken:
+          type: string
+          description: 'A [BestOffer.continuation_token].
+
+            Passing a continuation_token allows you to continue the shopping flow from a BestOffers search with the necessary search context preserved.'
+        singleProperty:
+          $ref: '#/components/schemas/v1FindAvailabilityPropertyRequest'
+          description: A request to find availability for a [Property] directly, skipping the BestOffers search.
+      title: Shop_Lodging_Service_FindAvailabilityRequest_v1
+    v1PriceWithPerUnit:
+      type: object
+      properties:
+        price:
+          $ref: '#/components/schemas/v1Price'
+          description: The total price for the item.
+        perUnitPrice:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1PerUnitPrice'
+          title: The total price broken into per-unit costs
+      description: 'The total price, along with a breakdown by a given unit.
+
+        For example, the total stay cost and the per-night cost.'
+      title: Common_PriceWithPerUnit_v1
+    v1Conditions:
+      type: object
+      properties:
+        modifyConditions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1Condition'
+          description: 'Conditions that apply to modification of a [BookingDetails].
+
+            If no modify_conditions exist, the [BookingDetails] may not be modified.'
+        cancelConditions:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1Condition'
+          description: 'Conditions that apply to cancellation of a [BookingDetails].
+
+            If no cancel_conditions exist, the [BookingDetails] may not be canceled.'
+      description: Conditions that describe the availability, penalty, and timing constraints on modification to a booked item.
+      title: Common_Conditions_v1
+    v1GeoPoint:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          description: The center-point latitude.
+        longitude:
+          type: number
+          format: double
+          description: The center-point longitude.
+      description: A single geographic point, defined by latitude and longitude.
+      title: Common_GeoPoint_v1
+    shoplodgingservicev1ResponsiveProperty:
       type: object
       properties:
         property:
-          $ref: '#/components/schemas/shoplodgingservicev1ResponsiveProperty'
-          description: Details of the Property for which this [BestOffer] applies.
-        bestOffer:
-          $ref: '#/components/schemas/v1BestOffer'
-          description: The details of the available [BestOffer].
-      description: A Property and the BestOffer available for that Property given the provided search criteria.
-      title: Shop_Lodging_Service_PropertyBestOffer_v1
-    lodgingExternalCatalogIdentifierList:
+          $ref: '#/components/schemas/lodgingProperty'
+          description: The details of the returned property.
+        distance:
+          $ref: '#/components/schemas/v1Distance'
+          description: The distance from the center point of the search area, if appropriate.
+      description: A Property that is responsive to the current shopping search.
+      title: Shop_Lodging_Service_ResponsiveProperty_v1
+    v1Price:
       type: object
       properties:
-        identifiers:
+        subTotal:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: 'The sum total for the booking excluding taxes and fees.
+
+            The subtotal includes all [Price.line_items].'
+        total:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: 'The full liability to purchase the item.
+
+            This is not necessarily the amount due at time of booking due to discounts, incentives, or postpaid items.'
+        taxes:
           type: array
           items:
-            type: string
-          description: 'Supplier property identifiers for the associated catalog key.
+            type: object
+            $ref: '#/components/schemas/v1Surcharge'
+          description: 'Any taxes to be collected at time of payment.
 
-            May contain multiple identifiers when more than one external record is mapped to the Engine record.'
-      description: A list of external catalog identifiers for a single catalog key.
-      title: Content_ExternalCatalogIdentifierList_v1
-    v1RoomDescription:
+            This field is deprecated. Use [Price.taxes_and_fees] instead.'
+        fees:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1Surcharge'
+          description: 'Any fees applied to the item or service.
+
+            This field is deprecated. Use [Price.taxes_and_fees] instead.'
+        base:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          title: 'The cost of the main item or service in the booking, less upgrades or additional services, fees, and taxes.
+
+            The base is equivalent to:  [Price.sub_total] - sum([Price.line_items])'
+        lineItems:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1PriceLineItem'
+          description: 'Additional upgrades to an item or service added during the shopping experience.
+
+            Line items are represented in the [Price.sub_total].'
+        taxesAndFeesTotal:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: The sum of all individual [Price.taxes] and [Price.fees].
+        strike:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: A representative market price for the item or service without any discounts applied.
+        totalDueNow:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: The total amount due at time of booking.
+        totalDueLater:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: The total amount due at the time of the travel event.
+        taxesAndFees:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1Surcharge'
+          description: Any taxes and fees to be collected at time of payment. This includes all taxes and fees due at time of booking.
+      description: The details of the cost of an item or service.
+      title: Common_Price_v1
+    v1OfferSummary:
       type: object
       properties:
-        title:
+        propertyId:
           type: string
-          description: 'The title of a room.
-
-            For example, "Standard 1 King Bed", or "Suite 1 King Bed", "The Canary Suite".'
+          description: The Engine identifier for the Property to which this Offer belongs.
         description:
           type: string
-          title: 'A textual marketing description of the room.
+          description: A textual description of the Offer.
+        price:
+          $ref: '#/components/schemas/v1PriceWithPerUnit'
+          description: 'The pricing details for the Offer.
 
-            For example, "SKYLINE VIEW KING ROOM -CITY OR RIVER VIEW 1 KING -430 SQF"'
-        beds:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Bedding'
-          description: The available bedding for the room.
-        photos:
+            This price indicates the amount owed to Engine at the time of booking.
+
+            Refer to [OfferSummary.sell_type] for details on how the offer may be priced to the customer.'
+        offerAmenities:
+          $ref: '#/components/schemas/v1OfferAmenities'
+          description: 'Amenities that may only apply to this Offer.
+
+            For example, some Offers may include parking.'
+        conditions:
+          $ref: '#/components/schemas/v1Conditions'
+          description: The conditions covering refundability and cancellation.
+        isLoyaltyEligible:
+          type: boolean
+          description: If true, this Offer may earn loyalty points.
+        isLoyaltyMembershipIdRequired:
+          type: boolean
+          description: If true, this offer requires a loyalty membership id to book.
+        rateData:
+          $ref: '#/components/schemas/v1RateData'
+          description: Optionally, if this offer represents a negotiated rate specifically configured for your credential, the details of that rate will be included here.
+        sellType:
+          $ref: '#/components/schemas/v1SellType'
+          description: 'The sell type for this offer.
+
+            Defines how the seller is compensated and the pricing guidelines for this offer.
+
+            See [SellType] for details on available model types and their pricing rules.'
+      description: A summary of the attributes available to a specific Offer.
+      title: Shop_Lodging_OfferSummary_v1
+    v1NetModel:
+      type: object
+      description: 'Details for a net pricing model.
+
+        Under this model, offers are provided at a net price which the seller is expected to mark up.
+
+        The seller''s earnings consist of the margin between the net price and the final price charged to the customer.
+
+        The markup amount and strategy are determined by the seller within the terms of their agreement.
+
+        Net rates can be sold at any price no lower than [OfferSummary.price.price.total] and no higher than [OfferSummary.price.price.strike].
+
+        This model does not override your agreement with Engine.
+
+        Refer to your agreement or contact your Engine sales support team for questions.'
+      title: Common_NetModel_v1
+    v1Image:
+      type: object
+      properties:
+        uri:
+          type: string
+          title: 'The URI of the [Image].
+
+            For example, "https://example.com/image.jpg"'
+      description: Represents an [Image] with optional metadata.
+      title: Common_Image_v1
+    v1PostalAddress:
+      type: object
+      properties:
+        recipients:
           type: array
           items:
             type: string
-          description: URIs to photos of this room.
-        amenities:
+          description: 'Optionally, any individual recipients.
+
+            For example, "Alexander Hamilton", "Aaron Burr"
+
+            May be empty.'
+        organization:
+          type: string
+          description: 'Optionally, any organization or company as a recipient.
+
+            For example, "Engine".'
+        addressLine:
           type: array
           items:
-            type: object
-            $ref: '#/components/schemas/lodgingRoomAmenity'
-          description: A list of amenities that are available in the room.
-      description: Generalized details of the room to which an Offer applies.
-      title: Shop_Lodging_RoomDescription_v1
-    v1AnonymousChild:
-      type: object
-      properties:
-        age:
-          type: integer
-          format: int32
-          description: 'The child''s age on the date of travel.
+            type: string
+          description: 'Optionally, any address lines, in order as they''d appear on an envelope.
 
-            If the child''s birthday is during travel, use the age they will be at the end of travel.'
-        birthdate:
+            For example, "233 S Wacker Dr", "108th Floor".
+
+            May be empty.'
+        administrativeArea:
           type: string
-          title: 'An ISO-8601-compliant date representing the child''s birthdate.
+          title: 'Optionally, the State, province, prefecture, oblast, or area.
 
-            See https://en.wikipedia.org/wiki/ISO_8601#Dates'
-      description: 'A child traveler whose personal details have not yet been collected.
+            For example, "Texas"'
+        locality:
+          type: string
+          title: 'Optionally, the City, or Post Town
 
-        A child''s age is necessary to retrieve the correct prices.
+            For example, "Austin"'
+        postalCode:
+          type: string
+          description: 'Optionally, the postal code, if one exists, for the address.
 
-        Failure to provide an accurate age may result in loss of bookings or refusal to provide service to the traveler.'
-      title: Common_AnonymousChild_v1
-    v1EmailType:
+            For example, "78757".'
+        countryCode:
+          type: string
+          title: 'Optionally, the ISO 3166-1 alpha-2 country code.
+
+            For example, "US".
+
+            See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
+            See https://www.iso.org/iso-3166-country-codes.html'
+      description: Represents a Postal Address.
+      title: Common_PostalAddress_v1
+    v1DistanceUnit:
       type: string
       enum:
-      - EMAIL_TYPE_UNSPECIFIED
-      - EMAIL_TYPE_GENERAL
-      - EMAIL_TYPE_BILLING
-      - EMAIL_TYPE_RESERVATIONS
-      - EMAIL_TYPE_SUPPORT
-      default: EMAIL_TYPE_UNSPECIFIED
-      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
-      title: Common_EmailType_v1
-    v1FindBestOffersError:
+      - DISTANCE_UNIT_MILE
+      - DISTANCE_UNIT_KILOMETER
+      default: DISTANCE_UNIT_MILE
+      description: "The unit type for a distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
+      title: Common_DistanceUnit_v1
+    v1LoyaltyRewardsProgram:
       type: object
       properties:
-        invalidSort:
-          $ref: '#/components/schemas/v1InvalidSortError'
-          description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and [FindBestOffersRequest.sort_mode]
+        name:
+          type: string
+          description: Name of the loyalty reward program.
+      description: Represents a single loyalty rewards program.
+      title: Common_LoyaltyRewardsProgram_v1
+    v1InvalidSortError:
+      type: object
+      description: An error indicating that the requested sorting option provided is not valid for the given search criteria.
+      title: Service_Common_InvalidSortError_v1
+    v1OfferAmenities:
+      type: object
+      properties:
+        freeBreakfast:
+          $ref: '#/components/schemas/v1AmenityAvailability'
+          description: Describes the availability of free breakfast for the offer or booking.
+        freeParking:
+          $ref: '#/components/schemas/v1AmenityAvailability'
+          description: Describes the availability of free parking for the offer or booking.
+        otherAmenities:
+          type: array
+          items:
+            type: string
+          description: Textual descriptions for display purposes of assorted amenities of the offer or booking that have not been explicitly hoisted to their own attribute.
+      description: 'OfferAmenities represent the value added by the individual offer to be evaluated against other offers.
 
-            is not valid for the given search criteria.'
-      description: Error details of a failed [LodgingShoppingService.FindBestOffers] call.
-      title: Shop_Lodging_Service_FindBestOffersError_v1
+        OfferAmenities do not include amenities conferred by the Property.
+
+        For example, if a given Property provides free breakfast to all guests, none of the Offers for that property will have Free Breakfast as an amenity.'
+      title: Shop_Lodging_OfferAmenities_v1
     v1FindBestOffersRequestCriteria:
       type: object
       properties:
@@ -435,146 +681,98 @@ components:
           minimum: 1.0
       description: Defines the base criteria used in a "Best Offers" search.
       title: Shop_Lodging_Service_FindBestOffersRequestCriteria_v1
-    v1SalesChannel:
-      type: string
-      enum:
-      - SALES_CHANNEL_UNKNOWN
-      - SALES_CHANNEL_MOBILE_NATIVE
-      - SALES_CHANNEL_MOBILE_WEB
-      - SALES_CHANNEL_WEB
-      default: SALES_CHANNEL_UNKNOWN
-      description: "- SALES_CHANNEL_UNKNOWN: The sales channel cannot be determined.\n - SALES_CHANNEL_MOBILE_NATIVE: The customer is shopping via a mobile application.\n - SALES_CHANNEL_MOBILE_WEB: The customer is shopping via a mobile web browser.\n - SALES_CHANNEL_WEB: The customer is shopping via a web browser on a desktop or laptop computer."
-      title: Common_SalesChannel_v1
-    v1Bedding:
+    v1FindAvailabilityResponse:
       type: object
       properties:
-        count:
-          type: integer
-          format: int32
-          description: The number of this bed type in the room.
-        description:
-          type: string
-          description: 'A textual description of the type of this bed in the room.
-
-            For example, "KING", "QUEEN", or "SLEEPER".'
-      description: A description of the quantity and type of beds in the room.
-      title: Shop_Lodging_Bedding_v1
-    v1AnonymousTraveler:
-      type: object
-      properties:
-        adult:
-          $ref: '#/components/schemas/v1AnonymousAdult'
-        child:
-          $ref: '#/components/schemas/v1AnonymousChild'
-      description: A traveler whose personal details have not yet been collected.
-      title: Common_AnonymousTraveler_v1
-    v1FindBestOffersResponse:
-      type: object
-      properties:
-        offers:
+        roomGroups:
           type: array
           items:
             type: object
-            $ref: '#/components/schemas/v1PropertyBestOffer'
-          description: The full list of offers responsive your search.
-      description: The results of a [LodgingShoppingService.FindBestOffers] search.
-      title: Shop_Lodging_Service_FindBestOffersResponse_v1
-    v1OfferSummary:
-      type: object
-      properties:
-        propertyId:
-          type: string
-          description: The Engine identifier for the Property to which this Offer belongs.
-        description:
-          type: string
-          description: A textual description of the Offer.
-        price:
-          $ref: '#/components/schemas/v1PriceWithPerUnit'
-          description: 'The pricing details for the Offer.
-
-            This price indicates the amount owed to Engine at the time of booking.
-
-            Refer to [OfferSummary.sell_type] for details on how the offer may be priced to the customer.'
-        offerAmenities:
-          $ref: '#/components/schemas/v1OfferAmenities'
-          description: 'Amenities that may only apply to this Offer.
-
-            For example, some Offers may include parking.'
-        conditions:
-          $ref: '#/components/schemas/v1Conditions'
-          description: The conditions covering refundability and cancellation.
-        isLoyaltyEligible:
-          type: boolean
-          description: If true, this Offer may earn loyalty points.
-        isLoyaltyMembershipIdRequired:
-          type: boolean
-          description: If true, this offer requires a loyalty membership id to book.
-        rateData:
-          $ref: '#/components/schemas/v1RateData'
-          description: Optionally, if this offer represents a negotiated rate specifically configured for your credential, the details of that rate will be included here.
-        sellType:
-          $ref: '#/components/schemas/v1SellType'
-          description: 'The sell type for this offer.
-
-            Defines how the seller is compensated and the pricing guidelines for this offer.
-
-            See [SellType] for details on available model types and their pricing rules.'
-      description: A summary of the attributes available to a specific Offer.
-      title: Shop_Lodging_OfferSummary_v1
-    v1RoomGroup:
-      type: object
-      properties:
-        roomDescription:
-          $ref: '#/components/schemas/v1RoomDescription'
-          description: 'A description of the rooms for which the Offer applies.
-
-            For example, "Standard 1 King Bed", "Standard 2 Queen Beds", or "Suite 1 King Bed".'
-        offers:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Offer'
-          description: A list of bookable Offers for the room.
-      description: A grouping of bookable Offers, collected by the [RoomDescription] to which they apply.
-      title: Shop_Lodging_Service_RoomGroup_v1
-    v1SurchargeType:
+            $ref: '#/components/schemas/v1RoomGroup'
+          description: A list of available [OfferSummary], grouped by [RoomDescription].
+      description: A response to a [LodgingShoppingService.FindBestOffers] call.
+      title: Shop_Lodging_Service_FindAvailabilityResponse_v1
+    v1EmailType:
       type: string
       enum:
-      - SURCHARGE_TYPE_PREPAID_FEE
-      - SURCHARGE_TYPE_POSTPAID_FEE
-      - SURCHARGE_TYPE_TAX
-      default: SURCHARGE_TYPE_PREPAID_FEE
-      description: "A programmatic classification of types of surcharges that could be levied.\n\n - SURCHARGE_TYPE_PREPAID_FEE: A fee due at time of booking.\n - SURCHARGE_TYPE_POSTPAID_FEE: A fee due at time of travel.\n - SURCHARGE_TYPE_TAX: Taxes due at time of booking."
-      title: Common_SurchargeType_v1
-    v1GeoPoint:
+      - EMAIL_TYPE_UNSPECIFIED
+      - EMAIL_TYPE_GENERAL
+      - EMAIL_TYPE_BILLING
+      - EMAIL_TYPE_RESERVATIONS
+      - EMAIL_TYPE_SUPPORT
+      default: EMAIL_TYPE_UNSPECIFIED
+      description: "Describes the type of an email contact.\n\n - EMAIL_TYPE_UNSPECIFIED: Unspecified email type.\n - EMAIL_TYPE_GENERAL: General contact email.\n - EMAIL_TYPE_BILLING: Billing-related email.\n - EMAIL_TYPE_RESERVATIONS: Reservations and booking email.\n - EMAIL_TYPE_SUPPORT: Customer support email."
+      title: Common_EmailType_v1
+    lodgingExternalCatalogIdentifierList:
       type: object
       properties:
-        latitude:
-          type: number
-          format: double
-          description: The center-point latitude.
-        longitude:
-          type: number
-          format: double
-          description: The center-point longitude.
-      description: A single geographic point, defined by latitude and longitude.
-      title: Common_GeoPoint_v1
-    v1NetModel:
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: 'Supplier property identifiers for the associated catalog key.
+
+            May contain multiple identifiers when more than one external record is mapped to the Engine record.'
+      description: A list of external catalog identifiers for a single catalog key.
+      title: Content_ExternalCatalogIdentifierList_v1
+    v1CommissionableModel:
       type: object
-      description: 'Details for a net pricing model.
+      properties:
+        commissionValue:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: The commission amount the seller will receive for selling this offer.
+      description: 'Details for a commissionable pricing model.
 
-        Under this model, offers are provided at a net price which the seller is expected to mark up.
+        Under this model, offers must be sold at the exact price quoted by Engine without markup.
 
-        The seller''s earnings consist of the margin between the net price and the final price charged to the customer.
-
-        The markup amount and strategy are determined by the seller within the terms of their agreement.
-
-        Net rates can be sold at any price no lower than [OfferSummary.price.price.total] and no higher than [OfferSummary.price.price.strike].
+        The seller receives a fixed commission amount for each sale.
 
         This model does not override your agreement with Engine.
 
         Refer to your agreement or contact your Engine sales support team for questions.'
-      title: Common_NetModel_v1
+      title: Common_CommissionableModel_v1
+    v1RoomDescription:
+      type: object
+      properties:
+        title:
+          type: string
+          description: 'The title of a room.
+
+            For example, "Standard 1 King Bed", or "Suite 1 King Bed", "The Canary Suite".'
+        description:
+          type: string
+          title: 'A textual marketing description of the room.
+
+            For example, "SKYLINE VIEW KING ROOM -CITY OR RIVER VIEW 1 KING -430 SQF"'
+        beds:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1Bedding'
+          description: The available bedding for the room.
+        photos:
+          type: array
+          items:
+            type: string
+          description: URIs to photos of this room.
+        amenities:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/lodgingRoomAmenity'
+          description: A list of amenities that are available in the room.
+      description: Generalized details of the room to which an Offer applies.
+      title: Shop_Lodging_RoomDescription_v1
+    v1FindBestOffersError:
+      type: object
+      properties:
+        invalidSort:
+          $ref: '#/components/schemas/v1InvalidSortError'
+          description: 'Defined when the operation returns with a status of INVALID_ARGUMENT and [FindBestOffersRequest.sort_mode]
+
+            is not valid for the given search criteria.'
+      description: Error details of a failed [LodgingShoppingService.FindBestOffers] call.
+      title: Shop_Lodging_Service_FindBestOffersError_v1
     v1Distance:
       type: object
       properties:
@@ -587,74 +785,6 @@ components:
           description: The unit of distance measurement.
       description: The distance between two geographic points.
       title: Common_Distance_v1
-    v1OfferAmenities:
-      type: object
-      properties:
-        freeBreakfast:
-          $ref: '#/components/schemas/v1AmenityAvailability'
-          description: Describes the availability of free breakfast for the offer or booking.
-        freeParking:
-          $ref: '#/components/schemas/v1AmenityAvailability'
-          description: Describes the availability of free parking for the offer or booking.
-        otherAmenities:
-          type: array
-          items:
-            type: string
-          description: Textual descriptions for display purposes of assorted amenities of the offer or booking that have not been explicitly hoisted to their own attribute.
-      description: 'OfferAmenities represent the value added by the individual offer to be evaluated against other offers.
-
-        OfferAmenities do not include amenities conferred by the Property.
-
-        For example, if a given Property provides free breakfast to all guests, none of the Offers for that property will have Free Breakfast as an amenity.'
-      title: Shop_Lodging_OfferAmenities_v1
-    v1FindAvailabilityPropertyRequest:
-      type: object
-      properties:
-        propertyId:
-          type: string
-          title: The Engine [Property] ID
-        checkInDate:
-          type: string
-          title: 'An ISO-8601-compliant date on which you will check in to the property.
-
-            See https://en.wikipedia.org/wiki/ISO_8601#Dates'
-          pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
-        checkOutDate:
-          type: string
-          title: 'An ISO-8601-compliant date on which you will check out of the property.
-
-            See https://en.wikipedia.org/wiki/ISO_8601#Dates'
-          pattern: ^(?<year>[0-9]{4})-(?<month>(?:0[1-9])|(?:1[0-2]))-(?<day>(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))$
-        numRooms:
-          type: integer
-          format: int32
-          default: '1'
-          title: 'The number of rooms to book.
-
-            May not exceed 8'
-          maximum: 8.0
-          minimum: 1.0
-        currencyCode:
-          type: string
-          title: 'The 3-character ISO-4217 alphabetic currency code to be used to convey pricing information.
-
-            https://www.iso.org/iso-4217-currency-codes.html'
-          pattern: ^[A-Z]{3}$
-        travelers:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1AnonymousTraveler'
-          description: 'Describes the travelers for whom you are searching.
-
-            Changes to the quantity or age of travelers has an impact on the Offer price.
-
-            Failure to properly identify your travelers may incur additional charges at checkin or cancellation of the booking.'
-        salesChannel:
-          $ref: '#/components/schemas/v1SalesChannel'
-          title: If available, the sales channel for the customer
-      description: A request to find availability for a single [Property].
-      title: Shop_Lodging_Service_FindAvailabilityPropertyRequest_v1
     v1PropertyIdSearch:
       type: object
       properties:
@@ -671,120 +801,6 @@ components:
           minItems: 1.0
       description: A list of Engine Property IDs to shop for Best Offers.
       title: Shop_Lodging_Service_PropertyIdSearch_v1
-    v1FixedModel:
-      type: object
-      description: 'Details for a fixed pricing model.
-
-        Under this model, offers must be sold at the exact price quoted by Engine without markup.
-
-        The seller does not receive commission for offers indicated with this pricing model.
-
-        Compensation terms are defined exclusively by the seller''s agreement with Engine.
-
-        Refer to your agreement or contact your Engine sales support team for questions.'
-      title: Common_FixedModel_v1
-    lodgingPropertyAmenity:
-      type: object
-      properties:
-        amenityName:
-          type: string
-          title: 'Amenity name describing a [Property] feature or service.
-
-            Examples: "Free WiFi", "Free Breakfast"'
-        amenityCode:
-          $ref: '#/components/schemas/lodgingLodgingAmenityCode'
-          description: 'Amenity code, providing an easily machine readable representation of a [Property] feature or
-
-            service, if mapped.'
-      description: '[Property] amenity containing name for property features and services.'
-      title: Content_PropertyAmenity_v1
-    lodgingRoomAmenity:
-      type: object
-      properties:
-        amenityName:
-          type: string
-          title: 'Amenity name describing room features and services.
-
-            Examples: "Housekeeping on request", "Free WiFi"'
-      description: Room amenity containing name for room features and services.
-      title: Content_RoomAmenity_v1
-    v1Offer:
-      type: object
-      properties:
-        continuationToken:
-          type: string
-          description: An opaque token that may be passed to [LodgingBookingService.ConfirmOffer] to begin the booking process.
-        summary:
-          $ref: '#/components/schemas/v1OfferSummary'
-          description: The details of the Offer to book.
-      description: A bookable Offer representing a set of amenities and a price for the booking.
-      title: Shop_Lodging_Service_Offer_v1
-    v1ContactEmail:
-      type: object
-      properties:
-        emailAddress:
-          type: string
-          description: The email address.
-        emailType:
-          $ref: '#/components/schemas/v1EmailType'
-          description: Optional type of email contact.
-      description: Contact email information.
-      title: Common_ContactEmail_v1
-    v1RateData:
-      type: object
-      properties:
-        rateCode:
-          type: string
-          title: 'The rate code associated with the Offer.
-
-            For example, if a Partner has negotiated a rate code of "123", and an Offer corresponds to that rate code, this field will be "123".
-
-            Contact Engine to load any rates codes for your credential'
-      description: RateData contains rate information if and only if an Offer corresponds to a rate negotiated and contracted with the calling credential.
-      title: Shop_Lodging_RateData_v1
-    v1ConditionEventType:
-      type: string
-      enum:
-      - CONDITION_EVENT_TYPE_UNKNOWN
-      - CONDITION_EVENT_TYPE_DEPARTURE
-      - CONDITION_EVENT_TYPE_CHECKIN
-      default: CONDITION_EVENT_TYPE_UNKNOWN
-      description: Events that affect the availability of an action when a specific timestamp is not available.
-      title: Common_ConditionEventType_v1
-    lodgingLodgingAmenityCode:
-      type: string
-      enum:
-      - LODGING_AMENITY_CODE_UNKNOWN
-      - LODGING_AMENITY_CODE_AIR_CONDITIONING
-      - LODGING_AMENITY_CODE_DINING
-      - LODGING_AMENITY_CODE_DRY_CLEANING
-      - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
-      - LODGING_AMENITY_CODE_FITNESS_CENTER
-      - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
-      - LODGING_AMENITY_CODE_FREE_BREAKFAST
-      - LODGING_AMENITY_CODE_FREE_PARKING
-      - LODGING_AMENITY_CODE_FULL_KITCHEN
-      - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
-      - LODGING_AMENITY_CODE_KITCHENETTE
-      - LODGING_AMENITY_CODE_MEETING_SPACE
-      - LODGING_AMENITY_CODE_PET_FRIENDLY
-      - LODGING_AMENITY_CODE_SPA
-      - LODGING_AMENITY_CODE_SWIMMING_POOL
-      - LODGING_AMENITY_CODE_TRUCK_PARKING
-      default: LODGING_AMENITY_CODE_UNKNOWN
-      title: Content_LodgingAmenityCode_v1
-    v1LoyaltyRewardsProgram:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the loyalty reward program.
-      description: Represents a single loyalty rewards program.
-      title: Common_LoyaltyRewardsProgram_v1
-    v1InvalidSortError:
-      type: object
-      description: An error indicating that the requested sorting option provided is not valid for the given search criteria.
-      title: Service_Common_InvalidSortError_v1
     lodgingProperty:
       type: object
       properties:
@@ -871,209 +887,67 @@ components:
             Examples: "America/Denver", "Atlantic/Madeira"'
       description: An individual Lodging location identified by [Engine].
       title: Content_Property_v1
-    v1AnonymousAdult:
+    v1AnonymousChild:
       type: object
-      description: An adult traveler whose personal details have not yet been collected.
-      title: Common_AnonymousAdult_v1
-    shoplodgingservicev1ResponsiveProperty:
+      properties:
+        age:
+          type: integer
+          format: int32
+          description: 'The child''s age on the date of travel.
+
+            If the child''s birthday is during travel, use the age they will be at the end of travel.'
+        birthdate:
+          type: string
+          title: 'An ISO-8601-compliant date representing the child''s birthdate.
+
+            See https://en.wikipedia.org/wiki/ISO_8601#Dates'
+      description: 'A child traveler whose personal details have not yet been collected.
+
+        A child''s age is necessary to retrieve the correct prices.
+
+        Failure to provide an accurate age may result in loss of bookings or refusal to provide service to the traveler.'
+      title: Common_AnonymousChild_v1
+    v1ContactEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+          description: The email address.
+        emailType:
+          $ref: '#/components/schemas/v1EmailType'
+          description: Optional type of email contact.
+      description: Contact email information.
+      title: Common_ContactEmail_v1
+    v1SurchargeType:
+      type: string
+      enum:
+      - SURCHARGE_TYPE_PREPAID_FEE
+      - SURCHARGE_TYPE_POSTPAID_FEE
+      - SURCHARGE_TYPE_TAX
+      default: SURCHARGE_TYPE_PREPAID_FEE
+      description: "A programmatic classification of types of surcharges that could be levied.\n\n - SURCHARGE_TYPE_PREPAID_FEE: A fee due at time of booking.\n - SURCHARGE_TYPE_POSTPAID_FEE: A fee due at time of travel.\n - SURCHARGE_TYPE_TAX: Taxes due at time of booking."
+      title: Common_SurchargeType_v1
+    v1PropertyBestOffer:
       type: object
       properties:
         property:
-          $ref: '#/components/schemas/lodgingProperty'
-          description: The details of the returned property.
-        distance:
-          $ref: '#/components/schemas/v1Distance'
-          description: The distance from the center point of the search area, if appropriate.
-      description: A Property that is responsive to the current shopping search.
-      title: Shop_Lodging_Service_ResponsiveProperty_v1
-    v1PriceWithPerUnit:
+          $ref: '#/components/schemas/shoplodgingservicev1ResponsiveProperty'
+          description: Details of the Property for which this [BestOffer] applies.
+        bestOffer:
+          $ref: '#/components/schemas/v1BestOffer'
+          description: The details of the available [BestOffer].
+      description: A Property and the BestOffer available for that Property given the provided search criteria.
+      title: Shop_Lodging_Service_PropertyBestOffer_v1
+    lodgingRoomAmenity:
       type: object
       properties:
-        price:
-          $ref: '#/components/schemas/v1Price'
-          description: The total price for the item.
-        perUnitPrice:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1PerUnitPrice'
-          title: The total price broken into per-unit costs
-      description: 'The total price, along with a breakdown by a given unit.
-
-        For example, the total stay cost and the per-night cost.'
-      title: Common_PriceWithPerUnit_v1
-    v1FindAvailabilityRequest:
-      type: object
-      properties:
-        continuationToken:
+        amenityName:
           type: string
-          description: 'A [BestOffer.continuation_token].
+          title: 'Amenity name describing room features and services.
 
-            Passing a continuation_token allows you to continue the shopping flow from a BestOffers search with the necessary search context preserved.'
-        singleProperty:
-          $ref: '#/components/schemas/v1FindAvailabilityPropertyRequest'
-          description: A request to find availability for a [Property] directly, skipping the BestOffers search.
-      title: Shop_Lodging_Service_FindAvailabilityRequest_v1
-    v1FindBestOffersSortMode:
-      type: string
-      enum:
-      - FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED
-      - FIND_BEST_OFFERS_SORT_MODE_DISTANCE
-      default: FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED
-      description: "Describes the various ways a [LodgingShoppingService.FindBestOffers] search maybe sorted.\n\n - FIND_BEST_OFFERS_SORT_MODE_UNSPECIFIED: No specific sort criteria will be used.\n - FIND_BEST_OFFERS_SORT_MODE_DISTANCE: Properties are returned in order of increasing distance.\nIn case of ties, Property names are sorted lexically.\nOnly valid when candidate properties are identified via [RadiusSearch] (`point_and_radius`)."
-      title: Shop_Lodging_Service_FindBestOffersSortMode_v1
-    v1PerUnitPrice:
-      type: object
-      properties:
-        key:
-          type: string
-          description: 'A key to distinguish which unit is represented by this price.
-
-            For example, which date, or which passenger.'
-        unit:
-          type: string
-          description: 'The type of unit.
-
-            For example, "night" or "person".'
-        price:
-          $ref: '#/components/schemas/v1Price'
-          description: The cost for this unit.
-      description: 'A price representing the cost of a single unit in a multi-unit breakdown.
-
-        For example, price per night.'
-      title: Common_PerUnitPrice_v1
-    v1FindAvailabilityResponse:
-      type: object
-      properties:
-        roomGroups:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1RoomGroup'
-          description: A list of available [OfferSummary], grouped by [RoomDescription].
-      description: A response to a [LodgingShoppingService.FindBestOffers] call.
-      title: Shop_Lodging_Service_FindAvailabilityResponse_v1
-    rpcStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: 'The status code, which should be an enum value of
-
-            [google.rpc.Code][google.rpc.Code].'
-        message:
-          type: string
-          description: 'A developer-facing error message, which should be in English. Any
-
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized
-
-            by the client.'
-        details:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/protobufAny'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-      description: 'The `Status` type defines a logical error model that is suitable for
-
-        different programming environments, including REST APIs and RPC APIs. It is
-
-        used by [gRPC](https://github.com/grpc). Each `Status` message contains
-
-        three pieces of data: error code, error message, and error details.
-
-
-        You can find out more about this error model and how to work with it in the
-
-        [API Design Guide](https://cloud.google.com/apis/design/errors).'
-    v1Price:
-      type: object
-      properties:
-        subTotal:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: 'The sum total for the booking excluding taxes and fees.
-
-            The subtotal includes all [Price.line_items].'
-        total:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: 'The full liability to purchase the item.
-
-            This is not necessarily the amount due at time of booking due to discounts, incentives, or postpaid items.'
-        taxes:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Surcharge'
-          description: 'Any taxes to be collected at time of payment.
-
-            This field is deprecated. Use [Price.taxes_and_fees] instead.'
-        fees:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Surcharge'
-          description: 'Any fees applied to the item or service.
-
-            This field is deprecated. Use [Price.taxes_and_fees] instead.'
-        base:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          title: 'The cost of the main item or service in the booking, less upgrades or additional services, fees, and taxes.
-
-            The base is equivalent to:  [Price.sub_total] - sum([Price.line_items])'
-        lineItems:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1PriceLineItem'
-          description: 'Additional upgrades to an item or service added during the shopping experience.
-
-            Line items are represented in the [Price.sub_total].'
-        taxesAndFeesTotal:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: The sum of all individual [Price.taxes] and [Price.fees].
-        strike:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: A representative market price for the item or service without any discounts applied.
-        totalDueNow:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: The total amount due at time of booking.
-        totalDueLater:
-          $ref: '#/components/schemas/v1CurrencyValue'
-          description: The total amount due at the time of the travel event.
-        taxesAndFees:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Surcharge'
-          description: Any taxes and fees to be collected at time of payment. This includes all taxes and fees due at time of booking.
-      description: The details of the cost of an item or service.
-      title: Common_Price_v1
-    v1Conditions:
-      type: object
-      properties:
-        modifyConditions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Condition'
-          description: 'Conditions that apply to modification of a [BookingDetails].
-
-            If no modify_conditions exist, the [BookingDetails] may not be modified.'
-        cancelConditions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/v1Condition'
-          description: 'Conditions that apply to cancellation of a [BookingDetails].
-
-            If no cancel_conditions exist, the [BookingDetails] may not be canceled.'
-      description: Conditions that describe the availability, penalty, and timing constraints on modification to a booked item.
-      title: Common_Conditions_v1
+            Examples: "Housekeeping on request", "Free WiFi"'
+      description: Room amenity containing name for room features and services.
+      title: Content_RoomAmenity_v1
     v1Surcharge:
       type: object
       properties:
@@ -1088,50 +962,6 @@ components:
           title: The type of surcharge
       description: An additional charge, fee, or tax.
       title: Common_Surcharge_v1
-    v1SellType:
-      type: object
-      properties:
-        commissionable:
-          $ref: '#/components/schemas/v1CommissionableModel'
-          description: 'Indicates this offer uses a commissionable sell type.
-
-            Offers with this type must be sold at the exact price quoted by Engine.
-
-            The seller earns a commission specified in [CommissionableModel].
-
-            See [CommissionableModel] for details.'
-        net:
-          $ref: '#/components/schemas/v1NetModel'
-          description: 'Indicates this offer uses a net sell type.
-
-            Offers with this type are expected to be marked up by the seller.
-
-            The seller earns the margin between the net price and the marked-up price.
-
-            See [NetModel] for details.'
-        fixed:
-          $ref: '#/components/schemas/v1FixedModel'
-          description: 'Indicates this offer uses a fixed sell type.
-
-            Offers with this type must be sold at the exact price quoted by Engine.
-
-            Compensation terms are defined exclusively by the seller''s agreement with Engine.
-
-            See [FixedModel] for details.'
-      description: 'The sell type of an offer.
-
-        Defines seller compensation and pricing guidelines for this offer.
-
-        The type determines whether the seller earns through commission, markup margin, or other contractual arrangements.'
-      title: Common_SellType_v1
-    v1DistanceUnit:
-      type: string
-      enum:
-      - DISTANCE_UNIT_MILE
-      - DISTANCE_UNIT_KILOMETER
-      default: DISTANCE_UNIT_MILE
-      description: "The unit type for a distance measurement.\n\n - DISTANCE_UNIT_MILE: A mile in the imperial system of units.\n - DISTANCE_UNIT_KILOMETER: A kilometer in the international system of units (metric)."
-      title: Common_DistanceUnit_v1
     protobufAny:
       type: object
       properties:
@@ -1150,6 +980,15 @@ components:
       default: AMENITY_AVAILABILITY_UNKNOWN
       description: "Describes the condition of an amenity's inclusion on a [Property], [RoomDescription], [OfferSummary], or [BookingDetails].\n\n - AMENITY_AVAILABILITY_UNKNOWN: The availability of an amenity cannot be confirmed.\n - AMENITY_AVAILABILITY_UNAVAILABLE: The amenity is confirmed to not be available.\n - AMENITY_AVAILABILITY_INCLUDED: The amenity is confirmed to be included.\n - AMENITY_AVAILABILITY_VIA_VENDOR: The amenity is not included, but may be purchased directly from the hotel, airline, car rental vendor, etc.\nFor example, a seat upgrade or breakfast vouchers."
       title: Common_AmenityAvailability_v1
+    v1AnonymousTraveler:
+      type: object
+      properties:
+        adult:
+          $ref: '#/components/schemas/v1AnonymousAdult'
+        child:
+          $ref: '#/components/schemas/v1AnonymousChild'
+      description: A traveler whose personal details have not yet been collected.
+      title: Common_AnonymousTraveler_v1
     v1Condition:
       type: object
       properties:
@@ -1192,6 +1031,151 @@ components:
 
         For example, to cancel, or extend a Lodging [BookingDetails].'
       title: Common_Condition_v1
+    v1SellType:
+      type: object
+      properties:
+        commissionable:
+          $ref: '#/components/schemas/v1CommissionableModel'
+          description: 'Indicates this offer uses a commissionable sell type.
+
+            Offers with this type must be sold at the exact price quoted by Engine.
+
+            The seller earns a commission specified in [CommissionableModel].
+
+            See [CommissionableModel] for details.'
+        net:
+          $ref: '#/components/schemas/v1NetModel'
+          description: 'Indicates this offer uses a net sell type.
+
+            Offers with this type are expected to be marked up by the seller.
+
+            The seller earns the margin between the net price and the marked-up price.
+
+            See [NetModel] for details.'
+        fixed:
+          $ref: '#/components/schemas/v1FixedModel'
+          description: 'Indicates this offer uses a fixed sell type.
+
+            Offers with this type must be sold at the exact price quoted by Engine.
+
+            Compensation terms are defined exclusively by the seller''s agreement with Engine.
+
+            See [FixedModel] for details.'
+      description: 'The sell type of an offer.
+
+        Defines seller compensation and pricing guidelines for this offer.
+
+        The type determines whether the seller earns through commission, markup margin, or other contractual arrangements.'
+      title: Common_SellType_v1
+    v1SalesChannel:
+      type: string
+      enum:
+      - SALES_CHANNEL_UNKNOWN
+      - SALES_CHANNEL_MOBILE_NATIVE
+      - SALES_CHANNEL_MOBILE_WEB
+      - SALES_CHANNEL_WEB
+      default: SALES_CHANNEL_UNKNOWN
+      description: "- SALES_CHANNEL_UNKNOWN: The sales channel cannot be determined.\n - SALES_CHANNEL_MOBILE_NATIVE: The customer is shopping via a mobile application.\n - SALES_CHANNEL_MOBILE_WEB: The customer is shopping via a mobile web browser.\n - SALES_CHANNEL_WEB: The customer is shopping via a web browser on a desktop or laptop computer."
+      title: Common_SalesChannel_v1
+    v1AnonymousAdult:
+      type: object
+      description: An adult traveler whose personal details have not yet been collected.
+      title: Common_AnonymousAdult_v1
+    v1FindBestOffersResponse:
+      type: object
+      properties:
+        offers:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1PropertyBestOffer'
+          description: The full list of offers responsive your search.
+      description: The results of a [LodgingShoppingService.FindBestOffers] search.
+      title: Shop_Lodging_Service_FindBestOffersResponse_v1
+    v1RoomGroup:
+      type: object
+      properties:
+        roomDescription:
+          $ref: '#/components/schemas/v1RoomDescription'
+          description: 'A description of the rooms for which the Offer applies.
+
+            For example, "Standard 1 King Bed", "Standard 2 Queen Beds", or "Suite 1 King Bed".'
+        offers:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/v1Offer'
+          description: A list of bookable Offers for the room.
+      description: A grouping of bookable Offers, collected by the [RoomDescription] to which they apply.
+      title: Shop_Lodging_Service_RoomGroup_v1
+    v1RateData:
+      type: object
+      properties:
+        rateCode:
+          type: string
+          title: 'The rate code associated with the Offer.
+
+            For example, if a Partner has negotiated a rate code of "123", and an Offer corresponds to that rate code, this field will be "123".
+
+            Contact Engine to load any rates codes for your credential'
+      description: RateData contains rate information if and only if an Offer corresponds to a rate negotiated and contracted with the calling credential.
+      title: Shop_Lodging_RateData_v1
+    shoplodgingservicev1RadiusSearch:
+      type: object
+      properties:
+        coordinates:
+          $ref: '#/components/schemas/v1GeoPoint'
+          description: Latitude and Longitude coordinates to use as the center point of the search.
+        radius:
+          $ref: '#/components/schemas/v1Distance'
+          title: 'The size of the search area.
+
+            Default: 10 miles
+
+            Minimum: 1 mile (~1.6 kilometers)
+
+            Maximum: 50 miles (~80 kilometers)'
+      description: A search area in a perfect circle around a central point.
+      title: Shop_Lodging_Service_RadiusSearch_v1
+    lodgingLodgingAmenityCode:
+      type: string
+      enum:
+      - LODGING_AMENITY_CODE_UNKNOWN
+      - LODGING_AMENITY_CODE_AIR_CONDITIONING
+      - LODGING_AMENITY_CODE_DINING
+      - LODGING_AMENITY_CODE_DRY_CLEANING
+      - LODGING_AMENITY_CODE_ELECTRIC_VEHICLE_CHARGING
+      - LODGING_AMENITY_CODE_FITNESS_CENTER
+      - LODGING_AMENITY_CODE_FREE_AIRPORT_SHUTTLE
+      - LODGING_AMENITY_CODE_FREE_BREAKFAST
+      - LODGING_AMENITY_CODE_FREE_PARKING
+      - LODGING_AMENITY_CODE_FULL_KITCHEN
+      - LODGING_AMENITY_CODE_HIGH_SPEED_INTERNET
+      - LODGING_AMENITY_CODE_KITCHENETTE
+      - LODGING_AMENITY_CODE_MEETING_SPACE
+      - LODGING_AMENITY_CODE_PET_FRIENDLY
+      - LODGING_AMENITY_CODE_SPA
+      - LODGING_AMENITY_CODE_SWIMMING_POOL
+      - LODGING_AMENITY_CODE_TRUCK_PARKING
+      default: LODGING_AMENITY_CODE_UNKNOWN
+      title: Content_LodgingAmenityCode_v1
+    v1CurrencyValue:
+      type: object
+      properties:
+        currencyCode:
+          type: string
+          title: 'The 3-character ISO-4217 alphabetic currency code.
+
+            For example: USD
+
+            See https://www.iso.org/iso-4217-currency-codes.html'
+        value:
+          type: string
+          description: 'The non-localized decimal representation of the amount of currency represented by this object.
+
+            For example, "123456.789".'
+      description: A safe encoding of a monetary value and its paired currency code.
+      title: Common_CurrencyValue_v1
     v1FindBestOffersRequest:
       type: object
       properties:
@@ -1210,4 +1194,20 @@ components:
           $ref: '#/components/schemas/v1FindBestOffersSortMode'
           description: The order in which the results will be returned.
       title: Shop_Lodging_Service_FindBestOffersRequest_v1
+    v1PriceLineItem:
+      type: object
+      properties:
+        description:
+          type: string
+          description: A textual description of the individual charge.
+        price:
+          $ref: '#/components/schemas/v1CurrencyValue'
+          description: The price of this line item.
+        group:
+          type: string
+          description: 'Optionally, an identifier to group line items for visual display.
+
+            For example, "Extras" or "Loyalty Benefits".'
+      description: A individual service or upgrade added to an item during the shopping experience.
+      title: Common_PriceLineItem_v1
 externalDocs: https://engine-public.github.io/engine-partner-api
