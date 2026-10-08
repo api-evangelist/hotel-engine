@@ -189,6 +189,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: RateLimits
+  url: rate-limits/hotel-engine-rate-limits.yml
 - type: Overlay
   url: overlays/hotel-engine-omni-partner-api-overlay.yaml
 - type: License
