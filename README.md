@@ -64,18 +64,137 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Engine (formerly Hotel Engine, rebranded in 2024) is a Denver, Colorado business travel and spend
-platform for booking and managing lodging, flights, rental cars, group travel, and meeting and event
-spaces, with travel policy enforcement, trip approvals, consolidated DirectBill invoicing, and the
-Engine X charge card.
+Engine (formerly Hotel Engine, rebranded in 2024) is a Denver, Colorado business travel and spend platform for booking and managing lodging, flights, rental cars, group travel, and meeting and event spaces, with travel policy enforcement, trip approvals, consolidated DirectBill invoicing, and the Engine X charge card. Engine says it serves 25,000+ businesses and 1.2 million travelers with negotiated rates across 1,000,000+ hotel properties. Its API product is Omni — a partner-facing lodging inventory API offered over gRPC and HTTP/JSON, authenticated with mutual TLS, that covers property content, real-time rate shopping, booking, folio generation, and cancellation. Omni is protobuf-first: the proto contracts are published under Apache 2.0 on GitHub and the Swagger document, descriptor set, and JVM client bindings are generated from them and released per version.
 
-Its API product is **Omni** — a partner-facing lodging inventory API offered over gRPC and HTTP/JSON,
-authenticated with mutual TLS, covering property content, real-time rate shopping, booking, folio
-generation, and cancellation. Omni is protobuf-first: the proto contracts are published under Apache
-2.0 on GitHub, and the Swagger document, protobuf descriptor set, and JVM client bindings are
-generated from them and released per version.
+**Areas:** Company · Travel · Business Travel · Lodging · Hotels · Booking · Travel Management · Expense Management · Payments · gRPC · Protobuf · Partner API
 
-- Company site — https://www.engine.com/
-- Omni partner site — https://omni.engine.com/
-- API documentation — https://engine-public.github.io/engine-partner-api/
-- API definitions repository — https://github.com/engine-public/engine-partner-api
+## Engine on APIs.io
+
+Everything profiled for Engine is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hotel-engine/](https://apis.io/providers/hotel-engine/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Engine Catalog Service API](https://apis.io/apis/hotel-engine/hotel-engine-catalogservice-api/) — The CatalogService API from Engine — 1 operation(s) for catalogservice.
+- [Engine Lodging Booking Service API](https://apis.io/apis/hotel-engine/hotel-engine-lodgingbookingservice-api/) — The LodgingBookingService API from Engine — 5 operation(s) for lodgingbookingservice.
+- [Engine Lodging Shopping Service API](https://apis.io/apis/hotel-engine/hotel-engine-lodgingshoppingservice-api/) — The LodgingShoppingService API from Engine — 2 operation(s) for lodgingshoppingservice.
+- [Engine Content Service API](https://apis.io/apis/hotel-engine/hotel-engine-content-service-api/) — The Content Service API from Engine — 2 operation(s) for content service.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [omni-engine](https://apis.io/servers/hotel-engine/omni-engine/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Hotel Engine Agentic Access](https://apis.io/agentic-access/hotel-engine/hotel-engine-agentic-access/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Omni, Powered by Engine Catalog Service API](https://apis.io/collections/hotel-engine/open-hotel-engine-catalogservice-api/)
+- [Omni, Powered by Engine Content Service API](https://apis.io/collections/hotel-engine/open-hotel-engine-contentservice-api/)
+- [Omni, Powered by Engine Lodging Booking Service API](https://apis.io/collections/hotel-engine/open-hotel-engine-lodgingbookingservice-api/)
+- [Omni, Powered by Engine Lodging Shopping Service API](https://apis.io/collections/hotel-engine/open-hotel-engine-lodgingshoppingservice-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Hotel Engine Omni Partner Api Overlay](https://apis.io/overlays/hotel-engine/hotel-engine-omni-partner-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Hotel Engine Authentication](https://apis.io/security/hotel-engine/hotel-engine-authentication/)
+- [Hotel Engine Domain Security](https://apis.io/security/hotel-engine/hotel-engine-domain-security/)
+- [Hotel Engine Trust Center](https://apis.io/security/hotel-engine/hotel-engine-trust-center/)
+- [Hotel Engine Vulnerability Disclosure](https://apis.io/security/hotel-engine/hotel-engine-vulnerability-disclosure/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Hotel Engine Rate Limits](https://apis.io/rate-limits/hotel-engine/hotel-engine-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.engine.com/)
+- [Documentation](https://engine-public.github.io/engine-partner-api/)
+- [Getting started](https://engine-public.github.io/engine-partner-api/getting-started.html)
+- [API reference](https://engine-public.github.io/engine-partner-api/swagger-ui/index.html)
+- [Pricing](https://www.engine.com/pricing)
+- [Sign up](https://www.engine.com/sign-up)
+- [Support](https://engine-public.github.io/engine-partner-api/support.html)
+- [Changelog](https://github.com/engine-public/engine-partner-api/releases)
+- [Blog](https://www.engine.com/blog)
+- [Security](https://www.engine.com/responsible-disclosure)
+- [Trust centre](https://trust.engine.com/)
+- [Terms of service](https://www.engine.com/terms-of-service)
+- [Privacy policy](https://www.engine.com/privacy-policy)
+- [GitHub](https://github.com/engine-public)
+
+## API Evangelist rating
+
+**Kin Score 53.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 42.2 |
+| Contract governance | 4.5 |
+| Operational transparency | 68.4 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 52.6 |
+
+**Agent readiness 27.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hotel-engine/](https://apis.io/providers/hotel-engine/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Engine: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hotel-engine/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
